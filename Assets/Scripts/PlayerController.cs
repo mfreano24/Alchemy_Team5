@@ -7,14 +7,13 @@ public class PlayerController : MonoBehaviour
   public float playerSpeed;
   Vector3 moveDirection;
   CharacterController cc;
+  BoxCollider2D sw;
   int endlag = 0;
   float face_Front_x = 0.0f;
   float face_Front_y = 0.0f;
   KeyCode last_Pressed;
   //BOOLEAN STATES
-  bool roll = false;
   bool slash = false;
-  bool drop = false;
   //for reference purposes
   public GameObject player;
   public GameObject sword;
@@ -24,7 +23,9 @@ public class PlayerController : MonoBehaviour
 
   void Awake(){
       cc = GetComponent<CharacterController>();
-      Cursor.visible = true;
+      sw = sword.GetComponent<BoxCollider2D>();
+      face_Front_x = 0;
+      face_Front_y = -1;
   }
   void Update () 
   {
@@ -34,16 +35,14 @@ public class PlayerController : MonoBehaviour
       //Then Potion
   }
   void Move(){
-    Assign_LastDirection();
-      if(endlag == 0){
-        if(Input.GetKeyDown(KeyCode.R)){
-            DodgeRoll();
-        }
-        moveDirection = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"),0.0f);
-        moveDirection *= playerSpeed;
-        //Slight acceleration and decel at the beginning and end of movement so that its not good old jerky unity movement
-        cc.Move(moveDirection * Time.deltaTime);
-        Attack();
+    if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0 ){//NEED A CONDITION THAT WORKS BETTER HERE
+      Assign_LastDirection();
+    }
+    if(endlag == 0){
+      moveDirection = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"),0.0f);
+      moveDirection *= playerSpeed;
+      cc.Move(moveDirection * Time.deltaTime);
+      Attack();
         
       }
 
@@ -55,24 +54,23 @@ public class PlayerController : MonoBehaviour
       }
   }
 /*ABILITIES */
-  void DodgeRoll(){
-      //IN TESTING DEBUG MODE RN
-      //One iteration takes like 10^-11 seconds???
-      for(int i = 0;i<35;i++){
-        moveDirection = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"),0.0f);
-        moveDirection *= playerSpeed;
-        cc.Move(moveDirection * Time.deltaTime);
-      }
-      
-      endlag+=15;
-  }
 
   void Attack(){
+    //ISSUE WITH SWORD FACINGS: there is a good 20-30 frame window where switching between A and D / W and S where the input.getaxis function returns 0 instead of +-1.
+    //Possile remedies?
     if(Input.GetKeyDown(KeyCode.Mouse0)){
         sword_inst = Instantiate(sword);
-        sword_inst.transform.position = new Vector3(player.transform.position.x + face_Front_x, player.transform.position.y + face_Front_y, 0.0f);
+        sword_inst.transform.position = new Vector3(player.transform.position.x + 1.25f*face_Front_x, player.transform.position.y + 1.25f*face_Front_y, 0.0f);
         //rotation
-        sword_inst.transform.eulerAngles = new Vector3(0,0,0);
+        if(face_Front_x == -1){
+          sword_inst.transform.eulerAngles = new Vector3(0,0,90 - face_Front_y * 45);
+        }
+        else if(face_Front_x == 0){
+          sword_inst.transform.eulerAngles = new Vector3(0,0,90 - 90 * face_Front_y);
+        }
+        else if(face_Front_x == 1){
+          sword_inst.transform.eulerAngles = new Vector3(0,0,-90 + face_Front_y * 45);
+        }
         endlag+=15;
     }
         
@@ -85,28 +83,7 @@ public class PlayerController : MonoBehaviour
 
   /*MOVEMENT BASED FUNCTIONS */
   void Assign_LastDirection(){
-    /*if(Input.GetKeyDown(KeyCode.W)){
-        last_Pressed = KeyCode.W;
-        face_Front_y = 1.5f;
-        face_Front_x = 0f;
-    }
-    else if(Input.GetKeyDown(KeyCode.A)){
-        last_Pressed = KeyCode.A;
-        face_Front_y = 0f;
-        face_Front_x = -1f;
-        
-    }
-    else if(Input.GetKeyDown(KeyCode.S)){
-        last_Pressed = KeyCode.S;
-        face_Front_y = -1.5f;
-        face_Front_x = 0f;
-    }
-    else if(Input.GetKeyDown(KeyCode.D)){
-        last_Pressed = KeyCode.D;
-        face_Front_y = 0f;
-        face_Front_x = 1f; 
-    }*/
-    face_Front_x = Input.GetAxis("Horizontal");
-    face_Front_y = 1.5f * Input.GetAxis("Vertical"); 
+    face_Front_x = Mathf.Ceil(Input.GetAxis("Horizontal"));
+    face_Front_y = Mathf.Ceil(Input.GetAxis("Vertical")); 
   }
 }
