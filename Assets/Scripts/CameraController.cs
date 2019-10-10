@@ -20,30 +20,6 @@ public class CameraController : MonoBehaviour
             Vector3 destination = transform.position + target_position;
             //move smoothly, bud
             transform.position = Vector3.SmoothDamp(transform.position, destination, ref velocity, dampTime);
-            LookCheck();
-        
-            
-            
-        }
-    }
-
-    void LookCheck(){ //The directional bias Tim mentioned?
-        if(Camera.main.orthographicSize < 20f){
-            if(Input.GetKey(KeyCode.E))
-            {
-                Camera.main.orthographicSize += 0.2f;
-            }
-            if(Camera.main.orthographicSize > 14f && !Input.GetKey(KeyCode.E))
-            {
-                 Camera.main.orthographicSize -= 0.2f;
-            }
-        }
-        else if(Camera.main.orthographicSize >= 20f)
-        {
-            if(Camera.main.orthographicSize > 14f && !Input.GetKey(KeyCode.E))
-            {
-                Camera.main.orthographicSize -= 0.2f;
-            }
         }
     }
 }
