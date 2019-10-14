@@ -1,0 +1,24 @@
+-----
+Small Explosion
+Sulphur Fire
+Explosion
+2
+1000
+650
+Damage
+-----
+Large Explosion
+Sulphur Sulphur Fire
+Explosion
+4
+1000
+850
+Damage
+-----
+Health
+Fire Water Air Earth
+Health
+0
+1
+100
+Heal

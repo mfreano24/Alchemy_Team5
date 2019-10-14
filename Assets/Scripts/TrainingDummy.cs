@@ -16,9 +16,7 @@ public class TrainingDummy : MonoBehaviour
         
     }
     private void OnTriggerEnter2D(Collider2D other) {
-        if(other.CompareTag("Player_Weapon")){
-            health-=5;
-            Debug.Log("Hit- Dummy Health is now "+health);
-        }
+        health-=5;
+        Debug.Log("Hit- Dummy Health is now "+health);
     }
 }

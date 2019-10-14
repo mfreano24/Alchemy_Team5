@@ -12,8 +12,6 @@ public class PlayerController : MonoBehaviour
   float face_Front_x = 0.0f;
   float face_Front_y = 0.0f;
   KeyCode last_Pressed;
-  //BOOLEAN STATES
-  bool slash = false;
   //for reference purposes
   public GameObject player;
   public GameObject sword;
@@ -23,7 +21,6 @@ public class PlayerController : MonoBehaviour
 
   void Awake(){
       cc = GetComponent<CharacterController>();
-      sw = sword.GetComponent<BoxCollider2D>();
       face_Front_x = 0;
       face_Front_y = -1;
   }
@@ -60,6 +57,7 @@ public class PlayerController : MonoBehaviour
     //Possile remedies?
     if(Input.GetKeyDown(KeyCode.Mouse0)){
         sword_inst = Instantiate(sword);
+        sw = sword_inst.GetComponent<BoxCollider2D>();
         sword_inst.transform.position = new Vector3(player.transform.position.x + 1.25f*face_Front_x, player.transform.position.y + 1.25f*face_Front_y, 0.0f);
         //rotation
         if(face_Front_x == -1){
@@ -71,14 +69,17 @@ public class PlayerController : MonoBehaviour
         else if(face_Front_x == 1){
           sword_inst.transform.eulerAngles = new Vector3(0,0,-90 + face_Front_y * 45);
         }
-        endlag+=15;
+        endlag+=60;//normally 15
     }
         
   }
   void usePotion(){
-      //implement this
-
-      endlag+=3;
+      //this will just contain the player action because potions become separate entities after dropping
+      if(Input.GetKeyDown(KeyCode.Mouse1)){
+        endlag+=3;
+        //play animation
+      }
+      
   }
 
   /*MOVEMENT BASED FUNCTIONS */
