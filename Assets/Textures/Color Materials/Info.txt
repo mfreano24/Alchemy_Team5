@@ -1,0 +1,3 @@
+The contents of this folder are for testing purposes.
+
+Since this game is going to be in 2D, I will have to rework the particle system very slightly to deal with 2D sprites.
