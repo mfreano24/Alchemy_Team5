@@ -237,6 +237,8 @@ MonoBehaviour:
   playerSpeed: 15
   player: {fileID: 129969441}
   sword: {fileID: 8899422617009500987, guid: c70460db56255774eb8065d22aa2d055, type: 3}
+  potionPrefab: {fileID: 8094123386029911195, guid: 721daf61eac0c034f8991e94d49ba59a,
+    type: 3}
 --- !u!65 &129969446
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -438,7 +440,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 3.73, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -455,6 +457,7 @@ GameObject:
   - component: {fileID: 576918153}
   - component: {fileID: 576918152}
   - component: {fileID: 576918151}
+  - component: {fileID: 576918154}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -508,8 +511,21 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &576918154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576918150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95906e74cd7c6e249a27ffb0f793f7d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  potions: []
 --- !u!1 &915062543
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,7 +777,7 @@ Transform:
   m_LocalScale: {x: 1.309, y: 0.627, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1414807250
 BoxCollider:
@@ -788,6 +804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f8826ed6c4dba04db66cfa32923d9e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 5000
   sword: {fileID: 8899422617009500987, guid: c70460db56255774eb8065d22aa2d055, type: 3}
 --- !u!54 &1414807252
 Rigidbody:
@@ -855,7 +872,7 @@ PrefabInstance:
     - target: {fileID: 4673428572853003334, guid: 24965ca9b3f1b124586065af6672e2d3,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4673428572853003334, guid: 24965ca9b3f1b124586065af6672e2d3,
         type: 3}
@@ -966,7 +983,7 @@ RectTransform:
   m_Children:
   - {fileID: 915062544}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1004,36 +1021,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1738225586
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1738225587}
-  m_Layer: 0
-  m_Name: Potions
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1738225587
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1738225586}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.423647, y: 2.1178257, z: -89.2158}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2049723584
 GameObject:
   m_ObjectHideFlags: 0
@@ -1064,37 +1051,7 @@ Transform:
   - {fileID: 1346579641}
   - {fileID: 462663314}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2075457052
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2075457053}
-  m_Layer: 0
-  m_Name: Enemy
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2075457053
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2075457052}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.3542786, y: 2.8695874, z: -89.53798}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2110974250
 GameObject:
