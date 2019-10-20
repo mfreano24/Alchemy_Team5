@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PotionDisplay : MonoBehaviour
-{
+public class PotionDisplay : MonoBehaviour {
     string[] potion_arr = {"Sulfur", "Mercury", "Salt", "Bomb", "Cyclone", "Cloud"}; //These will be Potion.type
-    int[] potion_quants = {5, 17, 10, 3, 0, 1};//These will be Potion.quantity
+    int[] potion_quants = {5, 17, 10, 3, 0, 1}; //These will be Potion.quantity
     Text current_potion;
     int iterator;
     void Awake(){

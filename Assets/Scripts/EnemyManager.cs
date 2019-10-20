@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.UI;
 using Alchemy;
 
 public class EnemyManager : MonoBehaviour {
@@ -13,8 +14,43 @@ public class EnemyManager : MonoBehaviour {
 	float arenaRadius = 20;
 	float safeDistance = 8;
 
+	int wave = 0;
+
+	int timer = 0;
+
+	int timeBetweenWaves = 300;
+
+	public GameObject waveStatus;
+
     void Start() {
-		SpawnEnemies(1);
+		waveStatus.SetActive(false);
+	}
+
+	private void Update() {
+		if (timer > 0) {
+			timer--;
+			if (timer == 5) {
+				wave++;
+				StartCoroutine(UpdateWaveStatus("Wave " + wave.ToString() + " starting!"));
+				SpawnEnemies(wave);
+			}
+		} else if (GameObject.FindGameObjectsWithTag("Damageable").Length == 0) {
+			if (wave > 0) {
+				StartCoroutine(UpdateWaveStatus("Wave " + wave.ToString() + " completed!"));
+			}
+			timer = timeBetweenWaves;
+		}
+	}
+
+	public IEnumerator UpdateWaveStatus(string text) {
+		waveStatus.transform.localPosition = new Vector3(0, 150, 0);
+		waveStatus.GetComponent<Text>().text = text;
+		waveStatus.SetActive(true);
+		for (int i = 0; i < 50; i++) {
+			waveStatus.transform.localPosition = new Vector3(waveStatus.transform.localPosition.x, waveStatus.transform.localPosition.y + 1f, waveStatus.transform.localPosition.z);
+			yield return new WaitForSeconds(0.0001f);
+		}
+		waveStatus.SetActive(false);
 	}
 
 	public void SpawnEnemies(int wave) {

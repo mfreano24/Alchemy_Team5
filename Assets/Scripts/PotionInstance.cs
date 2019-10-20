@@ -25,13 +25,8 @@ public class PotionInstance : MonoBehaviour {
 				
 				int roll = Random.Range(0, _critChance);
 				bool crit = (roll == 0);
-				if (crit) {
-					// Critical hit!
-					enemy.GetComponent<TrainingDummy>().DropHealth(thisPotion.damage * 2, crit);
-				} else {
-					enemy.GetComponent<TrainingDummy>().DropHealth(thisPotion.damage, crit);
-				}
-
+				// Critical hit!
+				enemy.GetComponent<TrainingDummy>().DropHealth(thisPotion.damage * (crit ? 2 : 1), crit);
 			}
 		}
 
