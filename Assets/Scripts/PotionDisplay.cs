@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PotionDisplay : MonoBehaviour
 {
     string[] potion_arr = {"Sulfur", "Mercury", "Salt", "Bomb", "Cyclone", "Cloud"}; //These will be Potion.type
-    int[] potion_quants = {0, 0, 0, 0, 0, 0};//These will be Potion.quantity
+    int[] potion_quants = {5, 17, 10, 3, 0, 1};//These will be Potion.quantity
     Text current_potion;
     int iterator;
     void Awake(){
@@ -29,7 +29,7 @@ public class PotionDisplay : MonoBehaviour
         //TODO: Skipping system for elements we dont have any of?
         if(Input.GetKeyDown(KeyCode.E)){
             iterator++;
-            if(iterator == 6){
+            if(iterator == potion_arr.Length){
                 iterator = 0;
             }
 
@@ -46,6 +46,7 @@ public class PotionDisplay : MonoBehaviour
                 potion_quants[iterator] = 0;
             }
         }
-        current_potion.text = potion_arr[iterator]+"\tx"+potion_quants[iterator].ToString();
+        current_potion.text = potion_arr[iterator];
+		GameObject.Find("ElementCount").GetComponent<Text>().text = "x" + potion_quants[iterator].ToString();
     }
 }

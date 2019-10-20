@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Alchemy;
 
 public class PlayerController : MonoBehaviour {
@@ -21,10 +22,10 @@ public class PlayerController : MonoBehaviour {
 	public Potion selectedPotion;
 	public GameObject potionPrefab;
 
-	public int maxHealth;
-	public int currentHealth;
-	public int maxExperience;
-	public int currentExperience;
+	public float maxHealth;
+	public float currentHealth;
+	public float maxExperience;
+	public float currentExperience;
 
 	void Start() {
 
@@ -40,8 +41,46 @@ public class PlayerController : MonoBehaviour {
 	void Update ()  {
 	    //Move First
 	    Move();
-	    //Then Basic Attack
-	    //Then Potion
+		//Then Basic Attack
+		//Then Potion
+
+		// UI Update
+		if (currentHealth < 0) {
+			currentHealth = 0;
+		}
+
+		if (currentExperience > maxExperience) {
+			currentExperience = maxExperience;
+			// Level up!
+		}
+
+		if (currentExperience < 0) {
+			currentExperience = 0;
+		}
+
+		GameObject.Find("Health").GetComponent<Image>().fillAmount = currentHealth / maxHealth;
+		
+		if (currentHealth > maxHealth) {
+			// Golden apple effect!
+			GameObject.Find("Health").GetComponent<Image>().color = new Color(177f / 255f, 0, 1);
+		} else if (currentHealth > 2 * maxHealth / 3) {
+			GameObject.Find("Health").GetComponent<Image>().color = new Color(0, 1, 0);
+		} else if (currentHealth > maxHealth / 4) {
+			GameObject.Find("Health").GetComponent<Image>().color = new Color(1, 1, 0);
+		} else {
+			GameObject.Find("Health").GetComponent<Image>().color = new Color(1, 0, 0);
+		}
+
+		if (currentHealth <= 0) {
+			// Game Over
+		}
+
+		GameObject.Find("EXP").GetComponent<Image>().fillAmount = currentExperience / maxExperience;
+
+		if (currentExperience >= maxExperience) {
+			// Level up!
+		}
+
 	}
 	void Move() {
 		if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0 ) {
