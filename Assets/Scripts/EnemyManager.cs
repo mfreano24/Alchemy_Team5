@@ -8,7 +8,36 @@ public class EnemyManager : MonoBehaviour {
 
 	List<Enemy> enemies = new List<Enemy>();
 
+	public GameObject EnemyPrefab;
+
+	float arenaRadius = 20;
+	float safeDistance = 8;
+
     void Start() {
+		SpawnEnemies(1);
+	}
+
+	public void SpawnEnemies(int wave) {
+
+		int enemies = WaveToEnemy(wave);
+
+		for (int i = 0; i < enemies; i++) {
+			Vector2 pos = Random.insideUnitCircle * arenaRadius;
+			while (Vector2.Distance(pos, GameObject.Find("Player").transform.position) < safeDistance) {
+				pos = Random.insideUnitCircle * arenaRadius;
+			}
+			GameObject enemy = (GameObject)Instantiate(EnemyPrefab, pos, Quaternion.identity);
+		}
+	}
+
+	public int WaveToEnemy(int x) {
+		// The function for an ouptut of enemies given an input of wave.
+		// (x^(3/4) / 2) + 3
+		return (int)Mathf.Ceil(Mathf.Pow(x, 3f / 4f) / 2 + 3);
+	}
+
+	// Reading the enemies
+	void ReadEnemies() {
 		// List of elements
 		string path = Directory.GetCurrentDirectory() + "\\enemies.txt";
 

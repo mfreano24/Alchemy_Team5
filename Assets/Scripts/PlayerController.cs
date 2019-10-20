@@ -21,15 +21,20 @@ public class PlayerController : MonoBehaviour {
 	public Potion selectedPotion;
 	public GameObject potionPrefab;
 
-	void Start() {
+	public int maxHealth;
+	public int currentHealth;
+	public int maxExperience;
+	public int currentExperience;
 
-		// DEBUGGING PURPOSES ONLY
-		selectedPotion = GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0];
+	void Start() {
 
 	    cc = GetComponent<CharacterController>();
 		sw = sword.GetComponent<BoxCollider2D>();
 	    face_Front_x = 0;
 	    face_Front_y = -1;
+
+		// DEBUGGING PURPOSES ONLY
+		selectedPotion = GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0];
 	}
 
 	void Update ()  {
@@ -48,7 +53,6 @@ public class PlayerController : MonoBehaviour {
 			moveDirection *= playerSpeed;
 			cc.Move(moveDirection * Time.deltaTime);
 			Attack();
-	      
 		} else {
 	        endlag -= 1; //frame countdown
 	        if (endlag == 0) {
@@ -82,11 +86,12 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void usePotion() {
-		//implement this
-		GameObject newpotion = (GameObject)Instantiate(potionPrefab, this.gameObject.transform.localPosition, Quaternion.identity);
-		newpotion.GetComponent<PotionInstance>().thisPotion = selectedPotion;
-		StartCoroutine(newpotion.transform.GetComponent<PotionInstance>().DropPotion());
-	    endlag+=3;
+		if (GameObject.FindGameObjectsWithTag("Potion").Length < 2) {
+			GameObject newpotion = (GameObject)Instantiate(potionPrefab, this.gameObject.transform.localPosition, Quaternion.identity);
+			newpotion.GetComponent<PotionInstance>().thisPotion = selectedPotion;
+			StartCoroutine(newpotion.transform.GetComponent<PotionInstance>().DropPotion());
+			endlag += 3;
+		}
 	}
 
   /*MOVEMENT BASED FUNCTIONS */
