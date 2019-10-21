@@ -7,6 +7,7 @@ TagManager:
   - Damageable
   - Player_Weapon
   - Potion
+  - Wall
   layers:
   - Default
   - TransparentFX
