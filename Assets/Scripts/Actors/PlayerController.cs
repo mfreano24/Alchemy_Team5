@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour {
 	public GameObject sword;
 	//for instance purposes
 	private GameObject sword_inst;
-	public Potion selectedPotion;
+	public InventorySlot selectedPotion;
 	public GameObject potionPrefab;
 
 	public float maxHealth;
@@ -28,6 +28,9 @@ public class PlayerController : MonoBehaviour {
 	public float maxExperience;
 	public float currentExperience;
 	int level = 1;
+
+	public List<InventorySlot> inventory;
+	int BASE_COUNT = 2;
 
 	void Start() {
 
@@ -37,10 +40,13 @@ public class PlayerController : MonoBehaviour {
 	    face_Front_y = -1;
 
 		// DEBUGGING PURPOSES ONLY
-		selectedPotion = GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0];
+		inventory = new List<InventorySlot>();
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 5));
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[1], 5));
+		selectedPotion = inventory[0];
 	}
 
-	void Update ()  {
+	void Update () {
 	    //Move First
 	    Move();
 		//Then Basic Attack
@@ -50,6 +56,7 @@ public class PlayerController : MonoBehaviour {
 		UpdateUI();
 
 	}
+
 	void Move() {
 		if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0 ) {
 			//NEED A CONDITION THAT WORKS BETTER HERE
@@ -70,7 +77,7 @@ public class PlayerController : MonoBehaviour {
 
 /*ABILITIES */
 
-	void Attack(){
+	void Attack() {
 		//ISSUE WITH SWORD FACINGS: there is a good 20-30 frame window where switching between A and D / W and S where the input.getaxis function returns 0 instead of +-1.
 		//Possile remedies?
 		if (Input.GetButtonDown("Fire1")) {
@@ -93,11 +100,19 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void usePotion() {
-		if (GameObject.FindGameObjectsWithTag("Potion").Length < 2) {
+		if (GameObject.FindGameObjectsWithTag("Potion").Length < 2 && selectedPotion.count > 0) {
 			GameObject newpotion = (GameObject)Instantiate(potionPrefab, this.gameObject.transform.localPosition, Quaternion.identity);
-			newpotion.GetComponent<PotionInstance>().thisPotion = selectedPotion;
+			newpotion.GetComponent<PotionInstance>().thisPotion = selectedPotion.item;
+			selectedPotion.count--;
 			StartCoroutine(newpotion.transform.GetComponent<PotionInstance>().DropPotion());
 			endlag += 3;
+		}
+
+		if (selectedPotion.count == 0 && inventory.IndexOf(selectedPotion) > BASE_COUNT - 1) {
+			int index = inventory.IndexOf(selectedPotion) - 1;
+			inventory.Remove(selectedPotion);
+			selectedPotion = inventory[index];
+			GameObject.Find("CurrentPotion").GetComponent<PotionDisplay>().PotionUsed();
 		}
 	}
 
@@ -150,7 +165,8 @@ public class PlayerController : MonoBehaviour {
 		temp_y = face_Front_y;
 		face_Front_x = Mathf.Ceil(Input.GetAxis("Horizontal"));
 		face_Front_y = Mathf.Ceil(Input.GetAxis("Vertical")); 
-		if(face_Front_x == 0 && face_Front_y == 0){//frames between directional switch
+		if(face_Front_x == 0 && face_Front_y == 0){
+			//frames between directional switch
 			face_Front_x = temp_x;
 			face_Front_y = temp_y;
 		}

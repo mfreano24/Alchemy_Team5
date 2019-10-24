@@ -1,4 +1,20 @@
 -----
+Sulphur
+None
+Explosion
+1
+1000
+100
+Damage
+-----
+Fire
+None
+Fire
+1
+1000
+200
+Damage
+-----
 Small Explosion
 Sulphur Fire
 Explosion
@@ -15,10 +31,3 @@ Explosion
 850
 Damage
 -----
-Health
-Fire Water Air Earth
-Health
-0
-1
-100
-Heal

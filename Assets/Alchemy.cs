@@ -112,6 +112,21 @@ namespace Alchemy {
 
 	}
 
+	public class InventorySlot {
+		public Potion item { get; set; }
+		public int count { get; set; }
+
+		public InventorySlot() {
+			this.item = null;
+			this.count = 0;
+		}
+
+		public InventorySlot(Potion newItem, int newCount) {
+			this.item = newItem;
+			this.count = newCount;
+		}
+	}
+
 }
 
 
