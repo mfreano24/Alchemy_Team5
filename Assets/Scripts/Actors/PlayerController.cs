@@ -12,13 +12,14 @@ public class PlayerController : MonoBehaviour {
 	int endlag = 0;
 	float face_Front_x = 0.0f;
 	float face_Front_y = 0.0f;
+	float temp_x;
+	float temp_y;
 	KeyCode last_Pressed;
 	//for reference purposes
 	public GameObject player;
 	public GameObject sword;
 	//for instance purposes
 	private GameObject sword_inst;
-
 	public Potion selectedPotion;
 	public GameObject potionPrefab;
 
@@ -145,7 +146,13 @@ public class PlayerController : MonoBehaviour {
 
   /*MOVEMENT BASED FUNCTIONS */
 	void Assign_LastDirection() {
+		temp_x = face_Front_x;
+		temp_y = face_Front_y;
 		face_Front_x = Mathf.Ceil(Input.GetAxis("Horizontal"));
 		face_Front_y = Mathf.Ceil(Input.GetAxis("Vertical")); 
+		if(face_Front_x == 0 && face_Front_y == 0){//frames between directional switch
+			face_Front_x = temp_x;
+			face_Front_y = temp_y;
+		}
 	}
 }
