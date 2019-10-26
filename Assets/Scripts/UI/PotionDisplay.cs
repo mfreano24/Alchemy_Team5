@@ -3,21 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PotionDisplay : MonoBehaviour
-{
-    string[] potion_arr = {"Sulfur", "Mercury", "Salt", "Bomb", "Cyclone", "Cloud"}; //These will be Potion.type
-    int[] potion_quants = {0, 0, 0, 0, 0, 0};//These will be Potion.quantity
+public class PotionDisplay : MonoBehaviour {
+
+	PlayerController pc;
+
     Text current_potion;
     int iterator;
-    void Awake(){
-        current_potion = GetComponent<Text>();
+    void Start() {
+		pc = GameObject.Find("Player").GetComponent<PlayerController>();
+		current_potion = GetComponent<Text>();
         iterator = 0;
     }
-    void Update(){
+    void Update() {
         PotionMenu();
     }
 
-    void PotionMenu(){
+    void PotionMenu() {
         /*PSEUDO-
         the header of this script will declare an iterator i = 0 and an array size 6
         Checks for iterator switches:
@@ -27,25 +28,28 @@ public class PotionDisplay : MonoBehaviour
         After any checks for iterator switches -> UI displays potion (text for now) in top left.*/
 
         //TODO: Skipping system for elements we dont have any of?
-        if(Input.GetKeyDown(KeyCode.E)){
+		// TO-DO: SET THESE AS GLOBAL INPUTS
+        if(Input.GetKeyDown(KeyCode.E)) {
             iterator++;
-            if(iterator == 6){
+            if(iterator == pc.inventory.Count) {
                 iterator = 0;
             }
 
         }
-        if(Input.GetKeyDown(KeyCode.Q)){
+        if(Input.GetKeyDown(KeyCode.Q)) {
             iterator--;
             if(iterator == -1){
-                iterator = 5;
+                iterator = pc.inventory.Count - 1;
             }
         }
-        if(Input.GetKeyDown(KeyCode.Mouse1)){
-            potion_quants[iterator] -= 1;
-            if(potion_quants[iterator]<0){
-                potion_quants[iterator] = 0;
-            }
-        }
-        current_potion.text = potion_arr[iterator]+"\tx"+potion_quants[iterator].ToString();
+
+        current_potion.text = pc.inventory[iterator].item.name;
+		GameObject.Find("ElementCount").GetComponent<Text>().text = "x" + pc.inventory[iterator].count.ToString();
+
+		pc.selectedPotion = pc.inventory[iterator];
     }
+
+	public void PotionUsed() {
+		iterator--;
+	}
 }

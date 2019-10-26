@@ -17,7 +17,7 @@ namespace Alchemy {
 		[SerializeField]
 		public int size { get; set; }
 		[SerializeField]
-		public int time { get; set; }
+		public float time { get; set; }
 		[SerializeField]
 		public int damage { get; set; }
 		[SerializeField]
@@ -110,6 +110,21 @@ namespace Alchemy {
 
 		// These stats get updated based on the user's level
 
+	}
+
+	public class InventorySlot {
+		public Potion item { get; set; }
+		public int count { get; set; }
+
+		public InventorySlot() {
+			this.item = null;
+			this.count = 0;
+		}
+
+		public InventorySlot(Potion newItem, int newCount) {
+			this.item = newItem;
+			this.count = newCount;
+		}
 	}
 
 }

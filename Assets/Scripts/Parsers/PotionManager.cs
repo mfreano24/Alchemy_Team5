@@ -8,9 +8,10 @@ using System.IO;
 public class PotionManager : MonoBehaviour {
 
 	[SerializeField]
-	private List<Potion> potions = new List<Potion>();
+	public List<Potion> potions = new List<Potion>();
 
-	private void Start() {
+	// Initializes all potions from file
+	private void Awake() {
 
 		// List of elements
 		string path = Directory.GetCurrentDirectory() + "\\potions.txt";

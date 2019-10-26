@@ -4,9 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Player_Weapon
-  - Enemy
   - Damageable
+  - Player_Weapon
+  - Potion
+  - Wall
   layers:
   - Default
   - TransparentFX
