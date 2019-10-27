@@ -5,9 +5,9 @@ using UnityEngine.UI;
 using Alchemy;
 
 public class PlayerController : MonoBehaviour {
-	public float playerSpeed;
-	Vector3 moveDirection;
-	CharacterController cc;
+	Vector2 playerSpeed;
+	Vector2 moveDirection;
+	Rigidbody2D rb;
 	BoxCollider2D sw;
 	int endlag = 0;
 	float face_Front_x = 0.0f;
@@ -33,12 +33,11 @@ public class PlayerController : MonoBehaviour {
 	int BASE_COUNT = 2;
 
 	void Start() {
-
-	    cc = GetComponent<CharacterController>();
+		playerSpeed = new Vector2(13,13);
+	    rb = GetComponent<Rigidbody2D>();
 		sw = sword.GetComponent<BoxCollider2D>();
 	    face_Front_x = 0;
 	    face_Front_y = -1;
-
 		// DEBUGGING PURPOSES ONLY
 		inventory = new List<InventorySlot>();
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 5));
@@ -47,32 +46,30 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update () {
-	    //Move First
-	    Move();
-		//Then Basic Attack
-		//Then Potion
-
-		// UI Update
 		UpdateUI();
-
 	}
 
-	void Move() {
+	void FixedUpdate(){
 		if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0 ) {
 			//NEED A CONDITION THAT WORKS BETTER HERE
 			Assign_LastDirection();
 		}
-		if (endlag == 0) {
-			moveDirection = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"),0.0f);
-			moveDirection *= playerSpeed;
-			cc.Move(moveDirection * Time.deltaTime);
+		if(endlag == 0){
+			Move();
 			Attack();
-		} else {
+		}
+		else {
 	        endlag -= 1; //frame countdown
 	        if (endlag == 0) {
 	            Destroy(sword_inst);
 	        }
-	    }
+	    }	
+	}
+
+	void Move() {
+		moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+		rb.MovePosition(rb.position + playerSpeed * moveDirection * Time.deltaTime);
+		
 	}
 
 /*ABILITIES */
