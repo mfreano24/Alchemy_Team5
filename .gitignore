@@ -4,13 +4,10 @@
 [Tt]emp/
 [Oo]bj/
 [Bb]uild
-<<<<<<< HEAD
 [Bb]uilds/
 [Ll]ibrary/
-=======
 /[Bb]uilds/
 /[Ll]ibrary/
->>>>>>> dc32603e7c3cdabe606582c4e6ae378ab8c34a8e
 sysinfo.txt
 *.stackdump
 /Assets/AssetStoreTools*
