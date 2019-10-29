@@ -1411,7 +1411,7 @@ GameObject:
   - component: {fileID: 990760553}
   - component: {fileID: 990760554}
   m_Layer: 0
-  m_Name: tileWalll
+  m_Name: tileWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
