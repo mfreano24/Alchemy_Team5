@@ -79,6 +79,10 @@ public class TrainingDummy : MonoBehaviour {
 		}
 	}
 
+	private void OnTriggerEnter2D(Collider2D other) {
+		// To be implemented
+	}
+
 	public void DropHealth(int i, bool crit) {
 		if (thisEnemy.baseHP > 0) {
 			GameObject damage = (GameObject)Instantiate(Resources.Load("Damage") as Object, this.transform);
