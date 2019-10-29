@@ -22,8 +22,9 @@ public class EnemyManager : MonoBehaviour {
 
 	public GameObject waveStatus;
 
-    void Start() {
+    void Awake() {
 		waveStatus.SetActive(false);
+		ReadEnemies();
 	}
 
 	private void Update() {
@@ -32,7 +33,7 @@ public class EnemyManager : MonoBehaviour {
 			if (timer == 5) {
 				wave++;
 				StartCoroutine(UpdateWaveStatus("Wave " + wave.ToString() + " starting!"));
-				SpawnEnemies(wave);
+				GameObject.Find("EventSystem").GetComponent<WaveManager>().StartWave(wave);
 			}
 		} else if (GameObject.FindGameObjectsWithTag("Damageable").Length == 0) {
 			if (wave > 0) {
@@ -53,25 +54,6 @@ public class EnemyManager : MonoBehaviour {
 		waveStatus.SetActive(false);
 	}
 
-	public void SpawnEnemies(int wave) {
-
-		int enemies = WaveToEnemy(wave);
-
-		for (int i = 0; i < enemies; i++) {
-			Vector2 pos = Random.insideUnitCircle * arenaRadius;
-			while (Vector2.Distance(pos, GameObject.Find("Player").transform.position) < safeDistance) {
-				pos = Random.insideUnitCircle * arenaRadius;
-			}
-			GameObject enemy = (GameObject)Instantiate(EnemyPrefab, pos, Quaternion.identity);
-		}
-	}
-
-	public int WaveToEnemy(int x) {
-		// The function for an ouptut of enemies given an input of wave.
-		// (x^(3/4) / 2) + 3
-		return (int)Mathf.Ceil(Mathf.Pow(x, 3f / 4f) / 2 + 3);
-	}
-
 	// Reading the enemies
 	void ReadEnemies() {
 		// List of elements
@@ -85,7 +67,7 @@ public class EnemyManager : MonoBehaviour {
 				// Creating the items
 				// Create a new potion
 				Enemy newEnemy = new Enemy();
-				for (int i = -1; i < 7; i++) {
+				for (int i = -1; i < 8; i++) {
 
 					// Read actual input
 					input = reader.ReadLine();
@@ -121,6 +103,10 @@ public class EnemyManager : MonoBehaviour {
 							// Set up the damage it'll do
 							newEnemy.type = input;
 							break;
+						case (6):
+							// Set up the experience gain
+							newEnemy.exp = System.Convert.ToInt32(input);
+							break;
 						default:
 							// Just for the -----
 							break;
@@ -139,4 +125,15 @@ public class EnemyManager : MonoBehaviour {
 			Debug.Log(i.ToString());
 		}
 	}
+
+	public Enemy FindByName(string s) {
+		foreach (Enemy e in enemies) {
+			if (e.name == s) {
+				return e;
+			}
+		}
+
+		return null;
+	}
+
 }

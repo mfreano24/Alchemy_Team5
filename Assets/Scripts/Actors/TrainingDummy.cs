@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Alchemy;
 
 public class TrainingDummy : MonoBehaviour {
-	public int health;
+
+	public Enemy thisEnemy;
+	
+
 	public GameObject sword;
 	BoxCollider2D hurtbox;
 
-	public int experienceDrop;
-	public int speed;
 	public float turnDist = 5;
 	public float turnSpeed = 3;
 
@@ -19,8 +21,6 @@ public class TrainingDummy : MonoBehaviour {
 	int targetIndex;
 
 	void Start() {
-		health = 5000;
-		experienceDrop = 20;
 		hurtbox = GetComponent<BoxCollider2D>();
 		StartCoroutine(UpdatePath());
 	}
@@ -57,8 +57,6 @@ public class TrainingDummy : MonoBehaviour {
 		bool followingPath = true;
 		int pathIndex = 0;
 
-		//	transform.LookAt(path.lookPoints[0]); 
-
 		while (followingPath) {
 
 			Vector2 pos2D = new Vector2(transform.position.x, transform.position.y);
@@ -74,7 +72,7 @@ public class TrainingDummy : MonoBehaviour {
 			if (followingPath) {
 				// Probably have to rewrite this
 				Vector2 translatePos = path.lookPoints[pathIndex] - transform.position;
-				transform.Translate(translatePos.normalized * Time.deltaTime * speed, Space.World);
+				transform.Translate(translatePos.normalized * Time.deltaTime * thisEnemy.speed, Space.World);
 			}
 
 			yield return null;
@@ -82,16 +80,15 @@ public class TrainingDummy : MonoBehaviour {
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
-		health -= 5;
-		Debug.Log("Hit- Dummy Health is now " + health);
+		// To be implemented
 	}
 
 	public void DropHealth(int i, bool crit) {
-		if (health > 0) {
+		if (thisEnemy.baseHP > 0) {
 			GameObject damage = (GameObject)Instantiate(Resources.Load("Damage") as Object, this.transform);
-			health -= i;
+			thisEnemy.baseHP -= i;
 
-			if (health <= 0) {
+			if (thisEnemy.baseHP <= 0) {
 				StartCoroutine(IncreaseXP());
 			}
 
@@ -101,7 +98,7 @@ public class TrainingDummy : MonoBehaviour {
 	}
 
 	IEnumerator IncreaseXP() {
-		for (int i = 0; i < experienceDrop; i++) {
+		for (int i = 0; i < thisEnemy.exp; i++) {
 			// Animates the increase (because reasons
 			GameObject.Find("Player").GetComponent<PlayerController>().currentExperience++;
 			yield return new WaitForSeconds(0.01f);

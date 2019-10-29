@@ -22,7 +22,7 @@ public class DamageIndicator : MonoBehaviour {
 			yield return new WaitForSeconds(0.0001f);
 		}
 
-		if (this.transform.GetComponentInParent<TrainingDummy>().health <= 0) {
+		if (this.transform.GetComponentInParent<TrainingDummy>().thisEnemy.baseHP <= 0) {
 			Destroy(this.transform.parent.gameObject);
 		}
 
