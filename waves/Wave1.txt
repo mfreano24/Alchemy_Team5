@@ -1,0 +1,2 @@
+Basic_Slime 1
+Basic_Slime 3

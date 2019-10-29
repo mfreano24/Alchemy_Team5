@@ -989,6 +989,7 @@ GameObject:
   - component: {fileID: 576918154}
   - component: {fileID: 576918155}
   - component: {fileID: 576918156}
+  - component: {fileID: 576918157}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1085,6 +1086,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crafting: []
+--- !u!114 &576918157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576918150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 321fd1057a6ca424b94ebcfdcb559325, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawner: {fileID: 7418192358718469371, guid: 3a4d0060ab5f32a4caa95e8cb21f213f, type: 3}
+  WAVE_COUNT: 1
 --- !u!1 &838334940
 GameObject:
   m_ObjectHideFlags: 0

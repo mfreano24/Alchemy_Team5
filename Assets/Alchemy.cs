@@ -33,7 +33,7 @@ namespace Alchemy {
 			this.damage = damage;
 			this.effect = effect;
 		}
-		
+
 		// Template constructor
 		public Potion() {
 			this.name = "";
@@ -83,12 +83,14 @@ namespace Alchemy {
 		public int speed { get; set; }
 		[SerializeField]
 		public string type { get; set; }
+		[SerializeField]
+		public int exp { get; set; }
 
 		// Why the hell not?
 		[SerializeField]
 		float hue { get; set; }
 
-		public Enemy(string name, int hp, int atk, int def, int sp, string tp) {
+		public Enemy(string name, int hp, int atk, int def, int sp, string tp, int ex) {
 			this.name = name;
 			this.baseHP = hp;
 			this.baseATK = atk;
@@ -96,6 +98,18 @@ namespace Alchemy {
 			this.speed = sp;
 			this.type = tp;
 			this.hue = 0;
+			this.exp = ex;
+		}
+
+		public Enemy(Enemy e) {
+			this.name = e.name;
+			this.baseHP = e.baseHP;
+			this.baseATK = e.baseATK;
+			this.baseDEF = e.baseDEF;
+			this.speed = e.speed;
+			this.type = e.type;
+			this.hue = e.hue;
+			this.exp = e.exp;
 		}
 
 		public Enemy() {
@@ -106,10 +120,11 @@ namespace Alchemy {
 			this.speed = 0;
 			this.type = "";
 			this.hue = 0;
+			this.exp = 0;
 		}
 
 		// These stats get updated based on the user's level
-
+		// Possibly
 	}
 
 	public class InventorySlot {
@@ -124,6 +139,16 @@ namespace Alchemy {
 		public InventorySlot(Potion newItem, int newCount) {
 			this.item = newItem;
 			this.count = newCount;
+		}
+	}
+
+	public class Wave {
+		public List<Enemy> waveEnemies { get; set; }
+		public List<int> spawnIndices { get; set; }
+
+		public Wave() {
+			waveEnemies = new List<Enemy>();
+			spawnIndices = new List<int>();
 		}
 	}
 
