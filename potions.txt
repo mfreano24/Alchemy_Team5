@@ -1,5 +1,5 @@
 -----
-Sulphur
+Sulfur
 None
 Explosion
 1
@@ -55,7 +55,7 @@ Explosion
 650
 Damage
 -----
-(Nitrogen-Oxygen Mix)
+(Nitrogen-OxygenMix)
 Oxygen Nitrogen
 Cyclone
 5
@@ -63,7 +63,7 @@ Cyclone
 50
 Wind
 -----
-(Sulfur-Oxygen Mix)
+(Sulfur-OxygenMix)
 Sulfur Oxygen
 Explosion
 10

@@ -69,8 +69,7 @@ public class PlayerController : MonoBehaviour {
 
 	void Move() {
 		moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-		rb.MovePosition(rb.position + playerSpeed * moveDirection * Time.deltaTime);
-		
+		rb.MovePosition(rb.position + playerSpeed * moveDirection * Time.deltaTime);	
 	}
 
 /*ABILITIES */
