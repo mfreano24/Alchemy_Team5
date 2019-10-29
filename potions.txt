@@ -4,30 +4,70 @@ None
 Explosion
 1
 1000
-100
-Damage
+25
+DOT
 -----
-Fire
+GreaterSulfur
+Sulfur Sulfur
+Explosion
+3
+1000
+60
+DOT
+-----
+Nitrogen
 None
 Fire
-1
+5
 1000
-200
-Damage
+0
+Slowing
 -----
-Small Explosion
-Sulphur Fire
+GreaterNitrogen
+Nitrogen Nitrogen
+Fire
+7
+800
+0
+Slowing
+-----
+Oxygen
+None
+Wind
+4
+1000
+0
+Windbox
+-----
+GreaterOxygen
+None
+Wind
+7
+500
+0
+Windbox
+-----
+Explosion
+Sulphur Nitrogen
 Explosion
 2
 1000
 650
 Damage
 -----
-Large Explosion
-Sulphur Sulphur Fire
-Explosion
-4
-1000
-850
-Damage
+(Nitrogen-Oxygen Mix)
+Oxygen Nitrogen
+Cyclone
+5
+500
+50
+Wind
 -----
+(Sulfur-Oxygen Mix)
+Sulfur Oxygen
+Explosion
+10
+450
+450
+Damage
+

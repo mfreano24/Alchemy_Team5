@@ -18,10 +18,22 @@ public class PotionInstance : MonoBehaviour {
 		//for (int i = 0; explosion.transform.localScale.magnitude < thisPotion.size * 100; i++) {
 		//	explosion.transform.localScale = new Vector2(i / 100, i / 100);
 		//}
-
 		// Damage anything in range
+		/*POTION CHECK SYSTEM
+		If(thisPotion.name == "Sulfur"){
+			Create a potion with the Sulfur effect
+			}
+		Else if(thisp*/
+
+
+
+
+
+
+
+
 		foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
-			if (Vector3.Distance(enemy.transform.position, this.transform.position) < thisPotion.size) {
+			if (Vector3.Distance(enemy.transform.position, this.transform.position) < thisPotion.size*4) {
 				
 				int roll = Random.Range(0, _critChance);
 				bool crit = (roll == 0);

@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour {
 			//NEED A CONDITION THAT WORKS BETTER HERE
 			Assign_LastDirection();
 		}
+		
 		if(endlag == 0){
 			Move();
 			Attack();
