@@ -1,13 +1,9 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class TrainingDummy : MonoBehaviour {
-	public int health;
-	public GameObject sword;
-	BoxCollider2D hurtbox;
-
-	public int experienceDrop;
-	public int speed;
+public class Unit : MonoBehaviour {
+	public int speed = 20;
 	public float turnDist = 5;
 	public float turnSpeed = 3;
 
@@ -18,10 +14,7 @@ public class TrainingDummy : MonoBehaviour {
 
 	int targetIndex;
 
-	void Start() {
-		health = 5000;
-		experienceDrop = 20;
-		hurtbox = GetComponent<BoxCollider2D>();
+	private void Start() {
 		StartCoroutine(UpdatePath());
 	}
 
@@ -57,7 +50,7 @@ public class TrainingDummy : MonoBehaviour {
 		bool followingPath = true;
 		int pathIndex = 0;
 
-		//	transform.LookAt(path.lookPoints[0]); 
+		//transform.LookAt(path.lookPoints[0]); 
 
 		while (followingPath) {
 
@@ -73,38 +66,12 @@ public class TrainingDummy : MonoBehaviour {
 
 			if (followingPath) {
 				// Probably have to rewrite this
-				Vector2 translatePos = path.lookPoints[pathIndex] - transform.position;
-				transform.Translate(translatePos.normalized * Time.deltaTime * speed, Space.World);
+				Quaternion targetRotation = Quaternion.LookRotation(path.lookPoints[pathIndex] - transform.position);
+				transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * turnSpeed);
+				transform.Translate(Vector3.forward * Time.deltaTime * speed, Space.Self);
 			}
 
 			yield return null;
-		}
-	}
-
-	private void OnTriggerEnter2D(Collider2D other) {
-		health -= 5;
-		Debug.Log("Hit- Dummy Health is now " + health);
-	}
-
-	public void DropHealth(int i, bool crit) {
-		if (health > 0) {
-			GameObject damage = (GameObject)Instantiate(Resources.Load("Damage") as Object, this.transform);
-			health -= i;
-
-			if (health <= 0) {
-				StartCoroutine(IncreaseXP());
-			}
-
-			damage.GetComponent<DamageIndicator>().setHealth(i, crit);
-		}
-
-	}
-
-	IEnumerator IncreaseXP() {
-		for (int i = 0; i < experienceDrop; i++) {
-			// Animates the increase (because reasons
-			GameObject.Find("Player").GetComponent<PlayerController>().currentExperience++;
-			yield return new WaitForSeconds(0.01f);
 		}
 	}
 

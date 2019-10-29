@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class SwordManager : MonoBehaviour {
     // Start is called before the first frame update
-    BoxCollider sw;
+    BoxCollider2D sw;
     public GameObject player;
-    Rigidbody rbp;
+    Rigidbody2D rbp;
 
 	int swordDamage = 25;
 	int _critChance = 20;
     
     void Start() {
-        sw = GetComponent<BoxCollider>();
+        sw = GetComponent<BoxCollider2D>();
         player = GameObject.Find("Player");
-        rbp = player.GetComponent<Rigidbody>();
+        rbp = player.GetComponent<Rigidbody2D>();
     }
 
-    private void OnTriggerEnter(Collider other) {
+    private void OnTriggerEnter2D(Collider2D other) {
         if(other.CompareTag("Damageable")){
             Debug.Log("Hit!");
 			int roll = Random.Range(0, _critChance);
