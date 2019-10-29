@@ -30,11 +30,11 @@ public class PotionInstance : MonoBehaviour {
 
 		else if(thisPotion.name == "Nitrogen"){
 			foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")){
-				//enemy.GetComponent<TrainingDummy>().speed /= 1.75f;
+				//enemy.speed -= 1;
 			}
 			yield return new WaitForSeconds(3f);
 			foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")){
-				//enemy.GetComponent<TrainingDummy>().speed *= 1.75f;
+				//enemy.speed += 1;
 			}
 		}
 
