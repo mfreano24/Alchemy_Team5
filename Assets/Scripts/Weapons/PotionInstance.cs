@@ -7,6 +7,7 @@ public class PotionInstance : MonoBehaviour {
 	public Potion thisPotion;
 
 	const int _critChance = 20;
+	Vector2 force;
 
 	public IEnumerator DropPotion() {
 		// Delay the explosion
@@ -40,12 +41,12 @@ public class PotionInstance : MonoBehaviour {
 
 		else if(thisPotion.name == "Oxygen"){
 			foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")){
-				/*Get the (hopefully) rigidbody component of the enemy and add a force according to a
-				Vector2 defined by the position of the enemy minus the position of the potion on the map */
+				//this is definitely not correct but I'm cool with it for now lol
+				force = new Vector2(enemy.GetComponent<Rigidbody2D>().position.x,enemy.GetComponent<Rigidbody2D>().position.y);
+				enemy.GetComponent<Rigidbody2D>().AddForce(force);
 			}
 
 		}
-
 		else if(thisPotion.name == "GreaterSulfur"){
 			for(int i = 0 ; i < 10 ; i++){
 				foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {

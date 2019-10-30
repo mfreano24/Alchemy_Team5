@@ -9,6 +9,7 @@ public class TrainingDummy : MonoBehaviour {
 
 	public GameObject sword;
 	BoxCollider2D hurtbox;
+	Rigidbody2D rb;
 
 	public float turnDist = 5;
 	public float turnSpeed = 3;
@@ -22,6 +23,7 @@ public class TrainingDummy : MonoBehaviour {
 
 	void Start() {
 		hurtbox = GetComponent<BoxCollider2D>();
+		rb = GetComponent<Rigidbody2D>();
 		StartCoroutine(UpdatePath());
 	}
 
@@ -80,7 +82,25 @@ public class TrainingDummy : MonoBehaviour {
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
-		// To be implemented
+		//Add an int condition check in playercontroller called invin, in which:
+		/*THIS FUNCTION:
+			other.GetComponent<PlayerController>().invin += 10;
+		IN PLAYERCONTROLLER:
+			if(invin > 0){
+				invincibility = true;
+				invin-=1;
+			}
+			else{
+				invincibility = false;
+			}
+		THIS FUNCTION:
+			if(other.CompareTag("Player") && !other.GetComponent<PlayerController>().invincibility){} */
+		if(other.CompareTag("Player")){
+			other.GetComponent<PlayerController>().currentHealth -= 5;
+			/*if(other.GetComponent<PlayerController>().currentHealth <= 0){
+				GameOver();
+			} */
+		}
 	}
 
 	public void DropHealth(int i, bool crit) {
