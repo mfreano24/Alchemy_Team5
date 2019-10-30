@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 4673428572853003333}
   - component: {fileID: 4673428572853003335}
   - component: {fileID: 4673428572853003328}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: COLLISION_TEST_WALL
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
