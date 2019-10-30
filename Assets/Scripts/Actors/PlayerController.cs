@@ -32,13 +32,18 @@ public class PlayerController : MonoBehaviour {
 	public List<InventorySlot> inventory;
 	int BASE_COUNT = 2;
 
+	//invincibility
+	bool invincible;
+	int invin;
+
 	void Start() {
 		playerSpeed = new Vector2(13,13);
 	    rb = GetComponent<Rigidbody2D>();
 		sw = sword.GetComponent<BoxCollider2D>();
 	    face_Front_x = 0;
 	    face_Front_y = -1;
-		// DEBUGGING PURPOSES ONLY
+		invincible = false;
+		invin = 0;
 		inventory = new List<InventorySlot>();
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 5));
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[1], 5));
@@ -145,6 +150,26 @@ public class PlayerController : MonoBehaviour {
 			Levelup();
 		}
 	}
+
+	void TakeDamage(int d,int mult){
+		if(invin == 0){
+			currentHealth -= (d*mult);
+		}	
+	}
+
+	void InvinFrame(){
+		//update invincibility frames
+		invin+=30;
+		while(invin>0){
+			//need a visual indicator every 3 frames (if invin%3 == 0) that blinks with an invincibility kinda tint?
+			invin-=1;
+		}
+	}
+
+	/*IEnumerator BlinkingEffect(){
+		GetComponent<SpriteRenderer>().
+		yield return WaitForSeconds(0.5f);
+	}*/
 
 	void Levelup() {
 		level++;
