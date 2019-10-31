@@ -43,7 +43,7 @@ public class PotionManager : MonoBehaviour {
 						case (1):
 							// Create the combination
 							newPotion.combination = new List<string>();
-							string[] combo = input.Split(' ');
+							string[] combo = input.Split(new string[] { ", " }, System.StringSplitOptions.None);
 							foreach (string j in combo) {
 								newPotion.combination.Add(j);
 							}

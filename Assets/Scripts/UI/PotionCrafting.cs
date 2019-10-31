@@ -87,7 +87,7 @@ public class PotionCrafting : MonoBehaviour {
 				if (craftedPotion == slot.item) {
 					// The item exists already
 					slot.count++;
-					return;
+					break;
 				}
 			}
 

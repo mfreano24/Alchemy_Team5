@@ -7,8 +7,8 @@ Explosion
 25
 DOT
 -----
-GreaterSulfur
-Sulfur Sulfur
+Greater Sulfur
+Sulfur, Sulfur
 Explosion
 3
 1000
@@ -23,8 +23,8 @@ Fire
 0
 Slowing
 -----
-GreaterNitrogen
-Nitrogen Nitrogen
+Greater Nitrogen
+Nitrogen, Nitrogen
 Fire
 7
 800
@@ -39,8 +39,8 @@ Wind
 0
 Windbox
 -----
-GreaterOxygen
-None
+Greater Oxygen
+Oxygen, Oxygen
 Wind
 7
 500
@@ -48,23 +48,23 @@ Wind
 Windbox
 -----
 Explosion
-Sulphur Nitrogen
+Sulphur, Nitrogen
 Explosion
 2
 1000
 650
 Damage
 -----
-(Nitrogen-OxygenMix)
-Oxygen Nitrogen
+(Nitrogen - Oxygen Mix)
+Oxygen, Nitrogen
 Cyclone
 5
 500
 50
 Wind
 -----
-(Sulfur-OxygenMix)
-Sulfur Oxygen
+(Sulfur - Oxygen Mix)
+Sulfur, Oxygen
 Explosion
 10
 450
