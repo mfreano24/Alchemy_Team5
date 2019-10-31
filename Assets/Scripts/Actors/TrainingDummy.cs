@@ -11,6 +11,7 @@ public class TrainingDummy : MonoBehaviour {
 	BoxCollider2D hurtbox;
 	Rigidbody2D rb;
 
+	public Vector2 translatePos;
 	public float turnDist = 5;
 	public float turnSpeed = 3;
 
@@ -20,6 +21,7 @@ public class TrainingDummy : MonoBehaviour {
 	const float pathUpdateThreshold = 0.5f;
 
 	int targetIndex;
+	
 
 	void Start() {
 		hurtbox = GetComponent<BoxCollider2D>();
@@ -71,7 +73,7 @@ public class TrainingDummy : MonoBehaviour {
 
 			if (followingPath) {
 
-				Vector2 translatePos = path.lookPoints[pathIndex] - transform.position;
+				translatePos = path.lookPoints[pathIndex] - transform.position;
 				transform.Translate(translatePos.normalized * Time.deltaTime * thisEnemy.speed, Space.World);
 
 			}
@@ -125,10 +127,10 @@ public class TrainingDummy : MonoBehaviour {
 		}
 	}
 
-	public void OnDrawGizmos() {
-		if (path != null) {
-			path.DrawWithGizmos();
-		}
-	}
+	//public void OnDrawGizmos() {
+	//	if (path != null) {
+	//		path.DrawWithGizmos();
+	//	}
+	//}
 
 }

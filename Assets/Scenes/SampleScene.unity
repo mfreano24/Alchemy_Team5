@@ -152,7 +152,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -467,7 +467,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.56, y: 2.56}
+  m_Size: {x: 2.5, y: 2.5}
   m_EdgeRadius: 0
 --- !u!1 &358276837
 GameObject:
@@ -2204,8 +2204,14 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 112
       objectReference: {fileID: 0}
+    - target: {fileID: 4673428572853003328, guid: 24965ca9b3f1b124586065af6672e2d3,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 2.5599997
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4673428572853003335, guid: 24965ca9b3f1b124586065af6672e2d3, type: 3}
+    - {fileID: 4673428572853003328, guid: 24965ca9b3f1b124586065af6672e2d3, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 24965ca9b3f1b124586065af6672e2d3, type: 3}
 --- !u!1 &2049723584
 GameObject:

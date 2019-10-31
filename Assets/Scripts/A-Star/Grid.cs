@@ -34,7 +34,7 @@ public class Grid : MonoBehaviour {
 		for (int x = 0; x < gridSizeX; x ++) {
 			for (int y = 0; y < gridSizeY; y ++) {
 				Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.up * (y * nodeDiameter + nodeRadius);
-				bool walkable = !(Physics.CheckSphere(worldPoint,nodeRadius,unwalkableMask));
+				bool walkable = !(Physics2D.OverlapCircle(worldPoint,nodeRadius,unwalkableMask));
 				grid[x,y] = new Node(walkable,worldPoint, x,y);
 			}
 		}
@@ -74,13 +74,13 @@ public class Grid : MonoBehaviour {
 
 	}
 
-	void OnDrawGizmos() {
-		Gizmos.DrawWireCube(transform.position, new Vector3(worldSize.x, worldSize.y, 1));
-		if (grid != null) {
-			foreach (Node n in grid) {
-				Gizmos.color = (n.isWalkable) ? Color.white : Color.red;
-				Gizmos.DrawCube(n.pos, Vector3.one * (nodeDiameter - .1f));
-			}
-		}
-	}
+	//void OnDrawGizmos() {
+	//	Gizmos.DrawWireCube(transform.position, new Vector3(worldSize.x, worldSize.y, 1));
+	//	if (grid != null) {
+	//		foreach (Node n in grid) {
+	//			Gizmos.color = (n.isWalkable) ? Color.white : Color.red;
+	//			Gizmos.DrawCube(n.pos, Vector3.one * (nodeDiameter - .1f));
+	//		}
+	//	}
+	//}
 }
