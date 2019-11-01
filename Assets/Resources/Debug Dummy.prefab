@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2805622206314013100}
   - component: {fileID: 3324844438100737873}
   - component: {fileID: 2779342313027084990}
+  - component: {fileID: 7119460800081272728}
   m_Layer: 8
   m_Name: Debug Dummy
   m_TagString: Damageable
@@ -96,6 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sword: {fileID: 8899422617009500987, guid: c70460db56255774eb8065d22aa2d055, type: 3}
+  translatePos: {x: 0, y: 0}
   turnDist: 5
   turnSpeed: 3
 --- !u!61 &3324844438100737873
@@ -145,3 +147,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!70 &7119460800081272728
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2805622206314013104}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 4, y: 3}
+  m_Direction: 1

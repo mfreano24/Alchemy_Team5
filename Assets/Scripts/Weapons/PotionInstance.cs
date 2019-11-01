@@ -46,7 +46,7 @@ public class PotionInstance : MonoBehaviour {
 
 		}
 
-		else if(thisPotion.name == "GreaterSulfur"){
+		else if(thisPotion.name == "Greater Sulfur"){
 			for(int i = 0 ; i < 10 ; i++){
 				foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
 					if (Vector3.Distance(enemy.transform.position, this.transform.position) < thisPotion.size*3) {
@@ -57,12 +57,20 @@ public class PotionInstance : MonoBehaviour {
 						
 					}				
 				}
+				Color p_color;
+				foreach(GameObject player in GameObject.FindGameObjectsWithTag("Player")){
+					if(Vector3.Distance(player.transform.position, this.transform.position) < thisPotion.size*3){
+						p_color = player.GetComponent<SpriteRenderer>().color;
+						player.GetComponent<PlayerController>().currentHealth -= 0.0125f * player.GetComponent<PlayerController>().maxHealth;
+					}
+				}
 				yield return new WaitForSeconds(0.3f);
+				
 			}
 
 		}
 
-		else if(thisPotion.name == "GreaterNitrogen"){
+		else if(thisPotion.name == "Greater Nitrogen"){
 			foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")){
 				//enemy.GetComponent<TrainingDummy>().speed /= 2.25f;
 			}
@@ -72,7 +80,7 @@ public class PotionInstance : MonoBehaviour {
 			}
 		}
 
-		else if(thisPotion.name == "GreaterOxygen"){
+		else if(thisPotion.name == "Greater Oxygen"){
 			//force will just be stronger
 
 		}

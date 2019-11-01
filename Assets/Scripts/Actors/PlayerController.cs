@@ -146,6 +146,13 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+	public void takeDamage(float d){
+		currentHealth-=d;
+	}
+	public void Knockback(){
+		//implement knockback into taking damage
+	}
+
 	void Levelup() {
 		level++;
 		currentExperience -= maxExperience;
