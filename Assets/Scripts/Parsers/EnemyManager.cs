@@ -11,9 +11,6 @@ public class EnemyManager : MonoBehaviour {
 
 	public GameObject EnemyPrefab;
 
-	float arenaRadius = 20;
-	float safeDistance = 8;
-
 	int wave = 0;
 
 	int timer = 0;

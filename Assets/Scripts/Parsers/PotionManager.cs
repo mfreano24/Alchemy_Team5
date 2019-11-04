@@ -88,4 +88,15 @@ public class PotionManager : MonoBehaviour {
 		}
 
 	}// End of Start
+
+	public Potion FindByName(string s) {
+		foreach (Potion p in potions) {
+			if (p.name == s) {
+				return p;
+			}
+		}
+
+		return null;
+
+	}
 }
