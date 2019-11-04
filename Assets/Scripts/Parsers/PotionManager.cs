@@ -33,8 +33,6 @@ public class PotionManager : MonoBehaviour {
 						break;
 					}
 
-					Debug.Log("i = " + i.ToString() + ", input = " + input);
-
 					switch (i) {
 						case (0):
 							// Setting the element name
@@ -66,7 +64,6 @@ public class PotionManager : MonoBehaviour {
 							break;
 						case (6):
 							// Set up the Effect
-							Debug.Log(input);
 							newPotion.effect = input;
 							break;
 						default:
@@ -82,10 +79,6 @@ public class PotionManager : MonoBehaviour {
 
 		// Removes an empty potion
 		potions.RemoveAt(potions.Count - 1);
-
-		foreach (Potion i in potions) {
-			Debug.Log(i.ToString());
-		}
 
 	}// End of Start
 

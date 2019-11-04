@@ -73,8 +73,6 @@ public class EnemyManager : MonoBehaviour {
 						break;
 					}
 
-					Debug.Log("i = " + i.ToString() + ", input = " + input);
-
 					switch (i) {
 						case (0):
 							// Setting the element name
@@ -117,10 +115,6 @@ public class EnemyManager : MonoBehaviour {
 
 		// Removes an empty potion
 		enemies.RemoveAt(enemies.Count - 1);
-
-		foreach (Enemy i in enemies) {
-			Debug.Log(i.ToString());
-		}
 	}
 
 	public Enemy FindByName(string s) {
