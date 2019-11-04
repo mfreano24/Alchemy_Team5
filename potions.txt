@@ -48,7 +48,7 @@ Wind
 Windbox
 -----
 Explosion
-Sulphur, Nitrogen
+Sulfur, Nitrogen
 Explosion
 2
 1000

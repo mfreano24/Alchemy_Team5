@@ -49,7 +49,9 @@ public class PotionCrafting : MonoBehaviour {
 			ingredients.text += "\n" + i.name;
 		}
 
-		List<Potion> sortedPotion = new List<Potion>(crafting.OrderByDescending(l => l.name));
+		List<Potion> simplified = GameObject.Find("EventSystem").GetComponent<PotionManager>().BaseList(crafting);
+
+		List<Potion> sortedPotion = new List<Potion>(simplified.OrderByDescending(l => l.name));
 		List<string> sortedNames = new List<string>();
 		foreach (Potion i in sortedPotion) {
 			sortedNames.Add(i.name);

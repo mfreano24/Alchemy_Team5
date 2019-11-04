@@ -92,4 +92,24 @@ public class PotionManager : MonoBehaviour {
 		return null;
 
 	}
+
+	public List<Potion> BaseList(List<Potion> pList) {
+		List<Potion> newList = new List<Potion>();
+		bool simplified = true;
+		foreach (Potion p in pList) {
+			if (p.combination[0] == "None") {
+				newList.Add(p);
+			} else {
+				foreach (string s in p.combination) {
+					simplified = false;
+					newList.Add(FindByName(s));
+				}
+			}
+		}
+		if (!simplified) {
+			return BaseList(newList);
+		}
+
+		return newList;
+	}
 }
