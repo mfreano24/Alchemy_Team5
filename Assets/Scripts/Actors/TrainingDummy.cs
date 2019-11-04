@@ -113,9 +113,11 @@ public class TrainingDummy : MonoBehaviour {
 			if (thisEnemy.baseHP <= 0) {
 				StartCoroutine(IncreaseXP());
 				// Drop the item
-				GameObject enemyDrop = (GameObject)Instantiate(GameObject.Find("Player").GetComponent<PlayerController>().potionPrefab, transform.position, Quaternion.identity);
-				enemyDrop.GetComponent<PotionInstance>().thisPotion = GameObject.Find("EventSystem").GetComponent<PotionManager>().FindByName(thisEnemy.type);
-				enemyDrop.GetComponent<PotionInstance>().isEnemyDrop = true;
+				if (thisEnemy.type != "None") {
+					GameObject enemyDrop = (GameObject)Instantiate(GameObject.Find("Player").GetComponent<PlayerController>().potionPrefab, transform.position, Quaternion.identity);
+					enemyDrop.GetComponent<PotionInstance>().thisPotion = GameObject.Find("EventSystem").GetComponent<PotionManager>().FindByName(thisEnemy.type);
+					enemyDrop.GetComponent<PotionInstance>().isEnemyDrop = true;
+				}
 			}
 
 			damage.GetComponent<DamageIndicator>().setHealth(i, crit);

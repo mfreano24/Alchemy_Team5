@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour {
 
 	public List<InventorySlot> inventory;
 	int BASE_COUNT = 2;
+	int MAX_ITEMS = 5;
 
 	void Start() {
 		playerSpeed = new Vector2(13,13);
@@ -48,6 +49,33 @@ public class PlayerController : MonoBehaviour {
 
 	void Update () {
 		UpdateUI();
+		PickupItems();
+	}
+
+	void PickupItems() {
+		foreach (GameObject item in GameObject.FindGameObjectsWithTag("Potion")) {
+			if (item.GetComponent<PotionInstance>().isEnemyDrop && Vector3.Distance(this.transform.position, item.transform.position) < 2) {
+				int invIndex = FindInventorySlot(item.GetComponent<PotionInstance>().thisPotion);
+				if (invIndex == -1) {
+					inventory.Add(new InventorySlot(item.GetComponent<PotionInstance>().thisPotion, 1));
+					return;
+				}
+				if (inventory[invIndex].count != MAX_ITEMS) {
+					inventory[invIndex].count++;
+					Destroy(item);
+					return;
+				}
+			}
+		}
+	}
+
+	int FindInventorySlot(Potion p) {
+		for (int i = 0; i < inventory.Count; i++) {
+			if (inventory[i].item == p) {
+				return i;
+			}
+		}
+		return -1;
 	}
 
 	void FixedUpdate(){
