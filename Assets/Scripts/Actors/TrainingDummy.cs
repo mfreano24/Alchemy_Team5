@@ -99,7 +99,7 @@ public class TrainingDummy : MonoBehaviour {
 			if(other.CompareTag("Player") && !other.GetComponent<PlayerController>().invincibility){} */
 		if(other.CompareTag("Player")){
 			other.GetComponent<PlayerController>().takeDamage(2.5f);
-			other.GetComponent<PlayerController>().Knockback();
+			other.GetComponent<PlayerController>().Knockback(this.transform.position, other.transform.position);
 			/*if(other.GetComponent<PlayerController>().currentHealth <= 0){
 				GameOver();
 			} */

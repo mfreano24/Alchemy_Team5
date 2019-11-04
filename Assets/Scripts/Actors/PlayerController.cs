@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour {
 		inventory = new List<InventorySlot>();
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 5));
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[1], 5));
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[6], 5));
 		selectedPotion = inventory[0];
 	}
 
@@ -149,8 +150,14 @@ public class PlayerController : MonoBehaviour {
 	public void takeDamage(float d){
 		currentHealth-=d;
 	}
-	public void Knockback(){
-		//implement knockback into taking damage
+	public IEnumerator Knockback(Vector3 enemyPos, Vector3 myPos){
+		Vector2 move = new Vector2(myPos.x - enemyPos.x, myPos.y - enemyPos.y);
+		for(int i = 0;i<60;i++){
+			rb.MovePosition(rb.position + playerSpeed*20 * move * Time.deltaTime);
+			yield return new WaitForSeconds(1f/60f);
+		}
+
+		
 	}
 
 	void Levelup() {

@@ -24,6 +24,12 @@ public class PotionInstance : MonoBehaviour {
 						
 					}				
 				}
+
+				foreach(GameObject player in GameObject.FindGameObjectsWithTag("Player")){
+					if(Vector3.Distance(player.transform.position, this.transform.position) < thisPotion.size*3){
+						player.GetComponent<PlayerController>().currentHealth -= 0.0125f * player.GetComponent<PlayerController>().maxHealth;
+					}
+				}
 				yield return new WaitForSeconds(0.5f);
 			}	
 		}
@@ -57,15 +63,13 @@ public class PotionInstance : MonoBehaviour {
 						
 					}				
 				}
-				Color p_color;
 				foreach(GameObject player in GameObject.FindGameObjectsWithTag("Player")){
 					if(Vector3.Distance(player.transform.position, this.transform.position) < thisPotion.size*3){
-						p_color = player.GetComponent<SpriteRenderer>().color;
 						player.GetComponent<PlayerController>().currentHealth -= 0.0125f * player.GetComponent<PlayerController>().maxHealth;
 					}
 				}
+
 				yield return new WaitForSeconds(0.3f);
-				
 			}
 
 		}
@@ -93,6 +97,13 @@ public class PotionInstance : MonoBehaviour {
 					// Critical hit!
 					enemy.GetComponent<TrainingDummy>().DropHealth(thisPotion.damage * (crit ? 2 : 1), crit);
 				}
+			}
+			foreach(GameObject player in GameObject.FindGameObjectsWithTag("Player")){
+				if (Vector3.Distance(player.transform.position, this.transform.position) < thisPotion.size*3){
+					player.GetComponent<PlayerController>().takeDamage(20f);
+					player.GetComponent<PlayerController>().Knockback(transform.position, player.transform.position);
+				}
+
 			}
 		}
 
