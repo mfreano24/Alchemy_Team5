@@ -17,9 +17,11 @@ public class EnemyManager : MonoBehaviour {
 
 	int timeBetweenWaves = 300;
 
+	public GameObject waveTimer;
 	public GameObject waveStatus;
 
     void Awake() {
+		waveTimer.SetActive(false);
 		waveStatus.SetActive(false);
 		ReadEnemies();
 	}
@@ -27,17 +29,27 @@ public class EnemyManager : MonoBehaviour {
 	private void Update() {
 		if (timer > 0) {
 			timer--;
+			waveTimer.GetComponent<Text>().text = "Next wave in " + (timer / 30 + 1).ToString() + " seconds!\nPress F to skip timer!";
 			if (timer == 5) {
 				wave++;
 				StartCoroutine(UpdateWaveStatus("Wave " + wave.ToString() + " starting!"));
 				GameObject.Find("EventSystem").GetComponent<WaveManager>().StartWave(wave);
+				waveTimer.SetActive(false);
 			}
+
+			if (Input.GetKeyDown(KeyCode.F)) {
+				timer = 10;
+			}
+
 		} else if (GameObject.FindGameObjectsWithTag("Damageable").Length == 0) {
 			if (wave > 0) {
 				StartCoroutine(UpdateWaveStatus("Wave " + wave.ToString() + " completed!"));
 			}
 			timer = timeBetweenWaves;
+			waveTimer.GetComponent<Text>().text = "Next wave in " + (timer / 60 + 1).ToString() + " seconds!\nPress F to skip timer!";
+			waveTimer.SetActive(true);
 		}
+
 	}
 
 	public IEnumerator UpdateWaveStatus(string text) {
