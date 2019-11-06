@@ -5,10 +5,10 @@ using UnityEngine.UI;
 using Alchemy;
 
 public class PlayerController : MonoBehaviour {
-	Vector2 playerSpeed;
 	Vector2 moveDirection;
 	Rigidbody2D rb;
 	BoxCollider2D sw;
+	GlobalVars gv;
 	int endlag = 0;
 	float face_Front_x = 0.0f;
 	float face_Front_y = 0.0f;
@@ -23,18 +23,23 @@ public class PlayerController : MonoBehaviour {
 	public InventorySlot selectedPotion;
 	public GameObject potionPrefab;
 
-	public float maxHealth;
-	public float currentHealth;
+	public float currentHealth = 100;
 	public float maxExperience;
 	public float currentExperience;
 	int level = 1;
 
 	public List<InventorySlot> inventory;
 	int BASE_COUNT = 2;
-	int MAX_ITEMS = 5;
+
+	// UPGRADEABLE DATA
+	public int MAX_ITEMS = 5; // Maximum number of each element carried
+	public float maxHealth = 100; // Maximum player health
+	public int HEAL_FACTOR = 25; // Amount player heals between waves
+	public int playerSpeed; // Current speed of the player
 
 	void Start() {
-		playerSpeed = new Vector2(13,13);
+		gv = GameObject.Find("EventSystem").GetComponent<GlobalVars>();
+		playerSpeed = 13;
 	    rb = GetComponent<Rigidbody2D>();
 		sw = sword.GetComponent<BoxCollider2D>();
 	    face_Front_x = 0;
@@ -43,11 +48,12 @@ public class PlayerController : MonoBehaviour {
 		inventory = new List<InventorySlot>();
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 5));
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[1], 5));
-		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[6], 5));
+		// inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[6], 5));
 		selectedPotion = inventory[0];
 	}
 
 	void Update () {
+
 		UpdateUI();
 		PickupItems();
 	}
@@ -78,13 +84,13 @@ public class PlayerController : MonoBehaviour {
 		return -1;
 	}
 
-	void FixedUpdate(){
+	void FixedUpdate() {
 		if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0 ) {
 			//NEED A CONDITION THAT WORKS BETTER HERE
 			Assign_LastDirection();
 		}
 		
-		if(endlag == 0){
+		if(endlag == 0) {
 			Move();
 			Attack();
 		}
@@ -97,8 +103,8 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Move() {
-		moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-		rb.MovePosition(rb.position + playerSpeed * moveDirection * Time.deltaTime);	
+			moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+			rb.MovePosition(rb.position + playerSpeed * moveDirection * Time.deltaTime);
 	}
 
 /*ABILITIES */
@@ -192,6 +198,7 @@ public class PlayerController : MonoBehaviour {
 		level++;
 		currentExperience -= maxExperience;
 		maxExperience = LevelToExp(level);
+		StartCoroutine(GameObject.Find("Upgrades").GetComponent<UpgradeSelection>().OnUpgradeBegin());
 	}
 
 	int LevelToExp(int x) {

@@ -7,6 +7,8 @@ using System.Threading;
 public class PathRequestManager : MonoBehaviour {
 
 	Queue<PathResult> results = new Queue<PathResult>();
+	UpgradeSelection us;
+	GlobalVars gv;
 
 	static PathRequestManager instance;
 	Pathfinder pf;
@@ -14,6 +16,8 @@ public class PathRequestManager : MonoBehaviour {
 	void Awake() {
 		instance = this;
 		pf = GetComponent<Pathfinder>();
+		gv = GameObject.Find("EventSystem").GetComponent<GlobalVars>();
+		us = GameObject.Find("Upgrades").GetComponent<UpgradeSelection>();
 	}
 
 	void Update() {

@@ -37,7 +37,7 @@ public class EnemyManager : MonoBehaviour {
 				waveTimer.SetActive(false);
 			}
 
-			if (Input.GetKeyDown(KeyCode.F)) {
+			if (Input.GetKeyDown(KeyCode.F) && timer > 10) {
 				timer = 10;
 			}
 
