@@ -6,9 +6,11 @@ using Alchemy;
 public class PotionInstance : MonoBehaviour {
 	public Potion thisPotion;
 	public bool isEnemyDrop = false;
+	public bool reaction = false;
 	const int _critChance = 20;
 
 	public IEnumerator DropPotion() {
+		reaction = false;
 		// Delay the explosion
 		if (!isEnemyDrop) {
 			yield return new WaitForSeconds(thisPotion.time / 1000f);
@@ -17,12 +19,15 @@ public class PotionInstance : MonoBehaviour {
 				Debug.Log("Dropped Sulfur!");
 				for (int i = 0; i < 5; i++) {
 					foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
-						if (Vector3.Distance(enemy.transform.position, this.transform.position) < thisPotion.size * 3) {
+						if (Vector3.Distance(enemy.transform.position, this.transform.position) < thisPotion.size * 5) {
 							int roll = Random.Range(0, _critChance);
 							bool crit = (roll == 0);
 							// Critical hit!
 							enemy.GetComponent<TrainingDummy>().DropHealth(thisPotion.damage * (crit ? 2 : 1), crit);
-
+							if(enemy.GetComponent<TrainingDummy>().thisEnemy.type == "Nitro"){
+								reaction = true;
+								EnemyExplode(enemy, 1);
+							}
 						}
 					}
 
@@ -33,21 +38,37 @@ public class PotionInstance : MonoBehaviour {
 					}
 					yield return new WaitForSeconds(0.5f);
 				}
-			} else if (thisPotion.name == "Nitrogen") {
+			}
+
+
+			else if (thisPotion.name == "Nitrogen") {
 				foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
-					//enemy.GetComponent<TrainingDummy>().speed /= 1.75f;
+					if (Vector3.Distance(enemy.transform.position, this.transform.position) < thisPotion.size * 3) {
+						enemy.GetComponent<TrainingDummy>().thisEnemy.speed -= 1;
+						if(enemy.GetComponent<TrainingDummy>().thisEnemy.type == "Sulfur"){
+							reaction = true;
+							EnemyExplode(enemy, 1f);
+						}
+					}
 				}
 				yield return new WaitForSeconds(3f);
 				foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
-					//enemy.GetComponent<TrainingDummy>().speed *= 1.75f;
+					enemy.GetComponent<TrainingDummy>().thisEnemy.speed += 1;
 				}
+				
+
+
+
 			} else if (thisPotion.name == "Oxygen") {
 				foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
 					/*Get the (hopefully) rigidbody component of the enemy and add a force according to a
 					Vector2 defined by the position of the enemy minus the position of the potion on the map */
 				}
 
-			} else if (thisPotion.name == "Greater Sulfur") {
+			}
+			
+			
+			else if (thisPotion.name == "Greater Sulfur") {
 				for (int i = 0; i < 10; i++) {
 					foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
 						if (Vector3.Distance(enemy.transform.position, this.transform.position) < thisPotion.size * 3) {
@@ -67,7 +88,9 @@ public class PotionInstance : MonoBehaviour {
 					yield return new WaitForSeconds(0.3f);
 				}
 
-			} else if (thisPotion.name == "Greater Nitrogen") {
+			}
+			
+			else if (thisPotion.name == "Greater Nitrogen") {
 				foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
 					//enemy.GetComponent<TrainingDummy>().speed /= 2.25f;
 				}
@@ -75,10 +98,14 @@ public class PotionInstance : MonoBehaviour {
 				foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
 					//enemy.GetComponent<TrainingDummy>().speed *= 2.25f;
 				}
-			} else if (thisPotion.name == "Greater Oxygen") {
+			}
+
+			else if (thisPotion.name == "Greater Oxygen") {
 				//force will just be stronger
 
-			} else if (thisPotion.name == "Explosion") {
+			}
+			
+			else if (thisPotion.name == "Explosion") {
 				foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
 					if (Vector3.Distance(enemy.transform.position, this.transform.position) < thisPotion.size * 3) {
 						int roll = Random.Range(0, _critChance);
@@ -94,8 +121,12 @@ public class PotionInstance : MonoBehaviour {
 					}
 
 				}
-			} else if (thisPotion.name == "(Nitrogen-OxygenMix)") {
-			} else if (thisPotion.name == "(Sulfur-OxygenMix)") {
+			}
+			
+			else if (thisPotion.name == "(Nitrogen-OxygenMix)") {
+			}
+			
+			else if (thisPotion.name == "(Sulfur-OxygenMix)") {
 
 			}
 
@@ -103,6 +134,19 @@ public class PotionInstance : MonoBehaviour {
 			Destroy(this.gameObject);
 		}
 		
+	}
+
+
+	public void EnemyExplode(GameObject e, float mult){ //e for enemy
+	
+		foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")){
+			if(Vector3.Distance(enemy.transform.position, e.transform.position) < 15){
+				int roll = Random.Range(0, _critChance);
+				bool crit = (roll == 0);
+				enemy.GetComponent<TrainingDummy>().DropHealth(thisPotion.damage * (crit ? 2 : 1), crit);
+			}
+		}
+		Destroy(e);
 	}
 
 }
