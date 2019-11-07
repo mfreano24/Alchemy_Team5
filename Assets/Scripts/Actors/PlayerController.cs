@@ -133,7 +133,15 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void usePotion() {
-		if (GameObject.FindGameObjectsWithTag("Potion").Length < 2 && selectedPotion.count > 0) {
+
+		int droppedCount = 0;
+
+		foreach (GameObject go in GameObject.FindGameObjectsWithTag("Potion")) {
+			if (!go.GetComponent<PotionInstance>().isEnemyDrop) {
+				droppedCount++;
+			}
+		}
+		if (droppedCount < 2 && selectedPotion.count > 0) {
 			GameObject newpotion = (GameObject)Instantiate(potionPrefab, this.gameObject.transform.localPosition, Quaternion.identity);
 			newpotion.GetComponent<PotionInstance>().thisPotion = selectedPotion.item;
 			selectedPotion.count--;
@@ -185,6 +193,7 @@ public class PlayerController : MonoBehaviour {
 	public void takeDamage(float d){
 		currentHealth-=d;
 	}
+
 	public IEnumerator Knockback(Vector3 enemyPos, Vector3 myPos){
 		Vector2 move = new Vector2(myPos.x - enemyPos.x, myPos.y - enemyPos.y);
 		for(int i = 0;i<60;i++){

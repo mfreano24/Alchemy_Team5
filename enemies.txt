@@ -4,6 +4,6 @@ Basic_Slime
 5
 1
 2
-None
+Sulfur
 25
 -----

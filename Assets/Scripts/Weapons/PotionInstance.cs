@@ -150,15 +150,17 @@ public class PotionInstance : MonoBehaviour {
 
 			// Delete the game object
 			Destroy(this.gameObject);
+		} else {
+			yield return new WaitForSeconds(5);
+			Destroy(this.gameObject);
 		}
 		
 	}
 
-
 	public void EnemyExplode(GameObject e, float mult){ //e for enemy
 	
-		foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")){
-			if(Vector3.Distance(enemy.transform.position, e.transform.position) < mult*7.5f){
+		foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
+			if(Vector3.Distance(enemy.transform.position, e.transform.position) < mult*7.5f) {
 				int roll = Random.Range(0, _critChance);
 				bool crit = (roll == 0);
 				enemy.GetComponent<TrainingDummy>().DropHealth(thisPotion.damage * (crit ? 2 : 1), crit);

@@ -20,7 +20,7 @@ public class EnemyManager : MonoBehaviour {
 	public GameObject waveTimer;
 	public GameObject waveStatus;
 
-    void Awake() {
+	void Awake() {
 		waveTimer.SetActive(false);
 		waveStatus.SetActive(false);
 		ReadEnemies();
@@ -34,7 +34,6 @@ public class EnemyManager : MonoBehaviour {
 				wave++;
 				StartCoroutine(UpdateWaveStatus("Wave " + wave.ToString() + " starting!"));
 				GameObject.Find("EventSystem").GetComponent<WaveManager>().StartWave(wave);
-				waveTimer.SetActive(false);
 			}
 
 			if (Input.GetKeyDown(KeyCode.F) && timer > 10) {
@@ -44,6 +43,7 @@ public class EnemyManager : MonoBehaviour {
 		} else if (GameObject.FindGameObjectsWithTag("Damageable").Length == 0) {
 			if (wave > 0) {
 				StartCoroutine(UpdateWaveStatus("Wave " + wave.ToString() + " completed!"));
+				GameObject.Find("Player").GetComponent<PlayerController>().takeDamage(-GameObject.Find("Player").GetComponent<PlayerController>().HEAL_FACTOR);
 			}
 			timer = timeBetweenWaves;
 			waveTimer.GetComponent<Text>().text = "Next wave in " + (timer / 60 + 1).ToString() + " seconds!\nPress F to skip timer!";
@@ -53,6 +53,7 @@ public class EnemyManager : MonoBehaviour {
 	}
 
 	public IEnumerator UpdateWaveStatus(string text) {
+		waveTimer.SetActive(false);
 		waveStatus.transform.localPosition = new Vector3(0, 150, 0);
 		waveStatus.GetComponent<Text>().text = text;
 		waveStatus.SetActive(true);

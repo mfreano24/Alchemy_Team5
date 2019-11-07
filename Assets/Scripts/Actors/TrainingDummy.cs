@@ -119,6 +119,7 @@ public void DropHealth(int i, bool crit) {
 				GameObject enemyDrop = (GameObject)Instantiate(GameObject.Find("Player").GetComponent<PlayerController>().potionPrefab, transform.position, Quaternion.identity);
 				enemyDrop.GetComponent<PotionInstance>().thisPotion = GameObject.Find("EventSystem").GetComponent<PotionManager>().FindByName(thisEnemy.type);
 				enemyDrop.GetComponent<PotionInstance>().isEnemyDrop = true;
+				StartCoroutine(enemyDrop.GetComponent<PotionInstance>().DropPotion());
 			}
 		}
 
