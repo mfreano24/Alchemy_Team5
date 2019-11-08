@@ -128,7 +128,7 @@ public void DropHealth(int i, bool crit) {
 
 }
 
-IEnumerator IncreaseXP() {
+public IEnumerator IncreaseXP() {
 	for (int i = 0; i < thisEnemy.exp; i++) {
 		// Animates the increase (because reasons
 		GameObject.Find("Player").GetComponent<PlayerController>().currentExperience++;

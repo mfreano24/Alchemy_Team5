@@ -39,7 +39,6 @@ public class PlayerController : MonoBehaviour {
 
 	void Start() {
 		gv = GameObject.Find("EventSystem").GetComponent<GlobalVars>();
-		playerSpeed = 13;
 	    rb = GetComponent<Rigidbody2D>();
 		sw = sword.GetComponent<BoxCollider2D>();
 	    face_Front_x = 0;

@@ -82,7 +82,10 @@ public class PotionInstance : MonoBehaviour {
 							bool crit = (roll == 0);
 							// Critical hit!
 							enemy.GetComponent<TrainingDummy>().DropHealth(thisPotion.damage * (crit ? 2 : 1), crit);
-
+							if(enemy.GetComponent<TrainingDummy>().thisEnemy.type == "Nitro"){
+								reaction = true;
+								EnemyExplode(enemy, 2f);
+							}
 						}
 					}
 					foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player")) {
@@ -131,11 +134,12 @@ public class PotionInstance : MonoBehaviour {
 						bool crit = (roll == 0);
 						// Critical hit!
 						enemy.GetComponent<TrainingDummy>().DropHealth(thisPotion.damage * (crit ? 2 : 1), crit);
+						StartCoroutine(enemy.GetComponent<TrainingDummy>().IncreaseXP());
 					}
 				}
 				foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player")) {
 					if (Vector3.Distance(player.transform.position, this.transform.position) < thisPotion.size * 3) {
-						player.GetComponent<PlayerController>().takeDamage(20f);
+						player.GetComponent<PlayerController>().takeDamage(player.GetComponent<PlayerController>().maxHealth/3);
 						player.GetComponent<PlayerController>().Knockback(transform.position, player.transform.position);
 					}
 				}
@@ -164,6 +168,13 @@ public class PotionInstance : MonoBehaviour {
 				int roll = Random.Range(0, _critChance);
 				bool crit = (roll == 0);
 				enemy.GetComponent<TrainingDummy>().DropHealth(thisPotion.damage * (crit ? 2 : 1), crit);
+			}
+		}
+
+		foreach(GameObject player in GameObject.FindGameObjectsWithTag("Player")) {
+			if(Vector3.Distance(player.transform.position, e.transform.position) < mult*7.5f) {
+				int roll = Random.Range(0, _critChance);
+				player.GetComponent<PlayerController>().takeDamage(33f);
 			}
 		}
 		Destroy(e);
