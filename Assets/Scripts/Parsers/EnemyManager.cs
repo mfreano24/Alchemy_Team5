@@ -7,7 +7,7 @@ using Alchemy;
 
 public class EnemyManager : MonoBehaviour {
 
-	List<Enemy> enemies = new List<Enemy>();
+	public List<Enemy> enemies = new List<Enemy>();
 
 	public GameObject EnemyPrefab;
 
@@ -105,7 +105,7 @@ public class EnemyManager : MonoBehaviour {
 							break;
 						case (4):
 							// Set up the time it lasts
-							newEnemy.speed = System.Convert.ToInt32(input);
+							newEnemy.speed = (float)System.Convert.ToInt32(input);
 							break;
 						case (5):
 							// Set up the damage it'll do

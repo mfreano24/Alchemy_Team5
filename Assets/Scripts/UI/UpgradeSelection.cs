@@ -1,23 +1,88 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UpgradeSelection : MonoBehaviour {
 
 	PlayerController pc;
 	GlobalVars gv;
 
+	public int currentSelection;
+	public bool upgrading;
+
 	public void Start() {
+		upgrading = false;
+		currentSelection = -1;
 		pc = GameObject.Find("Player").GetComponent<PlayerController>();
 		gv = GameObject.Find("EventSystem").GetComponent<GlobalVars>();
 	}
 
+	private void Update() {
+		if (upgrading) {
+			UpdateLook();
+			if (Input.GetKeyDown(KeyCode.A)) {
+				currentSelection--;
+				if (currentSelection < 0) {
+					currentSelection = 3;
+				}
+			} else if (Input.GetKeyDown(KeyCode.D)) {
+				currentSelection++;
+				if (currentSelection > 3) {
+					currentSelection = 0;
+				}
+			} else if (Input.GetKeyDown(KeyCode.W)) {
+				currentSelection -= 2;
+				if (currentSelection < 0) {
+					currentSelection += 4;
+				}
+			} else if (Input.GetKeyDown(KeyCode.S)) {
+				currentSelection += 2;
+				if (currentSelection > 3) {
+					currentSelection -= 4;
+				}
+			}
+
+			if (Input.GetButtonDown("Submit")) {
+				switch (currentSelection) {
+					case 0:
+						IncreaseMaxHealth();
+						break;
+					case 1:
+						IncreaseHealingFactor();
+						break;
+					case 2:
+						IncreaseCapacity();
+						break;
+					case 3:
+						IncreaseSpeed();
+						break;
+				}
+			}
+		}
+	}
+
+	void UpdateLook() {
+		//HEalth
+		GameObject.Find("HealthButton").GetComponent<Image>().color = (currentSelection == 0) ? Color.green : Color.white;
+		// Factor
+		GameObject.Find("FactorButton").GetComponent<Image>().color = (currentSelection == 1) ? Color.green : Color.white;
+
+		// Capacity
+		GameObject.Find("CapacityButton").GetComponent<Image>().color = (currentSelection == 2) ? Color.green : Color.white;
+
+		//Sepeed
+		GameObject.Find("SpeedButton").GetComponent<Image>().color = (currentSelection == 3) ? Color.green : Color.white;
+	}
+
 	public IEnumerator OnUpgradeBegin() {
+		upgrading = true;
 		gv.playing = false;
 		for (int i = 0; i < 56; i++) {
 			transform.localPosition = new Vector2(0, (float)f(i));
 			yield return new WaitForEndOfFrame();
 		}
+		currentSelection = 0;
 	}
 
 	public void IncreaseMaxHealth() {
@@ -55,6 +120,8 @@ public class UpgradeSelection : MonoBehaviour {
 	}
 
 	public IEnumerator OnUpgradeComplete() {
+		upgrading = false;
+		currentSelection = -1;
 		for (int i = 55; i > -1; i--) {
 			transform.localPosition = new Vector2(0, (float)f(i));
 			yield return new WaitForEndOfFrame();

@@ -27,6 +27,16 @@ public class WaveManager : MonoBehaviour {
 			newEnemy.GetComponent<TrainingDummy>().thisEnemy = new Enemy(current.waveEnemies[j]);
 		}
 
+		if (i == waves.Count - 1) {
+			// Add a random wave if all the manually-implemented waves have been completed.
+			Wave customWave = new Wave();
+			for (int j = 0; j < 3; j++) {
+				customWave.spawnIndices.Add(j);
+				customWave.waveEnemies.Add(this.gameObject.GetComponent<EnemyManager>().enemies[Random.Range(0, this.gameObject.GetComponent<EnemyManager>().enemies.Count)]);
+			}
+			waves.Add(customWave);
+		}
+
 	}
 
 	void CreateIndices() {

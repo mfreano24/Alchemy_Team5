@@ -80,7 +80,7 @@ namespace Alchemy {
 		[SerializeField]
 		public int baseDEF { get; set; }
 		[SerializeField]
-		public int speed { get; set; }
+		public float speed { get; set; }
 		[SerializeField]
 		public string type { get; set; }
 		[SerializeField]
@@ -90,7 +90,7 @@ namespace Alchemy {
 		[SerializeField]
 		float hue { get; set; }
 
-		public Enemy(string name, int hp, int atk, int def, int sp, string tp, int ex) {
+		public Enemy(string name, int hp, int atk, int def, float sp, string tp, int ex) {
 			this.name = name;
 			this.baseHP = hp;
 			this.baseATK = atk;
