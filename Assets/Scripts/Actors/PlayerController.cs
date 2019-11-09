@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour {
 	public List<InventorySlot> inventory;
 	int BASE_COUNT = 2;
 
+	public Animator anim;
+
 	// UPGRADEABLE DATA
 	public int MAX_ITEMS = 5; // Maximum number of each element carried
 	public float maxHealth = 100; // Maximum player health
@@ -43,6 +45,8 @@ public class PlayerController : MonoBehaviour {
 		sw = sword.GetComponent<BoxCollider2D>();
 	    face_Front_x = 0;
 	    face_Front_y = -1;
+
+		anim = this.gameObject.GetComponent<Animator>();
 		// DEBUGGING PURPOSES ONLY
 		inventory = new List<InventorySlot>();
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 5));
@@ -56,6 +60,9 @@ public class PlayerController : MonoBehaviour {
 
 		UpdateUI();
 		PickupItems();
+
+		anim.SetFloat("Speed", moveDirection.magnitude);
+		anim.SetInteger("Direction", MapDirection(face_Front_x, face_Front_y));
 	}
 
 	void PickupItems() {
@@ -166,11 +173,9 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		GameObject.Find("Health").GetComponent<Image>().fillAmount = currentHealth / maxHealth;
+		GameObject.Find("BonusHealth").GetComponent<Image>().fillAmount = (currentHealth - maxHealth) / maxHealth;
 
-		if (currentHealth > maxHealth) {
-			// Golden apple effect!
-			GameObject.Find("Health").GetComponent<Image>().color = new Color(177f / 255f, 0, 1);
-		} else if (currentHealth > 2 * maxHealth / 3) {
+		if (currentHealth > 2 * maxHealth / 3) {
 			GameObject.Find("Health").GetComponent<Image>().color = new Color(0, 1, 0);
 		} else if (currentHealth > maxHealth / 4) {
 			GameObject.Find("Health").GetComponent<Image>().color = new Color(1, 1, 0);
@@ -225,5 +230,9 @@ public class PlayerController : MonoBehaviour {
 			face_Front_x = temp_x;
 			face_Front_y = temp_y;
 		}
+	}
+
+	int MapDirection(float x, float y) {
+		return (int)(3 * x + 2 * y);
 	}
 }
