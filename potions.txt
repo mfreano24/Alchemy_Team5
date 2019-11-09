@@ -35,7 +35,7 @@ Oxygen
 None
 Wind
 4
-1000
+500
 0
 Windbox
 -----
@@ -43,7 +43,7 @@ Greater Oxygen
 Oxygen, Oxygen
 Wind
 7
-500
+250
 0
 Windbox
 -----

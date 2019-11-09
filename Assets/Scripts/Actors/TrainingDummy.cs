@@ -99,13 +99,14 @@ public class TrainingDummy : MonoBehaviour {
 			if(other.CompareTag("Player") && !other.GetComponent<PlayerController>().invincibility){} */
 		if(other.CompareTag("Player")) {
 			other.GetComponent<PlayerController>().takeDamage(2.5f);
-			other.GetComponent<PlayerController>().Knockback(this.transform.position, other.transform.position);
+			other.GetComponent<PlayerController>().Knockback(0.2f, 0.5f, this.transform);
 			/*if(other.GetComponent<PlayerController>().currentHealth <= 0){
 				GameOver();
 			} */
 		}
 	}
-	
+
+
 	public void DropHealth(int i, bool crit) {
 		if (thisEnemy.baseHP > 0) {
 			GameObject damage = (GameObject)Instantiate(Resources.Load("Damage") as Object, this.transform);
@@ -134,11 +135,24 @@ public class TrainingDummy : MonoBehaviour {
 			yield return new WaitForSeconds(0.01f);
 		}
 	}
-	
-	//public void OnDrawGizmos() {
-	//	if (path != null) {
-	//		path.DrawWithGizmos();
-	//	}
-	//}
+
+public IEnumerator Knockback(float duration, float pow, Transform other){
+	float time = 0;
+	while(duration > time){
+		time +=Time.deltaTime;
+		Vector2 direction = (other.transform.position - transform.position).normalized;
+		rb.AddForce(-direction * pow);
+		yield return new WaitForSeconds(0.1f);
+	}
+	yield return 0;
+}
+
+//public void OnDrawGizmos() {
+//	if (path != null) {
+//		path.DrawWithGizmos();
+//	}
+//}
 
 }
+
+
