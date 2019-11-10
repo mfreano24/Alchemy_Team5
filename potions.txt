@@ -68,6 +68,6 @@ Sulfur, Oxygen
 Explosion
 10
 450
-450
+35
 Damage
 

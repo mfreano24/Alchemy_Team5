@@ -16,7 +16,6 @@ public class PotionInstance : MonoBehaviour {
 			yield return new WaitForSeconds(thisPotion.time / 1000f);
 
 			if (thisPotion.name == "Sulfur") {
-				Debug.Log("Dropped Sulfur!");
 				for (int i = 0; i < 5; i++) {
 					foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
 						if (Vector3.Distance(enemy.transform.position, this.transform.position) < thisPotion.size * 5) {
@@ -61,12 +60,12 @@ public class PotionInstance : MonoBehaviour {
 			else if (thisPotion.name == "Oxygen") {
 				foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
 					if (Vector3.Distance(enemy.transform.position, this.transform.position) < thisPotion.size * 3){
-						enemy.GetComponent<TrainingDummy>().Knockback(0.2f, 0.5f, this.transform);
+						StartCoroutine(enemy.GetComponent<TrainingDummy>().Knockback(0.2f, 0.8f, this.transform));
 					}
 				}
 				foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player")) {
 					if (Vector3.Distance(player.transform.position, this.transform.position) < thisPotion.size * 3){
-						player.GetComponent<PlayerController>().Knockback(0.5f, 0.50f, this.transform);
+						StartCoroutine(player.GetComponent<TrainingDummy>().Knockback(0.2f, 0.8f, this.transform));
 					}
 				}
 			}
@@ -122,7 +121,7 @@ public class PotionInstance : MonoBehaviour {
 				}
 				foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player")) {
 					if (Vector3.Distance(player.transform.position, this.transform.position) < thisPotion.size * 3){
-						StartCoroutine(player.GetComponent<PlayerController>().Knockback(0.5f, 0.8f, this.transform));
+						StartCoroutine(player.GetComponent<TrainingDummy>().Knockback(0.2f, 0.8f, this.transform));
 					}
 				}
 			}
@@ -134,14 +133,14 @@ public class PotionInstance : MonoBehaviour {
 						bool crit = (roll == 0);
 						// Critical hit!
 						enemy.GetComponent<TrainingDummy>().DropHealth(thisPotion.damage * (crit ? 2 : 1), crit);
-						StartCoroutine(enemy.GetComponent<TrainingDummy>().Knockback(0.3f, 0.125f, this.transform));
+						StartCoroutine(enemy.GetComponent<TrainingDummy>().Knockback(0.2f, 0.8f, this.transform));
 						StartCoroutine(enemy.GetComponent<TrainingDummy>().IncreaseXP());
 					}
 				}
 				foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player")) {
 					if (Vector3.Distance(player.transform.position, this.transform.position) < thisPotion.size * 3) {
 						player.GetComponent<PlayerController>().takeDamage(player.GetComponent<PlayerController>().maxHealth/3);
-						StartCoroutine(player.GetComponent<PlayerController>().Knockback(0.3f, 0.125f, this.transform));
+						StartCoroutine(player.GetComponent<TrainingDummy>().Knockback(0.2f, 0.8f, this.transform));
 					}
 				}
 			}
@@ -160,6 +159,27 @@ public class PotionInstance : MonoBehaviour {
 			}
 			
 			else if (thisPotion.name == "Volcano") {
+				for (int i = 0; i < 10; i++) {
+					foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
+						if (Vector3.Distance(enemy.transform.position, this.transform.position) < thisPotion.size * 10) {
+							int roll = Random.Range(0, _critChance);
+							bool crit = (roll == 0);
+							// Critical hit!
+							enemy.GetComponent<TrainingDummy>().DropHealth(thisPotion.damage * (crit ? 2 : 1), crit);
+							if(enemy.GetComponent<TrainingDummy>().thisEnemy.type == "Nitro"){
+								reaction = true;
+								EnemyExplode(enemy, 0.025f);
+							}
+						}
+					}
+
+					foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player")) {
+						if (Vector3.Distance(player.transform.position, this.transform.position) < thisPotion.size * 3) {
+							player.GetComponent<PlayerController>().currentHealth -= 0.0125f * player.GetComponent<PlayerController>().maxHealth;
+						}
+					}
+					yield return new WaitForSeconds(0.125f);
+				}
 
 			}
 
@@ -187,6 +207,7 @@ public class PotionInstance : MonoBehaviour {
 			if(Vector3.Distance(player.transform.position, e.transform.position) < mult*7.5f) {
 				int roll = Random.Range(0, _critChance);
 				player.GetComponent<PlayerController>().takeDamage(20f);
+				player.GetComponent<PlayerController>().CallKB(0.3f, 0.125f, this.transform);
 			}
 		}
 		Destroy(e);

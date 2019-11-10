@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour {
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[5], 5));
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[6], 5));
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[7], 5));
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[8], 5));
 		selectedPotion = inventory[0];
 	}
 
@@ -185,13 +186,16 @@ public class PlayerController : MonoBehaviour {
 		currentHealth-=d;
 	}
 
+	public void CallKB(float duration, float pow, Transform other){
+		StartCoroutine(Knockback(duration,pow,other));
+	}
+
 	public IEnumerator Knockback(float duration, float pow, Transform other){
 		float time = 0;
 		while(duration > time){
 			time +=Time.deltaTime;
 			Vector2 direction = (other.transform.position - this.transform.position).normalized;
 			rb.AddForce(-direction * pow);
-			yield return new WaitForSeconds(0.1f);
 		}
 		yield return 0;
 	}

@@ -120,13 +120,16 @@ public class TrainingDummy : MonoBehaviour {
 		}
 	}
 
+
+public void CallKB(float duration, float pow, Transform other){
+	StartCoroutine(Knockback(duration,pow,other));
+}
 public IEnumerator Knockback(float duration, float pow, Transform other){
 	float time = 0;
 	while(duration > time){
 		time +=Time.deltaTime;
 		Vector2 direction = (other.transform.position - transform.position).normalized;
 		rb.AddForce(-direction * pow);
-		yield return new WaitForSeconds(0.1f);
 	}
 	yield return 0;
 }
