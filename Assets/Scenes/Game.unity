@@ -335,6 +335,26 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4846755471278552338, guid: 4b85c94d4b79e0346abadd5e33358466,
+        type: 3}
+      propertyPath: m_Name
+      value: FactorButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846755471876634018, guid: 4b85c94d4b79e0346abadd5e33358466,
+        type: 3}
+      propertyPath: m_Name
+      value: HealthButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846755472463502320, guid: 4b85c94d4b79e0346abadd5e33358466,
+        type: 3}
+      propertyPath: m_Name
+      value: CapacityButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846755472604127290, guid: 4b85c94d4b79e0346abadd5e33358466,
+        type: 3}
+      propertyPath: m_Name
+      value: SpeedButton
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b85c94d4b79e0346abadd5e33358466, type: 3}
 --- !u!1 &369388013 stripped
