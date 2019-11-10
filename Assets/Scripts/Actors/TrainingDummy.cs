@@ -84,25 +84,9 @@ public class TrainingDummy : MonoBehaviour {
 	}
 	
 	private void OnTriggerEnter2D(Collider2D other) {
-		//Add an int condition check in playercontroller called invin, in which:
-		/*THIS FUNCTION:
-			other.GetComponent<PlayerController>().invin += 10;
-		IN PLAYERCONTROLLER:
-			if(invin > 0){
-				invincibility = true;
-				invin-=1;
-			}
-			else{
-				invincibility = false;
-			}
-		THIS FUNCTION:
-			if(other.CompareTag("Player") && !other.GetComponent<PlayerController>().invincibility){} */
 		if(other.CompareTag("Player")) {
 			other.GetComponent<PlayerController>().takeDamage(2.5f);
 			other.GetComponent<PlayerController>().Knockback(0.2f, 0.5f, this.transform);
-			/*if(other.GetComponent<PlayerController>().currentHealth <= 0){
-				GameOver();
-			} */
 		}
 	}
 
@@ -144,6 +128,18 @@ public IEnumerator Knockback(float duration, float pow, Transform other){
 		rb.AddForce(-direction * pow);
 		yield return new WaitForSeconds(0.1f);
 	}
+	yield return 0;
+}
+
+
+public void CallSlowDown(float duration, int strength){
+	StartCoroutine(SlowdownDebuff(duration,strength));
+}
+public IEnumerator SlowdownDebuff(float duration, int strength){
+	float tempSpeed = thisEnemy.speed;
+	thisEnemy.speed -= strength;
+	yield return new WaitForSeconds(duration);
+	thisEnemy.speed = tempSpeed;
 	yield return 0;
 }
 

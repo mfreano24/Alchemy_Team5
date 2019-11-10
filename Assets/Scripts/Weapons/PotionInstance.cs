@@ -44,7 +44,7 @@ public class PotionInstance : MonoBehaviour {
 			else if (thisPotion.name == "Nitrogen") {
 				foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
 					if (Vector3.Distance(enemy.transform.position, this.transform.position) < thisPotion.size * 3) {
-						enemy.GetComponent<TrainingDummy>().thisEnemy.speed -= 1;
+						enemy.GetComponent<TrainingDummy>().CallSlowDown(1,1);
 						if(enemy.GetComponent<TrainingDummy>().thisEnemy.type == "Sulfur"){
 							reaction = true;
 							EnemyExplode(enemy, 1f);
@@ -53,27 +53,20 @@ public class PotionInstance : MonoBehaviour {
 				}
 				foreach(GameObject player in GameObject.FindGameObjectsWithTag("Player")){
 					if(Vector3.Distance(player.transform.position, this.transform.position) < thisPotion.size * 3){
-						player.GetComponent<PlayerController>().playerSpeed -= 1;
+						player.GetComponent<PlayerController>().CallSlowDown(1,1);
 					}
-				}
-				yield return new WaitForSeconds(1f);
-				foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
-					enemy.GetComponent<TrainingDummy>().thisEnemy.speed += 1;
-				}
-				foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player")) {
-					player.GetComponent<PlayerController>().playerSpeed += 1;
 				}
 			}
 			
 			else if (thisPotion.name == "Oxygen") {
 				foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
 					if (Vector3.Distance(enemy.transform.position, this.transform.position) < thisPotion.size * 3){
-						StartCoroutine(enemy.GetComponent<TrainingDummy>().Knockback(0.2f, 0.5f, this.transform));
+						enemy.GetComponent<TrainingDummy>().Knockback(0.2f, 0.5f, this.transform);
 					}
 				}
 				foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player")) {
 					if (Vector3.Distance(player.transform.position, this.transform.position) < thisPotion.size * 3){
-						StartCoroutine(player.GetComponent<PlayerController>().Knockback(0.5f, 0.50f, this.transform));
+						player.GetComponent<PlayerController>().Knockback(0.5f, 0.50f, this.transform);
 					}
 				}
 			}
@@ -107,7 +100,7 @@ public class PotionInstance : MonoBehaviour {
 			else if (thisPotion.name == "Greater Nitrogen") {
 				foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
 					if (Vector3.Distance(enemy.transform.position, this.transform.position) < thisPotion.size * 3) {
-						enemy.GetComponent<TrainingDummy>().thisEnemy.speed -= 2;
+						enemy.GetComponent<TrainingDummy>().CallSlowDown(2,2);
 						if(enemy.GetComponent<TrainingDummy>().thisEnemy.type == "Sulfur"){
 							reaction = true;
 							EnemyExplode(enemy, 2f);
@@ -116,15 +109,8 @@ public class PotionInstance : MonoBehaviour {
 				}
 				foreach(GameObject player in GameObject.FindGameObjectsWithTag("Player")){
 					if(Vector3.Distance(player.transform.position, this.transform.position) < thisPotion.size * 3){
-						player.GetComponent<PlayerController>().playerSpeed -= 2;
+						player.GetComponent<PlayerController>().CallSlowDown(2,2);
 					}
-				}
-				yield return new WaitForSeconds(1f);
-				foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
-					enemy.GetComponent<TrainingDummy>().thisEnemy.speed += 2;
-				}
-				foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player")) {
-					player.GetComponent<PlayerController>().playerSpeed += 2;
 				}
 			}
 
@@ -160,10 +146,20 @@ public class PotionInstance : MonoBehaviour {
 				}
 			}
 			
-			else if (thisPotion.name == "(Nitrogen-OxygenMix)") {
+			else if (thisPotion.name == "Time Warp") {
+				foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
+					if (Vector3.Distance(enemy.transform.position, this.transform.position) < thisPotion.size * 10) {
+						enemy.GetComponent<TrainingDummy>().CallSlowDown(3,1);
+					}
+				}
+				foreach(GameObject player in GameObject.FindGameObjectsWithTag("Player")){
+					if(Vector3.Distance(player.transform.position, this.transform.position) < thisPotion.size * 10){
+						player.GetComponent<PlayerController>().CallSlowDown(5,3);
+					}
+				}
 			}
 			
-			else if (thisPotion.name == "(Sulfur-OxygenMix)") {
+			else if (thisPotion.name == "Volcano") {
 
 			}
 

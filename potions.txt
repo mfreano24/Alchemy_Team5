@@ -55,15 +55,15 @@ Explosion
 650
 Damage
 -----
-(Nitrogen - Oxygen Mix)
+Time Warp
 Oxygen, Nitrogen
 Cyclone
 5
-500
-50
+750
+0
 Wind
 -----
-(Sulfur - Oxygen Mix)
+Volcano
 Sulfur, Oxygen
 Explosion
 10

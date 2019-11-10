@@ -80,7 +80,7 @@ namespace Alchemy {
 		[SerializeField]
 		public int baseDEF { get; set; }
 		[SerializeField]
-		public int speed { get; set; }
+		public float speed { get; set; }
 		[SerializeField]
 		public string type { get; set; }
 		[SerializeField]

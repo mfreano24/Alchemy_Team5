@@ -52,8 +52,11 @@ public class PlayerController : MonoBehaviour {
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 5));
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[1], 5));
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[2], 5));
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[3], 5));
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[4], 5));
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[5], 5));
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[6], 5));
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[7], 5));
 		selectedPotion = inventory[0];
 	}
 
@@ -104,9 +107,6 @@ public class PlayerController : MonoBehaviour {
 		}
 		else {
 	        endlag -= 1; //frame countdown
-	        if (endlag == 0) {
-	            Destroy(sword_inst);
-	        }
 	    }	
 	}
 
@@ -120,20 +120,6 @@ public class PlayerController : MonoBehaviour {
 	void Attack() {
 		//ISSUE WITH SWORD FACINGS: there is a good 20-30 frame window where switching between A and D / W and S where the input.getaxis function returns 0 instead of +-1.
 		//Possile remedies?
-		if (Input.GetButtonDown("Fire1")) {
-			sword_inst = Instantiate(sword);
-			sword_inst.transform.position = new Vector3(player.transform.position.x + 1.25f * face_Front_x, player.transform.position.y + 1.25f * face_Front_y, 0.0f);
-			//rotation
-			if (face_Front_x == -1) {
-				sword_inst.transform.eulerAngles = new Vector3(0, 0, 90 - face_Front_y * 45);
-			} else if (face_Front_x == 0) {
-				sword_inst.transform.eulerAngles = new Vector3(0, 0, 90 - 90 * face_Front_y);
-			} else if (face_Front_x == 1) {
-				sword_inst.transform.eulerAngles = new Vector3(0, 0, -90 + face_Front_y * 45);
-			}
-
-			endlag += 15;
-		}
 		if (Input.GetButtonDown("Fire2")) {
 			usePotion();
 		}
@@ -207,6 +193,18 @@ public class PlayerController : MonoBehaviour {
 			rb.AddForce(-direction * pow);
 			yield return new WaitForSeconds(0.1f);
 		}
+		yield return 0;
+	}
+
+	public void CallSlowDown(float duration, int strength){
+		StartCoroutine(SlowdownDebuff(duration,strength));
+	}
+
+	public IEnumerator SlowdownDebuff(float duration, int strength){
+		int tempSpeed = playerSpeed;
+		playerSpeed -= strength;
+		yield return new WaitForSeconds(1f);
+		playerSpeed = tempSpeed;
 		yield return 0;
 	}
 
