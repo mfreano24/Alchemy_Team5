@@ -18,7 +18,7 @@ public class DamageIndicator : MonoBehaviour {
 
 	IEnumerator Animate() {
 		for (int i = 0; i < 25; i++) {
-			this.transform.localPosition = new Vector3(this.transform.localPosition.x, this.transform.localPosition.y + 0.08f, this.transform.localPosition.z);
+			this.transform.localPosition = new Vector3(this.transform.localPosition.x, this.transform.localPosition.y + 0.02f, this.transform.localPosition.z);
 			yield return new WaitForSeconds(0.0001f);
 		}
 

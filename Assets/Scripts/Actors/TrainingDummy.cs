@@ -18,8 +18,8 @@ public class TrainingDummy : MonoBehaviour {
 	
 	Path path;
 	
-	const float minPathUpdateTime = 0.2f;
-	const float pathUpdateThreshold = 0.5f;
+	const float minPathUpdateTime = 0.1f;
+	const float pathUpdateThreshold = 0.1f;
 	
 	int targetIndex;
 		
@@ -82,18 +82,19 @@ public class TrainingDummy : MonoBehaviour {
 	
 		}
 	}
-	
-	private void OnTriggerEnter2D(Collider2D other) {
-		if(other.CompareTag("Player")) {
-			other.GetComponent<PlayerController>().takeDamage(2.5f);
-			other.GetComponent<PlayerController>().Knockback(0.2f, 0.5f, this.transform);
+
+	private void OnTriggerStay2D(Collider2D collision) {
+		if (collision.CompareTag("Player")) {
+			collision.GetComponent<PlayerController>().takeDamage(2.5f);
+			collision.GetComponent<PlayerController>().Knockback(0.2f, 0.5f, this.transform);
 		}
 	}
-
-
+	
 	public void DropHealth(int i, bool crit) {
 		if (thisEnemy.baseHP > 0) {
-			GameObject damage = (GameObject)Instantiate(Resources.Load("Damage") as Object, this.transform);
+			GameObject damage = (GameObject)Instantiate(Resources.Load("Damage") as Object, transform.position, Quaternion.identity);
+			// <If possible> damage.transform.GetChild(0).transform.localScale = new Vector3(0.8f / transform.localScale.x, 0.46f / transform.localScale.y, 1); 
+			damage.transform.SetParent(transform);
 			thisEnemy.baseHP -= i;
 	
 			if (thisEnemy.baseHP <= 0) {

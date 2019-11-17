@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour {
 	private GameObject sword_inst;
 	public InventorySlot selectedPotion;
 	public GameObject potionPrefab;
+	public bool invincibility;
 
 	public float currentHealth = 100;
 	public float maxExperience;
@@ -47,18 +48,20 @@ public class PlayerController : MonoBehaviour {
 	    face_Front_y = -1;
 
 		anim = this.gameObject.GetComponent<Animator>();
+
 		// DEBUGGING PURPOSES ONLY
 		inventory = new List<InventorySlot>();
-		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 5));
-		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[1], 5));
-		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[2], 5));
-		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[3], 5));
-		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[4], 5));
-		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[5], 5));
-		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[6], 5));
-		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[7], 5));
-		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[8], 5));
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 3));
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[1], 3));
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[2], 3));
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[3], 3));
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[4], 3));
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[5], 3));
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[6], 3));
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[7], 3));
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[8], 3));
 		selectedPotion = inventory[0];
+		invincibility = false;
 	}
 
 	void Update () {
@@ -208,8 +211,12 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	public void takeDamage(float d){
-		currentHealth-=d;
+	public void takeDamage(float d) {
+		if(!invincibility){
+			currentHealth-=d;
+			invincibility = true;
+		}
+
 	}
 
 	public void CallKB(float duration, float pow, Transform other){

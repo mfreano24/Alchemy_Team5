@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Alchemy;
 using System.Linq;
+using System;
 
 public class PotionCrafting : MonoBehaviour {
 	// Initial values
@@ -14,28 +15,32 @@ public class PotionCrafting : MonoBehaviour {
 	Potion craftedPotion = null;
 
 	PlayerController pc;
+	GlobalVars gv;
 
 	private void Start() {
 		ingredients = GameObject.Find("Ingredients").GetComponent<Text>();
 		preview = GameObject.Find("Preview").GetComponent<Text>();
 
 		pc = GameObject.Find("Player").GetComponent<PlayerController>();
+		gv = GameObject.Find("EventSystem").GetComponent<GlobalVars>();
 
 		ingredients.text = "";
 		preview.text = "";
 	}
 
 	private void Update() {
-		if (Input.GetKeyDown(KeyCode.LeftShift) && pc.selectedPotion.count > 0) {
-			AddIngredient();
-		}
+		if (gv.playing) {
+			if (Input.GetKeyDown(KeyCode.LeftShift) && pc.selectedPotion.count > 0) {
+				AddIngredient();
+			}
 
-		if (Input.GetKeyDown(KeyCode.Space)) {
-			CraftPotion();
-		}
+			if (Input.GetKeyDown(KeyCode.Space)) {
+				CraftPotion();
+			}
 
-		if (Input.GetKeyDown(KeyCode.Escape)) {
-			Cancel();
+			if (Input.GetKeyDown(KeyCode.Escape)) {
+				Cancel();
+			}
 		}
 	}
 
@@ -88,8 +93,17 @@ public class PotionCrafting : MonoBehaviour {
 			foreach (InventorySlot slot in pc.inventory) {
 				if (craftedPotion == slot.item) {
 					// The item exists already
+					if (slot.count == pc.MAX_ITEMS) {
+						string created = preview.text;
+						Cancel();
+						ingredients.text = "Maximum capacity for " + created + " achieved!";
+						return;
+					}
 					slot.count++;
-					break;
+					craftedPotion = null;
+					crafting = new List<Potion>();
+					CraftingUpdated();
+					return;
 				}
 			}
 
