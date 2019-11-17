@@ -14,28 +14,32 @@ public class PotionCrafting : MonoBehaviour {
 	Potion craftedPotion = null;
 
 	PlayerController pc;
+	GlobalVars gv;
 
 	private void Start() {
 		ingredients = GameObject.Find("Ingredients").GetComponent<Text>();
 		preview = GameObject.Find("Preview").GetComponent<Text>();
 
 		pc = GameObject.Find("Player").GetComponent<PlayerController>();
+		gv = GameObject.Find("EventSystem").GetComponent<GlobalVars>();
 
 		ingredients.text = "";
 		preview.text = "";
 	}
 
 	private void Update() {
-		if (Input.GetKeyDown(KeyCode.LeftShift) && pc.selectedPotion.count > 0) {
-			AddIngredient();
-		}
+		if (gv.playing) {
+			if (Input.GetKeyDown(KeyCode.LeftShift) && pc.selectedPotion.count > 0) {
+				AddIngredient();
+			}
 
-		if (Input.GetKeyDown(KeyCode.Space)) {
-			CraftPotion();
-		}
+			if (Input.GetKeyDown(KeyCode.Space)) {
+				CraftPotion();
+			}
 
-		if (Input.GetKeyDown(KeyCode.Escape)) {
-			Cancel();
+			if (Input.GetKeyDown(KeyCode.Escape)) {
+				Cancel();
+			}
 		}
 	}
 

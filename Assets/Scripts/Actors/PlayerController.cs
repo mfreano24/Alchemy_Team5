@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour {
 	    face_Front_y = -1;
 
 		anim = this.gameObject.GetComponent<Animator>();
+
 		// DEBUGGING PURPOSES ONLY
 		inventory = new List<InventorySlot>();
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 5));
@@ -208,7 +209,7 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	public void takeDamage(float d){
+	public void takeDamage(float d) {
 		currentHealth-=d;
 	}
 

@@ -6,11 +6,13 @@ using UnityEngine.UI;
 public class PotionDisplay : MonoBehaviour {
 
 	PlayerController pc;
+	GlobalVars gv;
 
     Text current_potion;
     int iterator;
     void Start() {
 		pc = GameObject.Find("Player").GetComponent<PlayerController>();
+		gv = GameObject.Find("EventSystem").GetComponent<GlobalVars>();
 		current_potion = GetComponent<Text>();
         iterator = 0;
     }
@@ -29,14 +31,14 @@ public class PotionDisplay : MonoBehaviour {
 
         //TODO: Skipping system for elements we dont have any of?
 		// TO-DO: SET THESE AS GLOBAL INPUTS
-        if(Input.GetKeyDown(KeyCode.E)) {
+        if(Input.GetKeyDown(KeyCode.E) && gv.playing) {
             iterator++;
             if(iterator == pc.inventory.Count) {
                 iterator = 0;
             }
 
         }
-        if(Input.GetKeyDown(KeyCode.Q)) {
+        if(Input.GetKeyDown(KeyCode.Q) && gv.playing) {
             iterator--;
             if(iterator == -1){
                 iterator = pc.inventory.Count - 1;

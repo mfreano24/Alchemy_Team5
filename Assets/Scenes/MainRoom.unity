@@ -2215,6 +2215,11 @@ PrefabInstance:
       propertyPath: worldSize.x
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 3639278573182168225, guid: 356cd05989b699c4886a1a4054e496b0,
+        type: 3}
+      propertyPath: nodeRadius
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 356cd05989b699c4886a1a4054e496b0, type: 3}
 --- !u!1001 &531219850
