@@ -62,12 +62,35 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update () {
+		if (gv.playing) {
+			UpdateUI();
+			PickupItems();
+			CheckWall();
 
-		UpdateUI();
-		PickupItems();
+			anim.SetFloat("Speed", moveDirection.magnitude);
+			anim.SetInteger("Direction", MapDirection(face_Front_x, face_Front_y));
 
-		anim.SetFloat("Speed", moveDirection.magnitude);
-		anim.SetInteger("Direction", MapDirection(face_Front_x, face_Front_y));
+			if (Input.GetButtonDown("Pause")) {
+				gv.playing = false;
+			}
+		}
+	}
+
+	void CheckWall() {
+		int maxX = gv.worldSizeX;
+		int maxY = gv.worldSizeY;
+
+		if (transform.position.x > maxX + 3) {
+			this.transform.position = new Vector2(maxX, transform.position.y);
+		} else if (transform.position.x < -maxX - 3) {
+			this.transform.position = new Vector2(-maxX, transform.position.y);
+		}
+
+		if (transform.position.y > maxY + 3) {
+			transform.position = new Vector2(transform.position.x, maxY);
+		} else if (transform.position.y < -maxY - 3) {
+			transform.position = new Vector2(transform.position.x, -maxY);
+		}
 	}
 
 	void PickupItems() {
@@ -97,18 +120,21 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-		if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0 ) {
-			//NEED A CONDITION THAT WORKS BETTER HERE
-			Assign_LastDirection();
+		if (gv.playing) {
+			if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) {
+				//NEED A CONDITION THAT WORKS BETTER HERE
+				Assign_LastDirection();
+			}
+
+			if (endlag == 0) {
+				Move();
+				Attack();
+			} else {
+				endlag -= 1; //frame countdown
+			}
+		} else {
+			anim.SetFloat("Speed", 0);
 		}
-		
-		if(endlag == 0) {
-			Move();
-			Attack();
-		}
-		else {
-	        endlag -= 1; //frame countdown
-	    }	
 	}
 
 	void Move() {
