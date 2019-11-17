@@ -214,9 +214,17 @@ public class PlayerController : MonoBehaviour {
 	public void takeDamage(float d) {
 		if(!invincibility){
 			currentHealth-=d;
-			invincibility = true;
+			StartCoroutine(IFrames());
 		}
+	}
 
+	public IEnumerator IFrames(){
+		invincibility = true;
+		Color temp = GetComponent<SpriteRenderer>().color;
+		GetComponent<SpriteRenderer>().color = new Color(1,1,1,0.65f);
+		yield return new WaitForSeconds(2.5f);
+		GetComponent<SpriteRenderer>().color = temp;
+		invincibility = false;
 	}
 
 	public void CallKB(float duration, float pow, Transform other){

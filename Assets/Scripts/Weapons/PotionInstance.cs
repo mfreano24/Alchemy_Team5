@@ -22,27 +22,8 @@ public class PotionInstance : MonoBehaviour {
 				hb_inst.transform.position = this.transform.position;
 				hb_inst.transform.localScale = new Vector3(thisPotion.size*3.5f,thisPotion.size*3.5f,0.0f);
 				hb_inst.GetComponent<SpriteRenderer>().color = new Color(214f/255f, 143f/255f, 81f/255f, 50f/100f);
-				for (int i = 0; i < 5; i++) {
-					foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
-						if (Vector3.Distance(enemy.transform.position, this.transform.position) < thisPotion.size * 3.5f) {
-							int roll = Random.Range(0, _critChance);
-							bool crit = (roll == 0);
-							// Critical hit!
-							enemy.GetComponent<TrainingDummy>().DropHealth(thisPotion.damage * (crit ? 2 : 1), crit);
-							if(enemy.GetComponent<TrainingDummy>().thisEnemy.type == "Nitro"){
-								reaction = true;
-								EnemyExplode(enemy, 1);
-							}
-						}
-					}
-
-					foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player")) {
-						if (Vector3.Distance(player.transform.position, this.transform.position) < thisPotion.size * 3.5f) {
-							player.GetComponent<PlayerController>().currentHealth -= 0.0125f * player.GetComponent<PlayerController>().maxHealth;
-						}
-					}
-					yield return new WaitForSeconds(0.5f);
-				}
+				StartCoroutine(Damage_Over_Time(0.0125f,3.5f,0.5f,5));
+				yield return new WaitForSeconds(2.5f);
 				Destroy(hb_inst);
 			}
 
@@ -90,31 +71,13 @@ public class PotionInstance : MonoBehaviour {
 			}
 			
 			
-			else if (thisPotion.name == "Greater Sulfur") {
+			else if (thisPotion.name == "Greater Sulfur") {//0.0125f, 2, 0.3f, 10
 				hb_inst = Instantiate(hitbox);
 				hb_inst.transform.position = this.transform.position;
 				hb_inst.transform.localScale = new Vector3(thisPotion.size*2f,thisPotion.size*2f,0.0f);
 				hb_inst.GetComponent<SpriteRenderer>().color = new Color(214f/255f, 143f/255f, 81f/255f, 75f/100f);
-				for (int i = 0; i < 10; i++) {
-					foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
-						if (Vector3.Distance(enemy.transform.position, this.transform.position) < thisPotion.size * 2) {
-							int roll = Random.Range(0, _critChance);
-							bool crit = (roll == 0);
-							// Critical hit!
-							enemy.GetComponent<TrainingDummy>().DropHealth(thisPotion.damage * (crit ? 2 : 1), crit);
-							if(enemy.GetComponent<TrainingDummy>().thisEnemy.type == "Nitro"){
-								reaction = true;
-								EnemyExplode(enemy, 2f);
-							}
-						}
-					}
-					foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player")) {
-						if (Vector3.Distance(player.transform.position, this.transform.position) < thisPotion.size * 3) {
-							player.GetComponent<PlayerController>().currentHealth -= 0.0125f * player.GetComponent<PlayerController>().maxHealth;
-						}
-					}
-					yield return new WaitForSeconds(0.3f);
-				}
+				StartCoroutine(Damage_Over_Time(0.0125f,2,0.3f,10));
+				yield return new WaitForSeconds(3f);
 				Destroy(hb_inst);
 			}
 			
@@ -204,32 +167,13 @@ public class PotionInstance : MonoBehaviour {
 				Destroy(hb_inst);
 			}
 			
-			else if (thisPotion.name == "Volcano") {
+			else if (thisPotion.name == "Volcano") { //0.0125, 10, 0.125, 10
 				hb_inst = Instantiate(hitbox);
 				hb_inst.transform.position = this.transform.position;
 				hb_inst.transform.localScale = new Vector3(thisPotion.size*1.5f,thisPotion.size*1.5f,0.0f);
 				hb_inst.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f, 75f/100f);
-				for (int i = 0; i < 10; i++) {
-					foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
-						if (Vector3.Distance(enemy.transform.position, this.transform.position) < thisPotion.size * 10) {
-							int roll = Random.Range(0, _critChance);
-							bool crit = (roll == 0);
-							// Critical hit!
-							enemy.GetComponent<TrainingDummy>().DropHealth(thisPotion.damage * (crit ? 2 : 1), crit);
-							if(enemy.GetComponent<TrainingDummy>().thisEnemy.type == "Nitro"){
-								reaction = true;
-								EnemyExplode(enemy, 0.025f);
-							}
-						}
-					}
-
-					foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player")) {
-						if (Vector3.Distance(player.transform.position, this.transform.position) < thisPotion.size * 3) {
-							player.GetComponent<PlayerController>().currentHealth -= 0.0125f * player.GetComponent<PlayerController>().maxHealth;
-						}
-					}
-					yield return new WaitForSeconds(0.125f);
-				}
+				StartCoroutine(Damage_Over_Time(0.0125f,10,0.125f,10));
+				yield return new WaitForSeconds(1.25f);
 				Destroy(hb_inst);
 
 			}
@@ -264,4 +208,29 @@ public class PotionInstance : MonoBehaviour {
 		Destroy(e);
 	}
 
+
+
+	//OPTIMIZING
+	public IEnumerator Damage_Over_Time(float damage_mult, float size_mult, float time_between, int reps){
+		for (int i = 0; i < reps; i++) {
+			foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
+				if (Vector3.Distance(enemy.transform.position, this.transform.position) < thisPotion.size * size_mult) {
+					int roll = Random.Range(0, _critChance);
+					bool crit = (roll == 0);
+					// Critical hit!
+					enemy.GetComponent<TrainingDummy>().DropHealth(thisPotion.damage * (crit ? 2 : 1), crit);
+					if(enemy.GetComponent<TrainingDummy>().thisEnemy.type == "Nitro"){
+						reaction = true;
+						EnemyExplode(enemy, size_mult/3.5f);
+					}
+				}
+			}
+			foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player")) {
+				if (Vector3.Distance(player.transform.position, this.transform.position) < thisPotion.size * size_mult) {
+					player.GetComponent<PlayerController>().currentHealth -= damage_mult * player.GetComponent<PlayerController>().maxHealth;
+				}
+			}
+			yield return new WaitForSeconds(time_between);
+		}
+	}
 }
