@@ -92,7 +92,9 @@ public class TrainingDummy : MonoBehaviour {
 	
 	public void DropHealth(int i, bool crit) {
 		if (thisEnemy.baseHP > 0) {
-			GameObject damage = (GameObject)Instantiate(Resources.Load("Damage") as Object, this.transform);
+			GameObject damage = (GameObject)Instantiate(Resources.Load("Damage") as Object, transform.position, Quaternion.identity);
+			// <If possible> damage.transform.GetChild(0).transform.localScale = new Vector3(0.8f / transform.localScale.x, 0.46f / transform.localScale.y, 1); 
+			damage.transform.SetParent(transform);
 			thisEnemy.baseHP -= i;
 	
 			if (thisEnemy.baseHP <= 0) {
