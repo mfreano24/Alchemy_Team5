@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Alchemy;
 using System.Linq;
+using System;
 
 public class PotionCrafting : MonoBehaviour {
 	// Initial values
@@ -92,8 +93,17 @@ public class PotionCrafting : MonoBehaviour {
 			foreach (InventorySlot slot in pc.inventory) {
 				if (craftedPotion == slot.item) {
 					// The item exists already
+					if (slot.count == pc.MAX_ITEMS) {
+						string created = preview.text;
+						Cancel();
+						ingredients.text = "Maximum capacity for " + created + " achieved!";
+						return;
+					}
 					slot.count++;
-					break;
+					craftedPotion = null;
+					crafting = new List<Potion>();
+					CraftingUpdated();
+					return;
 				}
 			}
 
