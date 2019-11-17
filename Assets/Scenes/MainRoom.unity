@@ -283,6 +283,26 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4846755471278552338, guid: 4b85c94d4b79e0346abadd5e33358466,
+        type: 3}
+      propertyPath: m_Name
+      value: FactorButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846755471876634018, guid: 4b85c94d4b79e0346abadd5e33358466,
+        type: 3}
+      propertyPath: m_Name
+      value: HealthButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846755472463502320, guid: 4b85c94d4b79e0346abadd5e33358466,
+        type: 3}
+      propertyPath: m_Name
+      value: CapacityButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846755472604127290, guid: 4b85c94d4b79e0346abadd5e33358466,
+        type: 3}
+      propertyPath: m_Name
+      value: SpeedButton
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b85c94d4b79e0346abadd5e33358466, type: 3}
 --- !u!1 &226919780
@@ -2112,6 +2132,12 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &441361664 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4846755473086426569, guid: 4b85c94d4b79e0346abadd5e33358466,
+    type: 3}
+  m_PrefabInstance: {fileID: 175025607}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &461474639
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2179,6 +2205,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3639278573182168225, guid: 356cd05989b699c4886a1a4054e496b0,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 594661171}
+    - target: {fileID: 3639278573182168225, guid: 356cd05989b699c4886a1a4054e496b0,
+        type: 3}
+      propertyPath: worldSize.x
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 356cd05989b699c4886a1a4054e496b0, type: 3}
 --- !u!1001 &531219850
@@ -2191,17 +2227,17 @@ PrefabInstance:
     - target: {fileID: 7885963976727339662, guid: 663800d0ceb49c94f8498a6c67ebc5a9,
         type: 3}
       propertyPath: m_Name
-      value: PlayerAnimated
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7885963976727339659, guid: 663800d0ceb49c94f8498a6c67ebc5a9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.259
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7885963976727339659, guid: 663800d0ceb49c94f8498a6c67ebc5a9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.306
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7885963976727339659, guid: 663800d0ceb49c94f8498a6c67ebc5a9,
         type: 3}
@@ -2251,7 +2287,7 @@ PrefabInstance:
     - target: {fileID: 7885963976727339660, guid: 663800d0ceb49c94f8498a6c67ebc5a9,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 663800d0ceb49c94f8498a6c67ebc5a9, type: 3}
@@ -6725,8 +6761,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 742280035671596657, guid: 76ae2ee125679f1439642760a33b1048,
+        type: 3}
+      propertyPath: waveStatus
+      value: 
+      objectReference: {fileID: 1766140732}
+    - target: {fileID: 742280035671596657, guid: 76ae2ee125679f1439642760a33b1048,
+        type: 3}
+      propertyPath: waveTimer
+      value: 
+      objectReference: {fileID: 441361664}
+    - target: {fileID: 742280035671596660, guid: 76ae2ee125679f1439642760a33b1048,
+        type: 3}
+      propertyPath: worldSizeX
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 742280035671596660, guid: 76ae2ee125679f1439642760a33b1048,
+        type: 3}
+      propertyPath: worldSizeY
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76ae2ee125679f1439642760a33b1048, type: 3}
+--- !u!1 &1766140732 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4846755472080893976, guid: 4b85c94d4b79e0346abadd5e33358466,
+    type: 3}
+  m_PrefabInstance: {fileID: 175025607}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1812640518
 GameObject:
   m_ObjectHideFlags: 0
