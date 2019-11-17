@@ -11,6 +11,8 @@ public class EnemyManager : MonoBehaviour {
 
 	public GameObject EnemyPrefab;
 
+	GlobalVars gv;
+
 	int wave = 0;
 
 	int timer = 0;
@@ -24,32 +26,34 @@ public class EnemyManager : MonoBehaviour {
 		waveTimer.SetActive(false);
 		waveStatus.SetActive(false);
 		ReadEnemies();
+		gv = GameObject.Find("EventSystem").GetComponent<GlobalVars>();
 	}
 
 	private void Update() {
-		if (timer > 0) {
-			timer--;
-			waveTimer.GetComponent<Text>().text = "Next wave in " + (timer / 30 + 1).ToString() + " seconds!\nPress F to skip timer!";
-			if (timer == 5) {
-				wave++;
-				StartCoroutine(UpdateWaveStatus("Wave " + wave.ToString() + " starting!"));
-				GameObject.Find("EventSystem").GetComponent<WaveManager>().StartWave(wave);
-			}
+		if (gv.playing) {
+			if (timer > 0) {
+				timer--;
+				waveTimer.GetComponent<Text>().text = "Next wave in " + (timer / 30 + 1).ToString() + " seconds!\nPress F to skip timer!";
+				if (timer == 5) {
+					wave++;
+					StartCoroutine(UpdateWaveStatus("Wave " + wave.ToString() + " starting!"));
+					GameObject.Find("EventSystem").GetComponent<WaveManager>().StartWave(wave);
+				}
 
-			if (Input.GetKeyDown(KeyCode.F) && timer > 10) {
-				timer = 10;
-			}
+				if (Input.GetKeyDown(KeyCode.F) && timer > 10) {
+					timer = 10;
+				}
 
-		} else if (GameObject.FindGameObjectsWithTag("Damageable").Length == 0) {
-			if (wave > 0) {
-				StartCoroutine(UpdateWaveStatus("Wave " + wave.ToString() + " completed!"));
-				GameObject.Find("Player").GetComponent<PlayerController>().takeDamage(-GameObject.Find("Player").GetComponent<PlayerController>().HEAL_FACTOR);
+			} else if (GameObject.FindGameObjectsWithTag("Damageable").Length == 0) {
+				if (wave > 0) {
+					StartCoroutine(UpdateWaveStatus("Wave " + wave.ToString() + " completed!"));
+					GameObject.Find("Player").GetComponent<PlayerController>().takeDamage(-GameObject.Find("Player").GetComponent<PlayerController>().HEAL_FACTOR);
+				}
+				timer = timeBetweenWaves;
+				waveTimer.GetComponent<Text>().text = "Next wave in " + (timer / 60 + 1).ToString() + " seconds!\nPress F to skip timer!";
+				waveTimer.SetActive(true);
 			}
-			timer = timeBetweenWaves;
-			waveTimer.GetComponent<Text>().text = "Next wave in " + (timer / 60 + 1).ToString() + " seconds!\nPress F to skip timer!";
-			waveTimer.SetActive(true);
 		}
-
 	}
 
 	public IEnumerator UpdateWaveStatus(string text) {

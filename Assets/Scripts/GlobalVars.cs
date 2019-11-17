@@ -25,6 +25,18 @@ public class GlobalVars : MonoBehaviour {
 	public bool playing;
 
 
+	/// <summary>
+	/// 
+	/// These variables are dedicated to explaining the world size.
+	/// This will be used to check if enemies (or the player) are out of bounds.
+	/// They will be used to find the next closest entry point in which the
+	/// actor will be teleported. This will prevent the object from being out
+	/// of bounds. (Think of it like Mario's wall system).
+	/// 
+	/// </summary>
+	public int worldSizeX;
+	public int worldSizeY;
+
 	private void Start() {
 		// Initialize all vars
 		playing = true;
