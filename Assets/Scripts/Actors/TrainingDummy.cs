@@ -124,6 +124,7 @@ public class TrainingDummy : MonoBehaviour {
 public void CallKB(float duration, float pow, Transform other){
 	StartCoroutine(Knockback(duration,pow,other));
 }
+
 public IEnumerator Knockback(float duration, float pow, Transform other){
 	float time = 0;
 	while(duration > time){

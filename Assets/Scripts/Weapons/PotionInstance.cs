@@ -60,12 +60,12 @@ public class PotionInstance : MonoBehaviour {
 			else if (thisPotion.name == "Oxygen") {
 				foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
 					if (Vector3.Distance(enemy.transform.position, this.transform.position) < thisPotion.size * 3){
-						StartCoroutine(enemy.GetComponent<TrainingDummy>().Knockback(0.2f, 0.8f, this.transform));
+						enemy.GetComponent<TrainingDummy>().CallKB(0.2f, 0.8f, this.transform);
 					}
 				}
 				foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player")) {
 					if (Vector3.Distance(player.transform.position, this.transform.position) < thisPotion.size * 3){
-						StartCoroutine(player.GetComponent<TrainingDummy>().Knockback(0.2f, 0.8f, this.transform));
+						player.GetComponent<PlayerController>().CallKB(0.08f, 0.08f, this.transform);
 					}
 				}
 			}
@@ -99,7 +99,7 @@ public class PotionInstance : MonoBehaviour {
 			else if (thisPotion.name == "Greater Nitrogen") {
 				foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
 					if (Vector3.Distance(enemy.transform.position, this.transform.position) < thisPotion.size * 3) {
-						enemy.GetComponent<TrainingDummy>().CallSlowDown(2,2);
+						enemy.GetComponent<TrainingDummy>().CallSlowDown(1.5f,2);
 						if(enemy.GetComponent<TrainingDummy>().thisEnemy.type == "Sulfur"){
 							reaction = true;
 							EnemyExplode(enemy, 2f);
@@ -108,7 +108,7 @@ public class PotionInstance : MonoBehaviour {
 				}
 				foreach(GameObject player in GameObject.FindGameObjectsWithTag("Player")){
 					if(Vector3.Distance(player.transform.position, this.transform.position) < thisPotion.size * 3){
-						player.GetComponent<PlayerController>().CallSlowDown(2,2);
+						player.GetComponent<PlayerController>().CallSlowDown(1.5f,2);
 					}
 				}
 			}
@@ -116,12 +116,12 @@ public class PotionInstance : MonoBehaviour {
 			else if (thisPotion.name == "Greater Oxygen") {
 				foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
 					if (Vector3.Distance(enemy.transform.position, this.transform.position) < thisPotion.size * 3){
-						StartCoroutine(enemy.GetComponent<TrainingDummy>().Knockback(0.2f, 0.8f, this.transform));
+						enemy.GetComponent<TrainingDummy>().CallKB(0.2f, 0.8f, this.transform);
 					}
 				}
 				foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player")) {
 					if (Vector3.Distance(player.transform.position, this.transform.position) < thisPotion.size * 3){
-						StartCoroutine(player.GetComponent<TrainingDummy>().Knockback(0.2f, 0.8f, this.transform));
+						player.GetComponent<PlayerController>().CallKB(0.2f, 0.8f, this.transform);
 					}
 				}
 			}
@@ -133,14 +133,14 @@ public class PotionInstance : MonoBehaviour {
 						bool crit = (roll == 0);
 						// Critical hit!
 						enemy.GetComponent<TrainingDummy>().DropHealth(thisPotion.damage * (crit ? 2 : 1), crit);
-						StartCoroutine(enemy.GetComponent<TrainingDummy>().Knockback(0.2f, 0.8f, this.transform));
+						enemy.GetComponent<TrainingDummy>().CallKB(0.2f, 0.8f, this.transform);
 						StartCoroutine(enemy.GetComponent<TrainingDummy>().IncreaseXP());
 					}
 				}
 				foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player")) {
 					if (Vector3.Distance(player.transform.position, this.transform.position) < thisPotion.size * 3) {
 						player.GetComponent<PlayerController>().takeDamage(player.GetComponent<PlayerController>().maxHealth/3);
-						StartCoroutine(player.GetComponent<TrainingDummy>().Knockback(0.2f, 0.8f, this.transform));
+						player.GetComponent<TrainingDummy>().CallKB(0.2f, 0.8f, this.transform);
 					}
 				}
 			}
@@ -148,12 +148,12 @@ public class PotionInstance : MonoBehaviour {
 			else if (thisPotion.name == "Time Warp") {
 				foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
 					if (Vector3.Distance(enemy.transform.position, this.transform.position) < thisPotion.size * 10) {
-						enemy.GetComponent<TrainingDummy>().CallSlowDown(3,1);
+						enemy.GetComponent<TrainingDummy>().CallSlowDown(5,3);
 					}
 				}
 				foreach(GameObject player in GameObject.FindGameObjectsWithTag("Player")){
 					if(Vector3.Distance(player.transform.position, this.transform.position) < thisPotion.size * 10){
-						player.GetComponent<PlayerController>().CallSlowDown(5,3);
+						player.GetComponent<PlayerController>().CallSlowDown(2,1);
 					}
 				}
 			}
