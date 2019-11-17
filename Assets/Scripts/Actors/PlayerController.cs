@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour {
 	private GameObject sword_inst;
 	public InventorySlot selectedPotion;
 	public GameObject potionPrefab;
+	public GameObject menu;
+	public GameObject gameOver;
 	public bool invincibility;
 
 	public float currentHealth = 100;
@@ -44,6 +46,10 @@ public class PlayerController : MonoBehaviour {
 		gv = GameObject.Find("EventSystem").GetComponent<GlobalVars>();
 	    rb = GetComponent<Rigidbody2D>();
 		sw = sword.GetComponent<BoxCollider2D>();
+		menu = GameObject.Find("PauseScreen");
+		gameOver = GameObject.Find("GameOver");
+		gameOver.SetActive(false);
+		menu.SetActive(false);
 	    face_Front_x = 0;
 	    face_Front_y = -1;
 
@@ -75,6 +81,7 @@ public class PlayerController : MonoBehaviour {
 
 			if (Input.GetButtonDown("Pause")) {
 				gv.playing = false;
+				menu.SetActive(true);
 			}
 		}
 	}
@@ -183,6 +190,10 @@ public class PlayerController : MonoBehaviour {
 	void UpdateUI() {
 		if (currentHealth < 0) {
 			currentHealth = 0;
+			gv.playing = false;
+			anim.SetFloat("Speed", 0);
+			gameOver.SetActive(true);
+
 		}
 
 		if (currentExperience < 0) {

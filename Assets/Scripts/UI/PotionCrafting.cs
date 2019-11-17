@@ -34,11 +34,11 @@ public class PotionCrafting : MonoBehaviour {
 				AddIngredient();
 			}
 
-			if (Input.GetKeyDown(KeyCode.Space)) {
+			if (Input.GetButtonDown("Submit")) {
 				CraftPotion();
 			}
 
-			if (Input.GetKeyDown(KeyCode.Escape)) {
+			if (Input.GetButtonDown("Cancel")) {
 				Cancel();
 			}
 		}
