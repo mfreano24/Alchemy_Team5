@@ -57,8 +57,8 @@ public class PlayerController : MonoBehaviour {
 
 		// DEBUGGING PURPOSES ONLY
 		inventory = new List<InventorySlot>();
-		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 3));
-		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[1], 3));
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 5));
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[1], 999));
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[2], 3));
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[3], 3));
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[4], 3));
@@ -233,7 +233,7 @@ public class PlayerController : MonoBehaviour {
 		invincibility = true;
 		Color temp = GetComponent<SpriteRenderer>().color;
 		GetComponent<SpriteRenderer>().color = new Color(1,1,1,0.65f);
-		yield return new WaitForSeconds(2.5f);
+		yield return new WaitForSeconds(0.5f);
 		GetComponent<SpriteRenderer>().color = temp;
 		invincibility = false;
 	}

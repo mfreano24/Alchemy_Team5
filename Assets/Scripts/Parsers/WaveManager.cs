@@ -10,7 +10,7 @@ public class WaveManager : MonoBehaviour {
 	public GameObject spawner;
 
 	public int WAVE_COUNT;
-
+	public int curr_wave;
 	[SerializeField]
 	public List<Wave> waves = new List<Wave>();
 	
@@ -20,6 +20,7 @@ public class WaveManager : MonoBehaviour {
     }
 
 	public void StartWave (int i) {
+		curr_wave = i;
 		Wave current = waves[i - 1];
 
 		for (int j = 0; j < current.waveEnemies.Count; j++) {
