@@ -90,16 +90,16 @@ public class PlayerController : MonoBehaviour {
 		int maxX = gv.worldSizeX;
 		int maxY = gv.worldSizeY;
 
-		if (transform.position.x > maxX + 3) {
-			this.transform.position = new Vector2(maxX, transform.position.y);
-		} else if (transform.position.x < -maxX - 3) {
-			this.transform.position = new Vector2(-maxX, transform.position.y);
+		if (transform.position.x > gv.worldCenterX + maxX + 3) {
+			this.transform.position = new Vector2(gv.worldCenterX + maxX, transform.position.y);
+		} else if (transform.position.x < gv.worldCenterX - maxX - 3) {
+			this.transform.position = new Vector2(gv.worldCenterX - maxX, transform.position.y);
 		}
 
-		if (transform.position.y > maxY + 3) {
-			transform.position = new Vector2(transform.position.x, maxY);
-		} else if (transform.position.y < -maxY - 3) {
-			transform.position = new Vector2(transform.position.x, -maxY);
+		if (transform.position.y > gv.worldCenterY + maxY + 3) {
+			transform.position = new Vector2(transform.position.x, gv.worldCenterY + maxY);
+		} else if (transform.position.y < gv.worldCenterY - maxY - 3) {
+			transform.position = new Vector2(transform.position.x, gv.worldCenterY - maxY);
 		}
 	}
 
