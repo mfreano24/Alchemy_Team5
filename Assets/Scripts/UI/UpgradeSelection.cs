@@ -63,16 +63,26 @@ public class UpgradeSelection : MonoBehaviour {
 	}
 
 	void UpdateLook() {
-		//HEalth
-		GameObject.Find("HealthButton").GetComponent<Image>().color = (currentSelection == 0) ? Color.green : Color.white;
+
+		//Health
+		ColorBlock cb = GameObject.Find("HealthButton").GetComponent<Button>().colors;
+		cb.normalColor = (currentSelection == 0) ? Color.green : Color.black;
+		GameObject.Find("HealthButton").GetComponent<Button>().colors = cb;
+
 		// Factor
-		GameObject.Find("FactorButton").GetComponent<Image>().color = (currentSelection == 1) ? Color.green : Color.white;
+		cb = GameObject.Find("FactorButton").GetComponent<Button>().colors;
+		cb.normalColor = (currentSelection == 1) ? Color.green : Color.black;
+		GameObject.Find("FactorButton").GetComponent<Button>().colors = cb;
 
 		// Capacity
-		GameObject.Find("CapacityButton").GetComponent<Image>().color = (currentSelection == 2) ? Color.green : Color.white;
+		cb = GameObject.Find("CapacityButton").GetComponent<Button>().colors;
+		cb.normalColor = (currentSelection == 2) ? Color.green : Color.black;
+		GameObject.Find("CapacityButton").GetComponent<Button>().colors = cb;
 
 		//Sepeed
-		GameObject.Find("SpeedButton").GetComponent<Image>().color = (currentSelection == 3) ? Color.green : Color.white;
+		cb = GameObject.Find("CapacityButton").GetComponent<Button>().colors;
+		cb.normalColor = (currentSelection == 3) ? Color.green : Color.black;
+		GameObject.Find("SpeedButton").GetComponent<Button>().colors = cb;
 	}
 
 	public IEnumerator OnUpgradeBegin() {

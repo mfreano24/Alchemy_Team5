@@ -37,8 +37,29 @@ public class GlobalVars : MonoBehaviour {
 	public int worldSizeX;
 	public int worldSizeY;
 
+	/// <summary>
+	/// 
+	/// These variables are dedicated to explaining the center of the
+	/// world. This is in case the world is offset, this will allow
+	/// for the "world zone" to be properly implemented.
+	/// 
+	/// </summary>
+	public int worldCenterX;
+	public int worldCenterY;
+
+	/// <summary>
+	/// 
+	/// Set up the target framerate of the game.
+	/// Probably shouldn't edit this.
+	/// Default and main target should be 60.
+	/// 
+	/// </summary>
+	public int targetFrameRate;
+		
 	private void Start() {
 		// Initialize all vars
 		playing = true;
+		QualitySettings.vSyncCount = 0;
+		Application.targetFrameRate = targetFrameRate;
 	}
 }
