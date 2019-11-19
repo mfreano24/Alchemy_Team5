@@ -39,25 +39,13 @@ AnimationClip:
     classID: 212
     script: {fileID: 0}
   m_SampleRate: 12
-  m_WrapMode: 4
+  m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   m_ClipBindingConstant:
-    genericBindings:
-    - serializedVersion: 2
-      path: 0
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
-    pptrCurveMapping:
-    - {fileID: -1967690890575237951, guid: 1a6fc8380d300b642af2a69d3221fcd7, type: 3}
-    - {fileID: 8512326316818074793, guid: 1a6fc8380d300b642af2a69d3221fcd7, type: 3}
-    - {fileID: -7910934591883737871, guid: 1a6fc8380d300b642af2a69d3221fcd7, type: 3}
-    - {fileID: -4066622819777725138, guid: 1a6fc8380d300b642af2a69d3221fcd7, type: 3}
-    - {fileID: -6206560085137731326, guid: 1a6fc8380d300b642af2a69d3221fcd7, type: 3}
+    genericBindings: []
+    pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -68,8 +56,8 @@ AnimationClip:
     m_Level: 0
     m_CycleOffset: 0
     m_HasAdditiveReferencePose: 0
-    m_LoopTime: 0
-    m_LoopBlend: 1
+    m_LoopTime: 1
+    m_LoopBlend: 0
     m_LoopBlendOrientation: 0
     m_LoopBlendPositionY: 0
     m_LoopBlendPositionXZ: 0

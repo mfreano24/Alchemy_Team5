@@ -1,25 +1,25 @@
 fileFormatVersion: 2
-guid: 57c9b9ff0fcde4a46959c9393a44d9fc
+guid: 332db9cec4b0731489ea2ac3419c6916
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1908278828655854282
-    second: The_Alchemist_run_right_0
+      213: 3550893055435584616
+    second: The_Alchemist_run_back_0
   - first:
-      213: -6728222861140672292
-    second: The_Alchemist_run_right_1
+      213: 1697093782703983303
+    second: The_Alchemist_run_back_1
   - first:
-      213: 7993063834111207403
-    second: The_Alchemist_run_right_2
+      213: -3459490372524088856
+    second: The_Alchemist_run_back_2
   - first:
-      213: -8146865047086554404
-    second: The_Alchemist_run_right_3
+      213: -7675390928564601109
+    second: The_Alchemist_run_back_3
   - first:
-      213: -2434116097847859694
-    second: The_Alchemist_run_right_4
+      213: -5654004375139960414
+    second: The_Alchemist_run_back_4
   - first:
-      213: 258120075400516634
-    second: The_Alchemist_run_right_5
+      213: 7386665112537128530
+    second: The_Alchemist_run_back_5
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -49,7 +49,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: -1
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -81,7 +81,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -93,7 +93,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -152,127 +152,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: The_Alchemist_run_right_0
+      name: The_Alchemist_run_back_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 84
-        height: 84
+        x: 26
+        y: 9
+        width: 36
+        height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cef7d45b0f27e0a42a89cff56371588f
-      internalID: -1908278828655854282
+      spriteID: 84a9fe63203b2954a8dd8e61edbece83
+      internalID: 3550893055435584616
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: The_Alchemist_run_right_1
+      name: The_Alchemist_run_back_1
       rect:
         serializedVersion: 2
-        x: 84
-        y: 0
-        width: 84
-        height: 84
+        x: 110
+        y: 9
+        width: 37
+        height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c0826a827ebbfe243b7084fd0913541f
-      internalID: -6728222861140672292
+      spriteID: 070339c009ccb484abdae6031e7e9a79
+      internalID: 1697093782703983303
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: The_Alchemist_run_right_2
+      name: The_Alchemist_run_back_2
       rect:
         serializedVersion: 2
-        x: 168
-        y: 0
-        width: 84
-        height: 84
+        x: 195
+        y: 9
+        width: 39
+        height: 59
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0dcfbf75197d50f4c80c7ae33b1cc122
-      internalID: 7993063834111207403
+      spriteID: 94a640552a18ef2428988ec6b38143e1
+      internalID: -3459490372524088856
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: The_Alchemist_run_right_3
+      name: The_Alchemist_run_back_3
       rect:
         serializedVersion: 2
-        x: 252
-        y: 0
-        width: 84
-        height: 84
+        x: 278
+        y: 9
+        width: 40
+        height: 57
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 48ef20873ccee204abcccb996c7463b5
-      internalID: -8146865047086554404
+      spriteID: 4e246fd1dbb3453429d58899f5eee906
+      internalID: -7675390928564601109
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: The_Alchemist_run_right_4
+      name: The_Alchemist_run_back_4
       rect:
         serializedVersion: 2
-        x: 338
-        y: 0
-        width: 84
-        height: 84
+        x: 363
+        y: 9
+        width: 38
+        height: 56
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: db59e555d8a5a274299a0046f3c3385b
-      internalID: -2434116097847859694
+      spriteID: 72c7b3a718a389b41a4dd7c8393f3cef
+      internalID: -5654004375139960414
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: The_Alchemist_run_right_5
+      name: The_Alchemist_run_back_5
       rect:
         serializedVersion: 2
-        x: 420
-        y: 0
-        width: 80
-        height: 84
+        x: 447
+        y: 9
+        width: 38
+        height: 54
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 12f146edd9416074fbf6cdadf349cdf1
-      internalID: 258120075400516634
+      spriteID: 7acb810582f566c45938ddf38def4bf5
+      internalID: 7386665112537128530
       vertices: []
       indices: 
       edges: []
