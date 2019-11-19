@@ -73,7 +73,7 @@ public class TrainingDummy : MonoBehaviour {
 				}
 			}
 
-			if (followingPath) {
+			if (followingPath && gv.playing) {
 				translatePos = path.lookPoints[pathIndex] - transform.position;
 				transform.Translate(translatePos.normalized * Time.deltaTime * thisEnemy.speed, Space.World);
 			}
@@ -84,7 +84,7 @@ public class TrainingDummy : MonoBehaviour {
 	}
 
 	private void OnTriggerStay2D(Collider2D collision) {
-		if (collision.CompareTag("Player")) {
+		if (collision.CompareTag("Player") && gv.playing) {
 			collision.GetComponent<PlayerController>().takeDamage(2.5f);
 			collision.GetComponent<PlayerController>().Knockback(0.2f, 0.5f, this.transform);
 		}

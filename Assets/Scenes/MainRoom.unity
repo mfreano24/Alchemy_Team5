@@ -8995,7 +8995,7 @@ PrefabInstance:
     - target: {fileID: 742280035671596660, guid: 76ae2ee125679f1439642760a33b1048,
         type: 3}
       propertyPath: worldSizeY
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 742280035671596660, guid: 76ae2ee125679f1439642760a33b1048,
         type: 3}

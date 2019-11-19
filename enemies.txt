@@ -3,7 +3,7 @@ Basic_Slime
 300
 5
 1
-2
+1
 None
 25
 -----

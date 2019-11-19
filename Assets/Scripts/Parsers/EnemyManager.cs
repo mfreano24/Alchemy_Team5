@@ -96,23 +96,23 @@ public class EnemyManager : MonoBehaviour {
 							newEnemy.name = input;
 							break;
 						case (1):
-							// Create the combination
+							// Initialize Enemy HP
 							newEnemy.baseHP = System.Convert.ToInt32(input);
 							break;
 						case (2):
-							// Set up the sprite used
+							// Initialize Enemy Strength
 							newEnemy.baseATK = System.Convert.ToInt32(input);
 							break;
 						case (3):
-							// Set up the maximum size of the explosion
+							// Set up the enemy's defense
 							newEnemy.baseDEF = System.Convert.ToInt32(input);
 							break;
 						case (4):
-							// Set up the time it lasts
-							newEnemy.speed = (float)System.Convert.ToInt32(input);
+							// Set up the enemy's speed
+							newEnemy.speed = (float)System.Convert.ToDouble(input);
 							break;
 						case (5):
-							// Set up the damage it'll do
+							// Set up the enemy's type (for reactions)
 							newEnemy.type = input;
 							break;
 						case (6):
