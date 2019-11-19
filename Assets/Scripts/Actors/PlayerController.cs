@@ -231,11 +231,19 @@ public class PlayerController : MonoBehaviour {
 
 	public IEnumerator IFrames(){
 		invincibility = true;
+		EnemyColliders(false);
 		Color temp = GetComponent<SpriteRenderer>().color;
 		GetComponent<SpriteRenderer>().color = new Color(1,1,1,0.65f);
 		yield return new WaitForSeconds(0.5f);
 		GetComponent<SpriteRenderer>().color = temp;
+		EnemyColliders(true);
 		invincibility = false;
+	}
+
+	void EnemyColliders(bool val) {
+		foreach (GameObject g in GameObject.Find("EventSystem").GetComponent<WaveManager>().currentEnemies) {
+			g.GetComponent<BoxCollider2D>().enabled = val;
+		}
 	}
 
 	public void CallKB(float duration, float pow, Transform other){

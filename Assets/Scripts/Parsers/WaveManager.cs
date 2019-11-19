@@ -13,7 +13,9 @@ public class WaveManager : MonoBehaviour {
 	public int curr_wave;
 	[SerializeField]
 	public List<Wave> waves = new List<Wave>();
-	
+
+	public List<GameObject> currentEnemies = new List<GameObject>();
+
 	// Start is called before the first frame update
     void Start() {
 		CreateIndices();
@@ -26,6 +28,7 @@ public class WaveManager : MonoBehaviour {
 		for (int j = 0; j < current.waveEnemies.Count; j++) {
 			GameObject newEnemy = (GameObject)Instantiate(this.transform.GetComponent<EnemyManager>().EnemyPrefab, GameObject.Find("Spawner_" + current.spawnIndices[j].ToString()).transform.position, Quaternion.identity);
 			newEnemy.GetComponent<TrainingDummy>().thisEnemy = new Enemy(current.waveEnemies[j]);
+			currentEnemies.Add(newEnemy);
 		}
 
 		if (i == waves.Count - 1) {
@@ -39,7 +42,7 @@ public class WaveManager : MonoBehaviour {
 		}
 
 	}
-
+	
 	void CreateIndices() {
 		// Find the spawn index data
 		string path = Directory.GetCurrentDirectory() + "\\waves\\spawn_indices.txt";

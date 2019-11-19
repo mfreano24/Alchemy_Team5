@@ -2693,7 +2693,7 @@ PrefabInstance:
     - target: {fileID: 3639278573182168225, guid: 356cd05989b699c4886a1a4054e496b0,
         type: 3}
       propertyPath: nodeRadius
-      value: 0.5
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 356cd05989b699c4886a1a4054e496b0, type: 3}
@@ -8975,7 +8975,7 @@ PrefabInstance:
     - target: {fileID: 742280035671596660, guid: 76ae2ee125679f1439642760a33b1048,
         type: 3}
       propertyPath: targetFrameRate
-      value: 60
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76ae2ee125679f1439642760a33b1048, type: 3}

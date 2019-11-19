@@ -98,6 +98,7 @@ public class TrainingDummy : MonoBehaviour {
 			thisEnemy.baseHP -= i;
 
 			if (thisEnemy.baseHP <= 0) {
+				GameObject.Find("EventSystem").GetComponent<WaveManager>().currentEnemies.Remove(this.gameObject);
 				StartCoroutine(IncreaseXP());
 				// Drop the item
 				if (thisEnemy.type != "None") {
