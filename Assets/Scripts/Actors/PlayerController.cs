@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour {
 			if (item.GetComponent<PotionInstance>().isEnemyDrop && Vector3.Distance(this.transform.position, item.transform.position) < 2) {
 				int invIndex = FindInventorySlot(item.GetComponent<PotionInstance>().thisPotion);
 				if (invIndex == -1) {
-					inventory.Add(new InventorySlot(item.GetComponent<PotionInstance>().thisPotion, 1));
+					inventory.Add(new InventorySlot(item.GetComponent<PotionInstance>().thisPotion, 2));
 					return;
 				}
 				if (inventory[invIndex].count != MAX_ITEMS) {
