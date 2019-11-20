@@ -20,20 +20,28 @@ public class TrainingDummy : MonoBehaviour {
 
 	const float minPathUpdateTime = 0.1f;
 	const float pathUpdateThreshold = 0.1f;
-
+	/*public Animation fire_slime;
+	public Animation basic_slime;
+	public Animation nitroshroom;*/
 	int targetIndex;
-
-
+	Animator anim;
 	void Start() {
 		hurtbox = GetComponent<BoxCollider2D>();
 		rb = GetComponent<Rigidbody2D>();
 		StartCoroutine(UpdatePath());
 		gv = GameObject.Find("EventSystem").GetComponent<GlobalVars>();
+		anim = GetComponent<Animator>();
 		if(thisEnemy.type == "Nitrogen"){
+			//anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Nitroshroom_Walk");
+			//this isn't done yet
+			anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Basic_Slime_Walk"); //PLACEHOLDER UNTIL IT WORKS
 			GetComponent<SpriteRenderer>().color = new Color(0,150f/255f,0);
 		}
 		else if(thisEnemy.type == "Sulfur"){
-			GetComponent<SpriteRenderer>().color = new Color(150f/255f,0,0);
+			anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Fire_Slime_Walk");
+		}
+		else{
+			anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Basic_Slime_Walk");
 		}
 	}
 

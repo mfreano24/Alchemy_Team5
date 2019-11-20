@@ -43,8 +43,7 @@ public class PotionCrafting : MonoBehaviour {
 
 			if (Input.GetButtonDown("Submit")) {
 				CraftPotion();
-				curr = asc[0];
-				curr.Play();
+				
 			}
 
 			if (Input.GetButtonDown("Cancel")) {
@@ -99,6 +98,8 @@ public class PotionCrafting : MonoBehaviour {
 	public void CraftPotion() {
 
 		if (craftedPotion != null) {
+			curr = asc[0];
+			curr.Play();
 			foreach (InventorySlot slot in pc.inventory) {
 				if (craftedPotion == slot.item) {
 					// The item exists already
