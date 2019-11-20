@@ -32,14 +32,14 @@ public class PotionDisplay : MonoBehaviour {
 
         //TODO: Skipping system for elements we dont have any of?
 		// TO-DO: SET THESE AS GLOBAL INPUTS
-        if(Input.GetKeyDown(KeyCode.E) && gv.playing) {
+        if(Input.GetButtonDown("Next") && gv.playing) {
             iterator++;
             if(iterator == pc.inventory.Count) {
                 iterator = 0;
             }
 
         }
-        if(Input.GetKeyDown(KeyCode.Q) && gv.playing) {
+        if(Input.GetButtonDown("Previous") && gv.playing) {
             iterator--;
             if(iterator == -1){
                 iterator = pc.inventory.Count - 1;

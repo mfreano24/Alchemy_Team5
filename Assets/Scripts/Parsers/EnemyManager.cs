@@ -40,7 +40,7 @@ public class EnemyManager : MonoBehaviour {
 					GameObject.Find("EventSystem").GetComponent<WaveManager>().StartWave(wave);
 				}
 
-				if (Input.GetKeyDown(KeyCode.F) && timer > 10) {
+				if (Input.GetButtonDown("Skip") && timer > 10) {
 					timer = 10;
 				}
 

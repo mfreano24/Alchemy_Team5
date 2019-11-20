@@ -12,6 +12,8 @@ public class MainMenu : MonoBehaviour {
 
 	int MAX_OBJECTS = 2;
 
+	bool moved = false;
+
 	private void Start() {
 		cur = GetComponent<AudioSource>();
 		cur.volume = 0.5f;
@@ -25,21 +27,28 @@ public class MainMenu : MonoBehaviour {
 			
 		}
 
-		if (Input.GetKeyDown(KeyCode.S)) {
+		if (Input.GetAxis("Vertical") < 0 && !moved) {
 			cur.Play();
+			moved = true;
 			selectedIndex++;
 			if (MAX_OBJECTS < selectedIndex) {
 				selectedIndex = 0;
 			}
 		}
-		if (Input.GetKeyDown(KeyCode.W)) {
+		if (Input.GetAxis("Vertical") > 0 && !moved) {
 			cur.Play();
+			moved = true;
 			selectedIndex--;
 			if (selectedIndex < 0) {
 				selectedIndex = MAX_OBJECTS;
 			}
 		}
-		if (Input.GetKeyDown(KeyCode.Space)) {
+
+		if (Input.GetAxis("Vertical") == 0 && moved) {
+			moved = false;
+		}
+
+		if (Input.GetButtonDown("Submit")) {
 			cur.Play();
 			SelectObject();
 			return;

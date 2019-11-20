@@ -10,6 +10,7 @@ public class UpgradeSelection : MonoBehaviour {
 
 	public int currentSelection;
 	public bool upgrading;
+	bool moved = false;
 
 	public void Start() {
 		upgrading = false;
@@ -21,26 +22,34 @@ public class UpgradeSelection : MonoBehaviour {
 	private void Update() {
 		if (upgrading) {
 			UpdateLook();
-			if (Input.GetKeyDown(KeyCode.A)) {
+			if (Input.GetAxis("Horizontal") < 0 && !moved) {
 				currentSelection--;
+				moved = true;
 				if (currentSelection < 0) {
 					currentSelection = 3;
 				}
-			} else if (Input.GetKeyDown(KeyCode.D)) {
+			} else if (Input.GetAxis("Horizontal") > 0 && !moved) {
 				currentSelection++;
+				moved = true;
 				if (currentSelection > 3) {
 					currentSelection = 0;
 				}
-			} else if (Input.GetKeyDown(KeyCode.W)) {
+			} else if (Input.GetAxis("Vertical") > 0 && !moved) {
 				currentSelection -= 2;
+				moved = true;
 				if (currentSelection < 0) {
 					currentSelection += 4;
 				}
-			} else if (Input.GetKeyDown(KeyCode.S)) {
+			} else if (Input.GetAxis("Vertical") < 0 && !moved) {
 				currentSelection += 2;
+				moved = true;
 				if (currentSelection > 3) {
 					currentSelection -= 4;
 				}
+			}
+
+			if (Input.GetAxis("Vertical") == Input.GetAxis("Horizontal") && Input.GetAxis("Horizontal") == 0) {
+				moved = false;
 			}
 
 			if (Input.GetButtonDown("Submit")) {
