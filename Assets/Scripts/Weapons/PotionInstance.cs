@@ -16,7 +16,7 @@ public class PotionInstance : MonoBehaviour {
 	Animator anim;
 
 	private void Start() {
-		GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Stable_" + thisPotion.name);
+		GetComponent<SpriteRenderer>().sprite = null;//Resources.Load<Sprite>("Stable_" + thisPotion.name);
 		anim = GetComponent<Animator>();
 		anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>(thisPotion.name);
 	}
