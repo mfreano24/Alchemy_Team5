@@ -78,8 +78,10 @@ public class Grid : MonoBehaviour {
 	//	Gizmos.DrawWireCube(transform.position, new Vector3(worldSize.x, worldSize.y, 1));
 	//	if (grid != null) {
 	//		foreach (Node n in grid) {
-	//			Gizmos.color = (n.isWalkable) ? Color.white : Color.red;
-	//			Gizmos.DrawCube(n.pos, Vector3.one * (nodeDiameter - .1f));
+	//
+	//			Gizmos.color = Color.white;
+	//			Gizmos.color = (n.isWalkable) ? Gizmos.color : Color.red;
+	//			Gizmos.DrawCube(n.pos, Vector3.one * (nodeDiameter));
 	//		}
 	//	}
 	//}
