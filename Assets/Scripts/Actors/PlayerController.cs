@@ -238,7 +238,15 @@ public class PlayerController : MonoBehaviour {
 		EnemyColliders(false);
 		Color temp = GetComponent<SpriteRenderer>().color;
 		GetComponent<SpriteRenderer>().color = new Color(1,1,1,0.65f);
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(0.1f);
+		GetComponent<SpriteRenderer>().color = temp;
+		yield return new WaitForSeconds(0.1f);
+		GetComponent<SpriteRenderer>().color = new Color(1,1,1,0.65f);
+		yield return new WaitForSeconds(0.1f);
+		GetComponent<SpriteRenderer>().color = temp;
+		yield return new WaitForSeconds(0.1f);
+		GetComponent<SpriteRenderer>().color = new Color(1,1,1,0.65f);
+		yield return new WaitForSeconds(0.1f);
 		GetComponent<SpriteRenderer>().color = temp;
 		EnemyColliders(true);
 		invincibility = false;

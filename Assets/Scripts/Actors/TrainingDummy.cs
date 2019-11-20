@@ -29,6 +29,12 @@ public class TrainingDummy : MonoBehaviour {
 		rb = GetComponent<Rigidbody2D>();
 		StartCoroutine(UpdatePath());
 		gv = GameObject.Find("EventSystem").GetComponent<GlobalVars>();
+		if(thisEnemy.type == "Nitrogen"){
+			GetComponent<SpriteRenderer>().color = new Color(0,150f/255f,0);
+		}
+		else if(thisEnemy.type == "Sulfur"){
+			GetComponent<SpriteRenderer>().color = new Color(150f/255f,0,0);
+		}
 	}
 
 	public void OnPathFound(Vector3[] waypoints, bool success) {

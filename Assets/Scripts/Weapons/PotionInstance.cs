@@ -44,14 +44,14 @@ public class PotionInstance : MonoBehaviour {
 			else if (thisPotion.name == "Nitrogen") {
 				hb_inst = Instantiate(hitbox);
 				hb_inst.transform.position = this.transform.position;
-				hb_inst.transform.localScale = new Vector3(thisPotion.size*1.5f,thisPotion.size*1.5f,0.0f);
+				hb_inst.transform.localScale = new Vector3(thisPotion.size,thisPotion.size,0.0f);
 				hb_inst.GetComponent<SpriteRenderer>().color = new Color(132f/255f, 217f/255f, 119f/255f, 50f/100f);
 				//SFX
 				source = sf[1];
 				source.volume = 0.5f;
 				source.Play();
 				foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
-					if (Vector3.Distance(enemy.transform.position, this.transform.position) < thisPotion.size * 1.5f) {
+					if (Vector3.Distance(enemy.transform.position, this.transform.position) <= thisPotion.size) {
 						enemy.GetComponent<TrainingDummy>().CallSlowDown(1,1);
 						if(enemy.GetComponent<TrainingDummy>().thisEnemy.type == "Sulfur"){
 							reaction = true;
@@ -60,7 +60,7 @@ public class PotionInstance : MonoBehaviour {
 					}
 				}
 				foreach(GameObject player in GameObject.FindGameObjectsWithTag("Player")){
-					if(Vector3.Distance(player.transform.position, this.transform.position) < thisPotion.size * 1.5f){
+					if(Vector3.Distance(player.transform.position, this.transform.position) <= thisPotion.size){
 						player.GetComponent<PlayerController>().CallSlowDown(1,1);
 					}
 				}
@@ -94,12 +94,12 @@ public class PotionInstance : MonoBehaviour {
 			else if (thisPotion.name == "Greater Sulfur") {//0.0125f, 2, 0.3f, 10
 				hb_inst = Instantiate(hitbox);
 				hb_inst.transform.position = this.transform.position;
-				hb_inst.transform.localScale = new Vector3(thisPotion.size*2f,thisPotion.size*2f,0.0f);
+				hb_inst.transform.localScale = new Vector3(thisPotion.size,thisPotion.size,0.0f);
 				hb_inst.GetComponent<SpriteRenderer>().color = new Color(214f/255f, 143f/255f, 81f/255f, 75f/100f);
 				source = sf[0];
 				source.volume = 0.5f;
 				source.Play();
-				StartCoroutine(Damage_Over_Time(0.0125f,2,0.3f,10));
+				StartCoroutine(Damage_Over_Time(0.0125f,1,0.3f,10));
 				yield return new WaitForSeconds(3f);
 				Destroy(hb_inst);
 			}
@@ -235,7 +235,7 @@ public class PotionInstance : MonoBehaviour {
 		source.Play();
 	
 		foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Damageable")) {
-			if(Vector3.Distance(enemy.transform.position, e.transform.position) < mult*7.5f) {
+			if(Vector3.Distance(enemy.transform.position, e.transform.position) < mult*3) {
 				int roll = Random.Range(0, _critChance);
 				bool crit = (roll == 0);
 				enemy.GetComponent<TrainingDummy>().DropHealth(650 * (crit ? 2 : 1), crit);
@@ -244,7 +244,7 @@ public class PotionInstance : MonoBehaviour {
 		}
 
 		foreach(GameObject player in GameObject.FindGameObjectsWithTag("Player")) {
-			if(Vector3.Distance(player.transform.position, e.transform.position) < mult*7.5f) {
+			if(Vector3.Distance(player.transform.position, e.transform.position) < mult*3) {
 				int roll = Random.Range(0, _critChance);
 				player.GetComponent<PlayerController>().takeDamage(20f);
 				player.GetComponent<PlayerController>().CallKB(0.3f, 0.125f, this.transform);
@@ -265,7 +265,7 @@ public class PotionInstance : MonoBehaviour {
 					bool crit = (roll == 0);
 					// Critical hit!
 					enemy.GetComponent<TrainingDummy>().DropHealth(thisPotion.damage * (crit ? 2 : 1), crit);
-					if(enemy.GetComponent<TrainingDummy>().thisEnemy.type == "Nitro"){
+					if(enemy.GetComponent<TrainingDummy>().thisEnemy.type == "Nitrogen"){
 						reaction = true;
 						EnemyExplode(enemy, size_mult/3.5f);
 					}
