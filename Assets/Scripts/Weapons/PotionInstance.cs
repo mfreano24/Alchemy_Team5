@@ -13,6 +13,20 @@ public class PotionInstance : MonoBehaviour {
 	const int _critChance = 20;
 	public AudioSource source;
 	AudioSource[] sf;
+	Animator anim;
+
+	private void Start() {
+		GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Stable_" + thisPotion.name);
+		anim = GetComponent<Animator>();
+		anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>(thisPotion.name);
+	}
+
+	private void Update() {
+		anim.SetInteger("State", anim.GetInteger("State") + 3);
+		if (anim.GetInteger("State") > 75) {
+			transform.localScale = Vector3.one * thisPotion.size;
+		}
+	}
 
 	public IEnumerator DropPotion() {
 		sf = GetComponents<AudioSource>(); // SULFUR, NITROGEN, TIMEWARP, EXPLOSION, OXYGEN

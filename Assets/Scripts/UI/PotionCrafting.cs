@@ -35,7 +35,7 @@ public class PotionCrafting : MonoBehaviour {
 
 	private void Update() {
 		if (gv.playing) {
-			if (Input.GetKeyDown(KeyCode.LeftShift) && pc.selectedPotion.count > 0) {
+			if (Input.GetButtonDown("AddCraft") && pc.selectedPotion.count > 0) {
 				AddIngredient();
 				curr = asc[1];
 				curr.Play();
