@@ -10,8 +10,4 @@ public class SFXManager : MonoBehaviour
     public GameObject time_warp;
     public GameObject move_cursor;
     public GameObject explosion;
-
-    void playSound(GameObject e){
-        e.GetComponent<AudioSource>().Play();
-    }
 }

@@ -81,7 +81,7 @@ public class EnemyManager : MonoBehaviour {
 				// Creating the items
 				// Create a new potion
 				Enemy newEnemy = new Enemy();
-				for (int i = -1; i < 8; i++) {
+				for (int i = -1; i < 7; i++) {
 
 					// Read actual input
 					input = reader.ReadLine();
@@ -109,6 +109,7 @@ public class EnemyManager : MonoBehaviour {
 							break;
 						case (4):
 							// Set up the enemy's speed
+							Debug.Log("Parser Debug: " + input);
 							newEnemy.speed = (float)System.Convert.ToDouble(input);
 							break;
 						case (5):

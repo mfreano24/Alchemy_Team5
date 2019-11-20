@@ -22,6 +22,7 @@ public class WaveManager : MonoBehaviour {
     }
 
 	public void StartWave (int i) {
+		
 		curr_wave = i;
 		Wave current = waves[i - 1];
 
@@ -87,6 +88,12 @@ public class WaveManager : MonoBehaviour {
 					string[] fragments = input.Split(' ');
 
 					Enemy e = this.gameObject.GetComponent<EnemyManager>().FindByName(fragments[0]);
+					if(e.type == "Nitro"){
+
+					}
+					else if(e.type == "Sulfur"){
+						
+					}
 					newWave.waveEnemies.Add(e);
 					newWave.spawnIndices.Add(System.Convert.ToInt32(fragments[1]));
 

@@ -42,6 +42,8 @@ public class PlayerController : MonoBehaviour {
 	public int HEAL_FACTOR = 25; // Amount player heals between waves
 	public int playerSpeed; // Current speed of the player
 
+	AudioSource aud;
+
 	void Start() {
 		gv = GameObject.Find("EventSystem").GetComponent<GlobalVars>();
 	    rb = GetComponent<Rigidbody2D>();
@@ -54,11 +56,12 @@ public class PlayerController : MonoBehaviour {
 	    face_Front_y = -1;
 
 		anim = this.gameObject.GetComponent<Animator>();
+		aud = GetComponent<AudioSource>();
 
 		// DEBUGGING PURPOSES ONLY
 		inventory = new List<InventorySlot>();
-		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 5));
-		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[1], 999));
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 3));
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[1], 3));
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[2], 3));
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[3], 3));
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[4], 3));
@@ -225,6 +228,7 @@ public class PlayerController : MonoBehaviour {
 	public void takeDamage(float d) {
 		if(!invincibility){
 			currentHealth-=d;
+			aud.Play();
 			StartCoroutine(IFrames());
 		}
 	}

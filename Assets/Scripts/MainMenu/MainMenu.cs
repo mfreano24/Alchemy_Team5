@@ -6,12 +6,15 @@ using UnityEngine;
 public class MainMenu : MonoBehaviour {
 
 	GameObject title;
+	AudioSource cur;
 
 	int selectedIndex = 0;
 
 	int MAX_OBJECTS = 2;
 
 	private void Start() {
+		cur = GetComponent<AudioSource>();
+		cur.volume = 0.5f;
 		title = GameObject.Find("Title");
 		StartCoroutine(Pulse());
 	}
@@ -23,18 +26,21 @@ public class MainMenu : MonoBehaviour {
 		}
 
 		if (Input.GetKeyDown(KeyCode.S)) {
+			cur.Play();
 			selectedIndex++;
 			if (MAX_OBJECTS < selectedIndex) {
 				selectedIndex = 0;
 			}
 		}
 		if (Input.GetKeyDown(KeyCode.W)) {
+			cur.Play();
 			selectedIndex--;
 			if (selectedIndex < 0) {
 				selectedIndex = MAX_OBJECTS;
 			}
 		}
 		if (Input.GetKeyDown(KeyCode.Space)) {
+			cur.Play();
 			SelectObject();
 			return;
 		}

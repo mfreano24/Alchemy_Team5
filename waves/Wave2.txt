@@ -1,4 +1,4 @@
 Basic_Slime 1
 Basic_Slime 3
 Basic_Slime 2
-Basic_Slime 0
+Fire_Slime 0
