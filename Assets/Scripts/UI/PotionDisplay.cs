@@ -47,7 +47,8 @@ public class PotionDisplay : MonoBehaviour {
 
         current_potion.text = pc.inventory[iterator].item.name;
 		GameObject.Find("ElementCount").GetComponent<Text>().text = "x" + pc.inventory[iterator].count.ToString();
-
+		GameObject.Find("PotionImage").GetComponent<Image>().sprite = Resources.Load("UI" + pc.inventory[iterator].ToString().Replace(" ", "") + ".png") as Sprite;
+		//Assets/Resources/UIIcons/UIGreaterOxygen.png
 		pc.selectedPotion = pc.inventory[iterator];
     }
 

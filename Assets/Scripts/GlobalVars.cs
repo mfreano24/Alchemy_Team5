@@ -59,7 +59,7 @@ public class GlobalVars : MonoBehaviour {
 	private void Start() {
 		// Initialize all vars
 		playing = true;
-		QualitySettings.vSyncCount = 0;
-		Application.targetFrameRate = targetFrameRate;
+		//QualitySettings.vSyncCount = 0;
+		//Application.targetFrameRate = targetFrameRate;
 	}
 }
