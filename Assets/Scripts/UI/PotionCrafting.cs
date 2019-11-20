@@ -16,6 +16,8 @@ public class PotionCrafting : MonoBehaviour {
 
 	PlayerController pc;
 	GlobalVars gv;
+	AudioSource[] asc;
+	AudioSource curr;
 
 	private void Start() {
 		ingredients = GameObject.Find("Ingredients").GetComponent<Text>();
@@ -26,16 +28,23 @@ public class PotionCrafting : MonoBehaviour {
 
 		ingredients.text = "";
 		preview.text = "";
+		
+		asc = GetComponents<AudioSource>();
+
 	}
 
 	private void Update() {
 		if (gv.playing) {
 			if (Input.GetKeyDown(KeyCode.LeftShift) && pc.selectedPotion.count > 0) {
 				AddIngredient();
+				curr = asc[1];
+				curr.Play();
 			}
 
 			if (Input.GetButtonDown("Submit")) {
 				CraftPotion();
+				curr = asc[0];
+				curr.Play();
 			}
 
 			if (Input.GetButtonDown("Cancel")) {

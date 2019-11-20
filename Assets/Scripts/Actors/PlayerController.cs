@@ -42,7 +42,8 @@ public class PlayerController : MonoBehaviour {
 	public int HEAL_FACTOR = 25; // Amount player heals between waves
 	public int playerSpeed; // Current speed of the player
 
-	AudioSource aud;
+	AudioSource[] asc;
+	AudioSource curr;
 
 	void Start() {
 		gv = GameObject.Find("EventSystem").GetComponent<GlobalVars>();
@@ -56,7 +57,7 @@ public class PlayerController : MonoBehaviour {
 	    face_Front_y = -1;
 
 		anim = this.gameObject.GetComponent<Animator>();
-		aud = GetComponent<AudioSource>();
+		asc = GetComponents<AudioSource>();
 
 		// DEBUGGING PURPOSES ONLY
 		inventory = new List<InventorySlot>();
@@ -196,6 +197,9 @@ public class PlayerController : MonoBehaviour {
 			gv.playing = false;
 			anim.SetFloat("Speed", 0);
 			gameOver.SetActive(true);
+			curr = asc[1];
+			curr.volume = 0.5f;
+			curr.Play();
 
 		}
 
@@ -228,7 +232,9 @@ public class PlayerController : MonoBehaviour {
 	public void takeDamage(float d) {
 		if(!invincibility){
 			currentHealth-=d;
-			aud.Play();
+			curr = asc[0];
+			curr.volume = 0.5f;
+			curr.Play();
 			StartCoroutine(IFrames());
 		}
 	}
