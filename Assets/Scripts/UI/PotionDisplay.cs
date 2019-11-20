@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -47,8 +48,11 @@ public class PotionDisplay : MonoBehaviour {
 
         current_potion.text = pc.inventory[iterator].item.name;
 		GameObject.Find("ElementCount").GetComponent<Text>().text = "x" + pc.inventory[iterator].count.ToString();
-		GameObject.Find("PotionImage").GetComponent<Image>().sprite = Resources.Load("UI" + pc.inventory[iterator].ToString().Replace(" ", "") + ".png") as Sprite;
-		//Assets/Resources/UIIcons/UIGreaterOxygen.png
+		if (Resources.Load<Sprite>("UIIcons/UI" + pc.inventory[iterator].item.name.ToString().Replace(" ", "")) != null) {
+			GameObject.Find("PotionImage").GetComponent<Image>().sprite = Resources.Load<Sprite>("UIIcons/UI" + pc.inventory[iterator].item.name.ToString().Replace(" ", ""));
+		} else {
+			GameObject.Find("PotionImage").GetComponent<Image>().sprite = Resources.Load<Sprite>("UIIcons/UIOther");
+		}
 		pc.selectedPotion = pc.inventory[iterator];
     }
 
