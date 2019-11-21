@@ -1,0 +1,8 @@
+Fire_Slime 1
+Fire_Slime 3
+Fire_Slime 6
+Fire_Slime 8
+Nitroshroom 7
+Nitroshroom 2
+Basic_Slime 4
+Basic_Slime 5
