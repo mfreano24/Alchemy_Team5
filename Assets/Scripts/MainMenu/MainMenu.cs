@@ -14,7 +14,7 @@ public class MainMenu : MonoBehaviour {
 
 	public int selectedLevel = -1;
 
-	int MAX_OBJECTS = 3;
+	int MAX_OBJECTS = 2;
 
 	bool moved = false;
 

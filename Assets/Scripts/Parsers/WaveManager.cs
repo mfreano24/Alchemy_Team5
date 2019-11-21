@@ -24,6 +24,18 @@ public class WaveManager : MonoBehaviour {
 	public void StartWave (int i) {
 		
 		curr_wave = i;
+
+		if (i > waves.Count - 1) {
+			// Add a random wave if all the manually-implemented waves have been completed.
+			Wave customWave = new Wave();
+			for (int j = 0; j < 9; j++) {
+				customWave.spawnIndices.Add(j);
+				customWave.waveEnemies.Add(this.gameObject.GetComponent<EnemyManager>().enemies[Random.Range(0, GameObject.Find("EventSystem").GetComponent<EnemyManager>().enemies.Count - 1)]);
+			}
+			waves.Add(customWave);
+			return;
+		}
+
 		Wave current = waves[i - 1];
 
 		for (int j = 0; j < current.waveEnemies.Count; j++) {
@@ -36,16 +48,6 @@ public class WaveManager : MonoBehaviour {
 				newEnemy.GetComponent<TrainingDummy>().thisEnemy = new Enemy(current.waveEnemies[j]);
 				currentEnemies.Add(newEnemy);
 			}
-		}
-
-		if (i == waves.Count - 1) {
-			// Add a random wave if all the manually-implemented waves have been completed.
-			Wave customWave = new Wave();
-			for (int j = 0; j < 3; j++) {
-				customWave.spawnIndices.Add(j);
-				customWave.waveEnemies.Add(this.gameObject.GetComponent<EnemyManager>().enemies[Random.Range(10, 20)]);
-			}
-			waves.Add(customWave);
 		}
 
 	}
