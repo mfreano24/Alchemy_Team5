@@ -9,6 +9,7 @@ TagManager:
   - Potion
   - Wall
   - Upgrade
+  - HB
   layers:
   - Default
   - TransparentFX

@@ -16,16 +16,27 @@ public class PotionInstance : MonoBehaviour {
 	Animator anim;
 
 	private void Start() {
-		GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Stable_" + thisPotion.name);
+		GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Stable_"+thisPotion.name);
 		anim = GetComponent<Animator>();
+		
 	}
 
 	private void Update() {
-		anim.SetInteger("State", anim.GetInteger("State") + 3);
-		if (anim.GetInteger("State") > 75) {
-			transform.localScale = Vector3.one * thisPotion.size;
+		if(anim.GetInteger("State") == 0 && (thisPotion.name == "Sulfur" || thisPotion.name == "Greater Sulfur" || thisPotion.name == "Volcano")){
+			transform.localScale = Vector3.one;
+		}
+		else if(anim.GetInteger("State") == 0 && (thisPotion.name == "Nitrogen" || thisPotion.name == "Greater Nitrogen" || 
+		thisPotion.name == "Time Warp")){
+			transform.localScale = Vector3.one * 3;
+		}
+		else if(anim.GetInteger("State") == 0 && (thisPotion.name == "Oxygen" || thisPotion.name == "Greater Oxygen")){
+			transform.localScale = Vector3.one * 3;
+		}
+		else if(anim.GetInteger("State") == 0 && (thisPotion.name == "Explosion")){
+			transform.localScale = Vector3.one * 3;
 		}
 
+		//anim.SetInteger("State", anim.GetInteger("State") + 3);
 		if (isEnemyDrop) {
 			anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>(thisPotion.name + "Drop");
 		} else {
@@ -42,15 +53,16 @@ public class PotionInstance : MonoBehaviour {
 		// Delay the explosion
 		if (!isEnemyDrop) {
 			yield return new WaitForSeconds(thisPotion.time / 1000f);
-
+			anim.SetInteger("State", 1);
 			sf = GetComponents<AudioSource>(); // SULFUR, NITROGEN, TIMEWARP, EXPLOSION, OXYGEN
 			//source = sf[0];
 			if (thisPotion.name == "Sulfur") {
 				//hitbox
 				hb_inst = Instantiate(hitbox);
+				hb_inst.tag = "HB";
+				hb_inst.GetComponent<HitboxInstance>().changeSprite(thisPotion.name);
 				hb_inst.transform.position = this.transform.position;
-				hb_inst.transform.localScale = new Vector3(thisPotion.size*3.5f,thisPotion.size*3.5f,0.0f);
-				hb_inst.GetComponent<SpriteRenderer>().color = new Color(214f/255f, 143f/255f, 81f/255f, 50f/100f);
+				hb_inst.transform.localScale = new Vector3(thisPotion.size*7f,thisPotion.size*7f,0.0f);
 				//SFX
 				source = sf[0];
 				source.volume = 0.5f;
@@ -62,9 +74,10 @@ public class PotionInstance : MonoBehaviour {
 
 			else if (thisPotion.name == "Nitrogen") {
 				hb_inst = Instantiate(hitbox);
+				hb_inst.tag = "HB";
+				hb_inst.GetComponent<HitboxInstance>().changeSprite(thisPotion.name);
 				hb_inst.transform.position = this.transform.position;
-				hb_inst.transform.localScale = new Vector3(thisPotion.size,thisPotion.size,0.0f);
-				hb_inst.GetComponent<SpriteRenderer>().color = new Color(132f/255f, 217f/255f, 119f/255f, 50f/100f);
+				hb_inst.transform.localScale = new Vector3(thisPotion.size*2,thisPotion.size*2,0.0f);
 				//SFX
 				source = sf[1];
 				source.volume = 0.5f;
@@ -74,7 +87,7 @@ public class PotionInstance : MonoBehaviour {
 						enemy.GetComponent<TrainingDummy>().CallSlowDown(1,1);
 						if(enemy.GetComponent<TrainingDummy>().thisEnemy.type == "Sulfur"){
 							reaction = true;
-							EnemyExplode(enemy, 1f);
+							StartCoroutine(EnemyExplode(enemy, 1f));
 						}
 					}
 				}
@@ -89,8 +102,10 @@ public class PotionInstance : MonoBehaviour {
 			
 			else if (thisPotion.name == "Oxygen") {
 				hb_inst = Instantiate(hitbox);
+				hb_inst.tag = "HB";
+				hb_inst.GetComponent<HitboxInstance>().changeSprite(thisPotion.name);
 				hb_inst.transform.position = this.transform.position;
-				hb_inst.transform.localScale = new Vector3(thisPotion.size*1.5f,thisPotion.size*1.5f,0.0f);
+				hb_inst.transform.localScale = new Vector3(thisPotion.size*3f,thisPotion.size*3f,0.0f);
 				hb_inst.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 50f/100f);
 				source = sf[4];
 				source.volume = 0.5f;
@@ -112,9 +127,10 @@ public class PotionInstance : MonoBehaviour {
 			
 			else if (thisPotion.name == "Greater Sulfur") {//0.0125f, 2, 0.3f, 10
 				hb_inst = Instantiate(hitbox);
+				hb_inst.tag = "HB";
+				hb_inst.GetComponent<HitboxInstance>().changeSprite(thisPotion.name);
 				hb_inst.transform.position = this.transform.position;
-				hb_inst.transform.localScale = new Vector3(thisPotion.size,thisPotion.size,0.0f);
-				hb_inst.GetComponent<SpriteRenderer>().color = new Color(214f/255f, 143f/255f, 81f/255f, 75f/100f);
+				hb_inst.transform.localScale = new Vector3(thisPotion.size*2,thisPotion.size*2,0.0f);
 				source = sf[0];
 				source.volume = 0.5f;
 				source.Play();
@@ -125,9 +141,10 @@ public class PotionInstance : MonoBehaviour {
 			
 			else if (thisPotion.name == "Greater Nitrogen") {
 				hb_inst = Instantiate(hitbox);
+				hb_inst.tag = "HB";
+				hb_inst.GetComponent<HitboxInstance>().changeSprite(thisPotion.name);
 				hb_inst.transform.position = this.transform.position;
-				hb_inst.transform.localScale = new Vector3(thisPotion.size*1.5f,thisPotion.size*1.5f,0.0f);
-				hb_inst.GetComponent<SpriteRenderer>().color = new Color(132f/255f, 217f/255f, 119f/255f, 75f/100f);
+				hb_inst.transform.localScale = new Vector3(thisPotion.size*3f,thisPotion.size*3f,0.0f);
 				source = sf[1];
 				source.volume = 0.5f;
 				source.Play();
@@ -136,7 +153,7 @@ public class PotionInstance : MonoBehaviour {
 						enemy.GetComponent<TrainingDummy>().CallSlowDown(1.5f,2);
 						if(enemy.GetComponent<TrainingDummy>().thisEnemy.type == "Sulfur"){
 							reaction = true;
-							EnemyExplode(enemy, 2f);
+							StartCoroutine(EnemyExplode(enemy, 1f));
 						}
 					}
 				}
@@ -151,6 +168,8 @@ public class PotionInstance : MonoBehaviour {
 
 			else if (thisPotion.name == "Greater Oxygen") {
 				hb_inst = Instantiate(hitbox);
+				hb_inst.tag = "HB";
+				hb_inst.GetComponent<HitboxInstance>().changeSprite(thisPotion.name);
 				hb_inst.transform.position = this.transform.position;
 				hb_inst.transform.localScale = new Vector3(thisPotion.size*1.5f,thisPotion.size*1.5f,0.0f);
 				hb_inst.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 50f/100f);
@@ -173,9 +192,10 @@ public class PotionInstance : MonoBehaviour {
 			
 			else if (thisPotion.name == "Explosion") {
 				hb_inst = Instantiate(hitbox);
+				hb_inst.tag = "HB";
+				hb_inst.GetComponent<HitboxInstance>().changeSprite(thisPotion.name);
 				hb_inst.transform.position = this.transform.position;
-				hb_inst.transform.localScale = new Vector3(thisPotion.size*1.5f,thisPotion.size*1.5f,0.0f);
-				hb_inst.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 0f, 75f/100f);
+				hb_inst.transform.localScale = new Vector3(thisPotion.size*3f,thisPotion.size*3f,0.0f);
 				source = sf[3];
 				source.volume = 0.5f;
 				source.Play();
@@ -201,9 +221,10 @@ public class PotionInstance : MonoBehaviour {
 			
 			else if (thisPotion.name == "Time Warp") {
 				hb_inst = Instantiate(hitbox);
+				hb_inst.tag = "HB";
+				hb_inst.GetComponent<HitboxInstance>().changeSprite(thisPotion.name);
 				hb_inst.transform.position = this.transform.position;
-				hb_inst.transform.localScale = new Vector3(thisPotion.size*1.5f,thisPotion.size*1.5f,0.0f);
-				hb_inst.GetComponent<SpriteRenderer>().color = new Color(19f/255f, 214f/255f, 133f/255f, 75f/100f);
+				hb_inst.transform.localScale = new Vector3(thisPotion.size*3f,thisPotion.size*3f,0.0f);
 				source = sf[2];
 				source.volume = 0.5f;
 				source.Play();
@@ -223,9 +244,10 @@ public class PotionInstance : MonoBehaviour {
 			
 			else if (thisPotion.name == "Volcano") { //0.0125, 10, 0.125, 10
 				hb_inst = Instantiate(hitbox);
+				hb_inst.tag = "HB";
+				hb_inst.GetComponent<HitboxInstance>().changeSprite(thisPotion.name);
 				hb_inst.transform.position = this.transform.position;
-				hb_inst.transform.localScale = new Vector3(thisPotion.size*1.5f,thisPotion.size*1.5f,0.0f);
-				hb_inst.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f, 75f/100f);
+				hb_inst.transform.localScale = new Vector3(thisPotion.size*3f,thisPotion.size*3f,0.0f);
 				source = sf[0];
 				source.volume = 0.5f;
 				source.Play();
@@ -239,15 +261,18 @@ public class PotionInstance : MonoBehaviour {
 			Destroy(this.gameObject);
 		} else {
 			// it's an enemy drop
+			anim.SetInteger("State", 0);
 		}
 		
 	}
 
-	public void EnemyExplode(GameObject e, float mult){ //e for enemy
+	public IEnumerator EnemyExplode(GameObject e, float mult){ //e for enemy
 		hb_inst_2 = Instantiate(hitbox);
+		hb_inst_2.tag = "HB";
+		hb_inst_2.GetComponent<HitboxInstance>().changeSprite("Explosion");
 		hb_inst_2.transform.position = this.transform.position;
 		hb_inst_2.transform.localScale = new Vector3(thisPotion.size*1.5f,thisPotion.size*1.5f,0.0f);
-		hb_inst_2.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 0f, 75f/100f);
+		hb_inst_2.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f, 75f/100f);
 		source = sf[3];
 		source.volume = 0.5f;
 		source.Play();
@@ -269,7 +294,10 @@ public class PotionInstance : MonoBehaviour {
 			}
 		}
 		Destroy(e);
-		Destroy(hb_inst_2);
+		yield return new WaitForSeconds(1f);
+		foreach(GameObject hitbox in GameObject.FindGameObjectsWithTag("HB")){
+			Destroy(hitbox);
+		}
 	}
 
 
@@ -285,7 +313,7 @@ public class PotionInstance : MonoBehaviour {
 					enemy.GetComponent<TrainingDummy>().DropHealth(thisPotion.damage * (crit ? 2 : 1), crit);
 					if(enemy.GetComponent<TrainingDummy>().thisEnemy.type == "Nitrogen"){
 						reaction = true;
-						EnemyExplode(enemy, size_mult/3.5f);
+						StartCoroutine(EnemyExplode(enemy, size_mult/3.5f));
 					}
 				}
 			}
