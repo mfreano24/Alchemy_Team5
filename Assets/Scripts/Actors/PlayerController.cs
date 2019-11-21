@@ -32,12 +32,12 @@ public class PlayerController : MonoBehaviour {
 	int level = 1;
 
 	public List<InventorySlot> inventory;
-	int BASE_COUNT = 2;
+	int BASE_COUNT = 3;
 
 	public Animator anim;
 
 	// UPGRADEABLE DATA
-	public int MAX_ITEMS = 5; // Maximum number of each element carried
+	public int MAX_ITEMS = 8; // Maximum number of each element carried
 	public float maxHealth = 100; // Maximum player health
 	public int HEAL_FACTOR = 25; // Amount player heals between waves
 	public int playerSpeed; // Current speed of the player
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour {
 
 		// DEBUGGING PURPOSES ONLY
 		inventory = new List<InventorySlot>();
-		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 5));
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 8));
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[2], 1));
 		selectedPotion = inventory[0];
 		invincibility = false;

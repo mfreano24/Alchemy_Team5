@@ -51,7 +51,7 @@ public class Controls : MonoBehaviour {
 		// Instantiate Crosses
 		for (int i = -9; i <= 9; i++) {
 			for (int j = -7; j <= 7; j++) {
-				GameObject newCross = (GameObject)Instantiate(cross, new Vector2(i, j), Quaternion.identity);
+				GameObject newCross = (GameObject)Instantiate(cross, new Vector3(i, j, -0.01f), Quaternion.identity);
 				newCross.transform.localScale.Set(0.2f, 0.2f, 0.2f);
 				newCross.GetComponent<Cross>().x = i;
 				newCross.GetComponent<Cross>().y = j;
@@ -132,7 +132,7 @@ public class Controls : MonoBehaviour {
 				}
 			}
 
-			if (Input.GetButtonDown("Submit")) {
+			if (Input.GetButtonDown("Fire2")) {
 				if (mode == "Spawn") {
 					if (crossedWith != null && !crossedWith.GetComponent<Cross>().active && spawners.Count < 4) {
 						crossedWith.GetComponent<Cross>().active = true;
@@ -160,7 +160,7 @@ public class Controls : MonoBehaviour {
 		}
 
 		if (GameObject.Find("Cursor").transform.position.x < -8.5f) {
-			if (Input.GetButtonDown("Submit")) {
+			if (Input.GetButtonDown("Fire2")) {
 				if (!submitted) {
 					if (GameObject.Find("Cursor").transform.position.x < -9.8f && GameObject.Find("Cursor").transform.position.y > 5.4f) {
 						UnityEngine.SceneManagement.SceneManager.LoadScene("Main Menu");
