@@ -27,7 +27,7 @@ public class WaveManager : MonoBehaviour {
 		Wave current = waves[i - 1];
 
 		for (int j = 0; j < current.waveEnemies.Count; j++) {
-			GameObject newEnemy = (GameObject)Instantiate(this.transform.GetComponent<EnemyManager>().EnemyPrefab, GameObject.Find("Spawner_" + (current.spawnIndices[j] % 4).ToString()).transform.position, Quaternion.identity);
+			GameObject newEnemy = (GameObject)Instantiate(this.transform.GetComponent<EnemyManager>().EnemyPrefab, GameObject.Find("Spawner_" + (current.spawnIndices[j]).ToString()).transform.position, Quaternion.identity);
 			newEnemy.GetComponent<TrainingDummy>().thisEnemy = new Enemy(current.waveEnemies[j]);
 			currentEnemies.Add(newEnemy);
 		}
