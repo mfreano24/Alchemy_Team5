@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour {
 
 		// DEBUGGING PURPOSES ONLY
 		inventory = new List<InventorySlot>();
-		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 8));
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 10));
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[2], 1));
 		selectedPotion = inventory[0];
 		invincibility = false;

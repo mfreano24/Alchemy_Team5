@@ -3104,7 +3104,12 @@ PrefabInstance:
     - target: {fileID: 7885963976727339658, guid: 663800d0ceb49c94f8498a6c67ebc5a9,
         type: 3}
       propertyPath: MAX_ITEMS
-      value: 8
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7885963976727339658, guid: 663800d0ceb49c94f8498a6c67ebc5a9,
+        type: 3}
+      propertyPath: currentExperience
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1837136228, guid: 663800d0ceb49c94f8498a6c67ebc5a9, type: 3}
       propertyPath: m_ApplyRootMotion
