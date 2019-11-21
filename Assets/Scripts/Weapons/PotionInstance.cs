@@ -22,26 +22,29 @@ public class PotionInstance : MonoBehaviour {
 	}
 
 	private void Update() {
-		if(anim.GetInteger("State") == 0 && (thisPotion.name == "Sulfur" || thisPotion.name == "Greater Sulfur" || thisPotion.name == "Volcano")){
-			transform.localScale = Vector3.one;
+		if(!isEnemyDrop){
+			if(anim.GetInteger("State") == 0 && (thisPotion.name == "Sulfur" || thisPotion.name == "Greater Sulfur" || thisPotion.name == "Volcano")){
+				transform.localScale = Vector3.one;
+			}
+			else if(anim.GetInteger("State") == 0 && (thisPotion.name == "Nitrogen" || thisPotion.name == "Greater Nitrogen" || 
+			thisPotion.name == "Time Warp")){
+				transform.localScale = Vector3.one * 3;
+			}
+			else if(anim.GetInteger("State") == 0 && (thisPotion.name == "Oxygen" || thisPotion.name == "Greater Oxygen")){
+				transform.localScale = Vector3.one * 3;
+			}
+			else if(anim.GetInteger("State") == 0 && (thisPotion.name == "Explosion")){
+				transform.localScale = Vector3.one * 3;
+			}
 		}
-		else if(anim.GetInteger("State") == 0 && (thisPotion.name == "Nitrogen" || thisPotion.name == "Greater Nitrogen" || 
-		thisPotion.name == "Time Warp")){
-			transform.localScale = Vector3.one * 3;
-		}
-		else if(anim.GetInteger("State") == 0 && (thisPotion.name == "Oxygen" || thisPotion.name == "Greater Oxygen")){
-			transform.localScale = Vector3.one * 3;
-		}
-		else if(anim.GetInteger("State") == 0 && (thisPotion.name == "Explosion")){
-			transform.localScale = Vector3.one * 3;
-		}
-
 		//anim.SetInteger("State", anim.GetInteger("State") + 3);
 		if (isEnemyDrop) {
 			anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>(thisPotion.name + "Drop");
 		} else {
 			anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>(thisPotion.name);
 		}
+
+		
 	}
 
 	public IEnumerator DropPotion() {
@@ -120,7 +123,7 @@ public class PotionInstance : MonoBehaviour {
 						player.GetComponent<PlayerController>().CallKB(0.000008f, 1f, this.transform);
 					}
 				}
-				yield return new WaitForSeconds(1f);
+				yield return new WaitForSeconds(0.6f);
 				Destroy(hb_inst);
 			}
 			
@@ -251,7 +254,7 @@ public class PotionInstance : MonoBehaviour {
 				source = sf[0];
 				source.volume = 0.5f;
 				source.Play();
-				StartCoroutine(Damage_Over_Time(0.0125f,10,0.125f,10));
+				StartCoroutine(Damage_Over_Time(0.0375f,10,0.125f,10));
 				yield return new WaitForSeconds(1.25f);
 				Destroy(hb_inst);
 
