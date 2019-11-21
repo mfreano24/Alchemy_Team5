@@ -118,6 +118,7 @@ public class TrainingDummy : MonoBehaviour {
 					} else {
 						// 10% chance of 3 items
 						items = 3;
+						
 					}
 
 					if (items == 1) {

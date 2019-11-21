@@ -37,14 +37,15 @@ public class PotionDisplay : MonoBehaviour {
             if(iterator == pc.inventory.Count) {
                 iterator = 0;
             }
-
         }
         if(Input.GetButtonDown("Previous") && gv.playing) {
             iterator--;
             if(iterator == -1){
                 iterator = pc.inventory.Count - 1;
             }
+
         }
+
         current_potion.text = pc.inventory[iterator].item.name;
 		GameObject.Find("ElementCount").GetComponent<Text>().text = "x" + pc.inventory[iterator].count.ToString();
 		pc.selectedPotion = pc.inventory[pc.FindInventorySlot(pc.inventory[iterator].item)];

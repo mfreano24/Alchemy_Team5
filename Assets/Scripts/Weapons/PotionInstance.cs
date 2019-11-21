@@ -18,7 +18,7 @@ public class PotionInstance : MonoBehaviour {
 	private void Start() {
 		GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Stable_"+thisPotion.name);
 		anim = GetComponent<Animator>();
-		
+		Debug.Log("Potion Dropped!:\t" + thisPotion.name);
 	}
 
 	private void Update() {

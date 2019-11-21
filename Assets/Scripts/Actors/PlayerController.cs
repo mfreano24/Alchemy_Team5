@@ -61,7 +61,11 @@ public class PlayerController : MonoBehaviour {
 
 		// DEBUGGING PURPOSES ONLY
 		inventory = new List<InventorySlot>();
+<<<<<<< Updated upstream
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 5));
+=======
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 999));
+>>>>>>> Stashed changes
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[2], 1));
 		selectedPotion = inventory[0];
 		invincibility = false;
@@ -72,10 +76,8 @@ public class PlayerController : MonoBehaviour {
 			UpdateUI();
 			PickupItems();
 			CheckWall();
-
 			anim.SetFloat("Speed", moveDirection.magnitude);
 			anim.SetInteger("Direction", MapDirection(face_Front_x, face_Front_y));
-
 			if (Input.GetButtonDown("Pause")) {
 				gv.playing = false;
 				menu.SetActive(true);
