@@ -116,7 +116,7 @@ public class PlayerController : MonoBehaviour {
 					return;
 				}
 				if (inventory[invIndex].count != MAX_ITEMS) {
-					inventory[invIndex].count+=2;
+					inventory[invIndex].count++;
 					Destroy(item);
 					return;
 				}

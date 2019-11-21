@@ -27,7 +27,7 @@ public class WaveManager : MonoBehaviour {
 		Wave current = waves[i - 1];
 
 		for (int j = 0; j < current.waveEnemies.Count; j++) {
-			GameObject newEnemy = (GameObject)Instantiate(this.transform.GetComponent<EnemyManager>().EnemyPrefab, GameObject.Find("Spawner_" + current.spawnIndices[j].ToString()).transform.position, Quaternion.identity);
+			GameObject newEnemy = (GameObject)Instantiate(this.transform.GetComponent<EnemyManager>().EnemyPrefab, GameObject.Find("Spawner_" + (current.spawnIndices[j] % 4).ToString()).transform.position, Quaternion.identity);
 			newEnemy.GetComponent<TrainingDummy>().thisEnemy = new Enemy(current.waveEnemies[j]);
 			currentEnemies.Add(newEnemy);
 		}
@@ -45,27 +45,29 @@ public class WaveManager : MonoBehaviour {
 	}
 	
 	void CreateIndices() {
-		// Find the spawn index data
-		string path = Directory.GetCurrentDirectory() + "\\waves\\spawn_indices.txt";
-		using (var reader = new StreamReader(path)) {
-			// Initial data
-			string input = "hello there!";
-
-			// Create empty spawner
-			input = reader.ReadLine();
-
-			// While more data exist
-			while (input != null && input != "") {
-
-				string[] data = input.Split(' ');
-
-				GameObject newSpawner = (GameObject)Instantiate(spawner, new Vector3(System.Convert.ToInt32(data[1]), System.Convert.ToInt32(data[2]), 0), Quaternion.identity);
-
-				// Set up spawner name
-				newSpawner.name = "Spawner_" + data[0].ToString();
+		if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "MainRoom") {
+			// Find the spawn index data
+			string path = Directory.GetCurrentDirectory() + "\\waves\\spawn_indices.txt";
+			using (var reader = new StreamReader(path)) {
+				// Initial data
+				string input = "hello there!";
 
 				// Create empty spawner
 				input = reader.ReadLine();
+
+				// While more data exist
+				while (input != null && input != "") {
+
+					string[] data = input.Split(' ');
+
+					GameObject newSpawner = (GameObject)Instantiate(spawner, new Vector3(System.Convert.ToInt32(data[1]), System.Convert.ToInt32(data[2]), 0), Quaternion.identity);
+
+					// Set up spawner name
+					newSpawner.name = "Spawner_" + data[0].ToString();
+
+					// Create empty spawner
+					input = reader.ReadLine();
+				}
 			}
 		}
 

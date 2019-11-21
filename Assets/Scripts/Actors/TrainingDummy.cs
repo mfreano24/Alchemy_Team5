@@ -31,18 +31,7 @@ public class TrainingDummy : MonoBehaviour {
 		StartCoroutine(UpdatePath());
 		gv = GameObject.Find("EventSystem").GetComponent<GlobalVars>();
 		anim = GetComponent<Animator>();
-		if(thisEnemy.type == "Nitrogen"){
-			//anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Nitroshroom_Walk");
-			//this isn't done yet
-			anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Basic_Slime_Walk"); //PLACEHOLDER UNTIL IT WORKS
-			GetComponent<SpriteRenderer>().color = new Color(0,150f/255f,0);
-		}
-		else if(thisEnemy.type == "Sulfur"){
-			anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Fire_Slime_Walk");
-		}
-		else{
-			anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Basic_Slime_Walk");
-		}
+		anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>(thisEnemy.name + "_Walk");
 	}
 
 	public void OnPathFound(Vector3[] waypoints, bool success) {
@@ -116,10 +105,42 @@ public class TrainingDummy : MonoBehaviour {
 				StartCoroutine(IncreaseXP());
 				// Drop the item
 				if (thisEnemy.type != "None") {
-					GameObject enemyDrop = (GameObject)Instantiate(GameObject.Find("Player").GetComponent<PlayerController>().potionPrefab, transform.position, Quaternion.identity);
-					enemyDrop.GetComponent<PotionInstance>().thisPotion = GameObject.Find("EventSystem").GetComponent<PotionManager>().FindByName(thisEnemy.type);
-					enemyDrop.GetComponent<PotionInstance>().isEnemyDrop = true;
-					StartCoroutine(enemyDrop.GetComponent<PotionInstance>().DropPotion());
+
+					int probability = Random.Range(1, 10);
+					int items;
+
+					if (probability <= 5) {
+						// 50% chance of 1 item
+						items = 1;
+					} else if (probability <= 9) {
+						// 40% chance of 2 items
+						items = 2;
+					} else {
+						// 10% chance of 3 items
+						items = 3;
+					}
+
+					if (items == 1) {
+						GameObject enemyDrop = (GameObject)Instantiate(GameObject.Find("Player").GetComponent<PlayerController>().potionPrefab, transform.position, Quaternion.identity);
+						enemyDrop.GetComponent<PotionInstance>().thisPotion = GameObject.Find("EventSystem").GetComponent<PotionManager>().FindByName(thisEnemy.type);
+						enemyDrop.GetComponent<PotionInstance>().isEnemyDrop = true;
+						StartCoroutine(enemyDrop.GetComponent<PotionInstance>().DropPotion());
+					} else if (items == 2) {
+						for (int j = 0; j < 2; j++) {
+							GameObject enemyDrop = (GameObject)Instantiate(GameObject.Find("Player").GetComponent<PlayerController>().potionPrefab, transform.position + Mathf.Pow(-1, j) * Vector3.right * 0.3f, Quaternion.identity);
+							enemyDrop.GetComponent<PotionInstance>().thisPotion = GameObject.Find("EventSystem").GetComponent<PotionManager>().FindByName(thisEnemy.type);
+							enemyDrop.GetComponent<PotionInstance>().isEnemyDrop = true;
+							StartCoroutine(enemyDrop.GetComponent<PotionInstance>().DropPotion());
+						}
+					} else {
+						for (int j = 0; j < 3; j++) {
+							float pi = Mathf.PI;
+							GameObject enemyDrop = (GameObject)Instantiate(GameObject.Find("Player").GetComponent<PlayerController>().potionPrefab, transform.position + 0.6f * new Vector3(Mathf.Cos(pi / 2 + 2 * pi * j / 3f), Mathf.Sin(pi / 2 + 2 * pi * j / 3f), 0), Quaternion.identity);
+							enemyDrop.GetComponent<PotionInstance>().thisPotion = GameObject.Find("EventSystem").GetComponent<PotionManager>().FindByName(thisEnemy.type);
+							enemyDrop.GetComponent<PotionInstance>().isEnemyDrop = true;
+							StartCoroutine(enemyDrop.GetComponent<PotionInstance>().DropPotion());
+						}
+					}
 				}
 			}
 

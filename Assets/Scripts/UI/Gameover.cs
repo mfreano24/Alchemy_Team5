@@ -24,7 +24,7 @@ public class Gameover : MonoBehaviour {
 
 		if (Input.GetButton("Submit")) {
 			if (tryAgain) {
-				UnityEngine.SceneManagement.SceneManager.LoadScene("MainRoom");
+				UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
 			} else {
 				UnityEngine.SceneManagement.SceneManager.LoadScene("Main Menu");
 			}

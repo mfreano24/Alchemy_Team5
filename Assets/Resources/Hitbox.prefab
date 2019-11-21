@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6512431078876631216}
   - component: {fileID: 6512431078876631219}
+  - component: {fileID: -440124694564535549}
+  - component: {fileID: 891475159194218391}
   m_Layer: 0
   m_Name: Hitbox
   m_TagString: Untagged
@@ -80,3 +82,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-440124694564535549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6512431078876631218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94c5e7f0bfb86a948bcb9f023b4f3c94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &891475159194218391
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6512431078876631218}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 33a5dffb2d6732340b22f07b4bc946a3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

@@ -109,7 +109,6 @@ public class EnemyManager : MonoBehaviour {
 							break;
 						case (4):
 							// Set up the enemy's speed
-							Debug.Log("Parser Debug: " + input);
 							newEnemy.speed = (float)System.Convert.ToDouble(input);
 							break;
 						case (5):
