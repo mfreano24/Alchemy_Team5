@@ -142,6 +142,13 @@ public class TrainingDummy : MonoBehaviour {
 							StartCoroutine(enemyDrop.GetComponent<PotionInstance>().DropPotion());
 						}
 					}
+
+					if (Random.Range(1, 10) == 1) {
+						GameObject enemyDrop = (GameObject)Instantiate(GameObject.Find("Player").GetComponent<PlayerController>().potionPrefab, transform.position + 0.6f * new Vector3(0, 0, -0.3f), Quaternion.identity);
+						enemyDrop.GetComponent<PotionInstance>().thisPotion = GameObject.Find("EventSystem").GetComponent<PotionManager>().FindByName("Oxygen");
+						enemyDrop.GetComponent<PotionInstance>().isEnemyDrop = true;
+						StartCoroutine(enemyDrop.GetComponent<PotionInstance>().DropPotion());
+					}
 				}
 			}
 

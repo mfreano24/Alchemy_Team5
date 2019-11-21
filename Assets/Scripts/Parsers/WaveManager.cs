@@ -31,7 +31,7 @@ public class WaveManager : MonoBehaviour {
 				GameObject newEnemy = (GameObject)Instantiate(this.transform.GetComponent<EnemyManager>().EnemyPrefab, GameObject.Find("Spawner_" + (current.spawnIndices[j]).ToString()).transform.position, Quaternion.identity);
 				newEnemy.GetComponent<TrainingDummy>().thisEnemy = new Enemy(current.waveEnemies[j]);
 				currentEnemies.Add(newEnemy);
-			} else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "CusotmLevel") {
+			} else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "CustomLevel") {
 				GameObject newEnemy = (GameObject)Instantiate(this.transform.GetComponent<EnemyManager>().EnemyPrefab, GameObject.Find("Spawner_" + (current.spawnIndices[j] % 4).ToString()).transform.position, Quaternion.identity);
 				newEnemy.GetComponent<TrainingDummy>().thisEnemy = new Enemy(current.waveEnemies[j]);
 				currentEnemies.Add(newEnemy);
@@ -43,7 +43,7 @@ public class WaveManager : MonoBehaviour {
 			Wave customWave = new Wave();
 			for (int j = 0; j < 3; j++) {
 				customWave.spawnIndices.Add(j);
-				customWave.waveEnemies.Add(this.gameObject.GetComponent<EnemyManager>().enemies[Random.Range(0, this.gameObject.GetComponent<EnemyManager>().enemies.Count)]);
+				customWave.waveEnemies.Add(this.gameObject.GetComponent<EnemyManager>().enemies[Random.Range(10, 20)]);
 			}
 			waves.Add(customWave);
 		}

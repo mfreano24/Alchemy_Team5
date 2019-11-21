@@ -90,7 +90,7 @@ public class MainMenu : MonoBehaviour {
 			moved = false;
 		}
 
-		if (Input.GetButtonDown("Submit")) {
+		if (Input.GetButtonDown("Fire2")) {
 			cur.Play();
 			SelectObject();
 			return;

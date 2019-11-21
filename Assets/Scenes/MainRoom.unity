@@ -389,6 +389,13 @@ PrefabInstance:
       propertyPath: m_FontData.m_BestFit
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4846755473086426571, guid: 4b85c94d4b79e0346abadd5e33358466,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Wave starting in xx seconds!
+
+        (Press Select to start early!)'
+      objectReference: {fileID: 0}
     - target: {fileID: 4846755471278552343, guid: 4b85c94d4b79e0346abadd5e33358466,
         type: 3}
       propertyPath: m_Color.r
