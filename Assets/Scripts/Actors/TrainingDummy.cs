@@ -107,7 +107,7 @@ public class TrainingDummy : MonoBehaviour {
 				if (thisEnemy.type != "None") {
 
 					int probability = Random.Range(1, 10);
-					int items;
+					int items = 1;
 
 					if (probability <= 5) {
 						// 50% chance of 1 item

@@ -37,9 +37,9 @@ public class PlayerController : MonoBehaviour {
 	public Animator anim;
 
 	// UPGRADEABLE DATA
-	public int MAX_ITEMS = 8; // Maximum number of each element carried
-	public float maxHealth = 100; // Maximum player health
-	public int HEAL_FACTOR = 25; // Amount player heals between waves
+	public int MAX_ITEMS; // Maximum number of each element carried
+	public float maxHealth; // Maximum player health
+	public int HEAL_FACTOR; // Amount player heals between waves
 	public int playerSpeed; // Current speed of the player
 
 	AudioSource[] asc;
