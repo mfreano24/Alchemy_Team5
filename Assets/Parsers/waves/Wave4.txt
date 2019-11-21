@@ -1,0 +1,4 @@
+Basic_Slime 2
+Basic_Slime 4
+Basic_Slime 6
+Nitroshroom 8

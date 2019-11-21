@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -152,6 +153,59 @@ namespace Alchemy {
 		}
 	}
 
+	public class Level {
+
+		public string Author { get; set; }
+		public string Name { get; set; }
+		public string Code { get; set; }
+		public int[,] Floor { get; set; }
+		public int[,] Walls { get; set; }
+
+		public List<Vector2> Spawners { get; set; }
+
+		public Level(string auth, string name, string code, string floor, string wall, string spawn) {
+			Author = auth;
+			Name = name;
+			Code = code;
+			Floor = GenerateTiles(floor);
+			Walls = GenerateTiles(wall);
+			Spawners = GenerateSpawners(spawn);
+		}
+
+		private List<Vector2> GenerateSpawners(string spawn) {
+			string[] spawners = spawn.Split(new string[] { "}{" }, StringSplitOptions.None);
+			spawners[0] = spawners[0].Trim('{');
+			spawners[spawners.Length - 1] = spawners[spawners.Length - 1].Trim('}');
+
+			List<Vector2> toReturn = new List<Vector2>();
+
+			foreach (string s in spawners) {
+				string[] fragment = s.Split(new string[] { ", " }, StringSplitOptions.None);
+				Vector2 toAdd = new Vector2(System.Convert.ToInt32(fragment[1]), System.Convert.ToInt32(fragment[2]));
+				toReturn.Add(toAdd);
+			}
+
+			return toReturn;
+		}
+
+		private int[,] GenerateTiles(string s) {
+
+			int[,] toReturn = new int[20, 16];
+
+			string[] spawners = s.Split(new string[] { ", }{" }, StringSplitOptions.None);
+			spawners[0] = spawners[0].TrimStart('{');
+			spawners[spawners.Length - 1] = spawners[spawners.Length - 1].TrimEnd(new char[] { '}', ',', ' ' });
+			for (int i = 0; i < 20; i++) {
+				string[] fragment = spawners[i].Split(new string[] { ", " }, StringSplitOptions.None);
+				for (int j = 0; j < 16; j++) {
+					int toAdd = System.Convert.ToInt32(fragment[j]);
+					toReturn[i, j] = toAdd;
+				}
+			}
+
+			return toReturn;
+		}
+	}
 }
 
 

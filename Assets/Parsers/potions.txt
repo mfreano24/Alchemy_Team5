@@ -1,0 +1,73 @@
+-----
+Sulfur
+None
+Explosion
+1
+1000
+25
+DOT
+-----
+Greater Sulfur
+Sulfur, Sulfur
+Explosion
+3
+1000
+60
+DOT
+-----
+Nitrogen
+None
+Fire
+5
+1000
+0
+Slowing
+-----
+Greater Nitrogen
+Nitrogen, Nitrogen
+Fire
+7
+800
+0
+Slowing
+-----
+Oxygen
+None
+Wind
+4
+500
+0
+Windbox
+-----
+Greater Oxygen
+Oxygen, Oxygen
+Wind
+7
+250
+0
+Windbox
+-----
+Explosion
+Sulfur, Nitrogen
+Explosion
+2
+1000
+650
+Damage
+-----
+Time Warp
+Oxygen, Nitrogen
+Cyclone
+5
+750
+0
+Wind
+-----
+Volcano
+Sulfur, Oxygen
+Explosion
+10
+450
+35
+Damage
+

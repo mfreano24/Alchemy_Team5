@@ -8,7 +8,7 @@ public class PotionInstance : MonoBehaviour {
 	public GameObject hitbox;
 	GameObject hb_inst;
 	GameObject hb_inst_2;
-	public bool isEnemyDrop = false;
+	public bool isEnemyDrop;
 	public bool reaction = false;
 	const int _critChance = 20;
 	public AudioSource source;
@@ -16,15 +16,20 @@ public class PotionInstance : MonoBehaviour {
 	Animator anim;
 
 	private void Start() {
-		GetComponent<SpriteRenderer>().sprite = null;//Resources.Load<Sprite>("Stable_" + thisPotion.name);
+		GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Stable_" + thisPotion.name);
 		anim = GetComponent<Animator>();
-		anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>(thisPotion.name);
 	}
 
 	private void Update() {
 		anim.SetInteger("State", anim.GetInteger("State") + 3);
 		if (anim.GetInteger("State") > 75) {
 			transform.localScale = Vector3.one * thisPotion.size;
+		}
+
+		if (isEnemyDrop) {
+			anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>(thisPotion.name + "Drop");
+		} else {
+			anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>(thisPotion.name);
 		}
 	}
 
@@ -233,8 +238,7 @@ public class PotionInstance : MonoBehaviour {
 			// Delete the game object
 			Destroy(this.gameObject);
 		} else {
-			yield return new WaitForSeconds(5);
-			Destroy(this.gameObject);
+			// it's an enemy drop
 		}
 		
 	}
