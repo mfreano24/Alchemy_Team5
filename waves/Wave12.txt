@@ -6,3 +6,7 @@ Nitroshroom 1
 Nitroshroom 3
 Fire_Slime 4
 Fire_Slime 5
+Nitroshroom 1
+Nitroshroom 3
+Basic_Slime 6
+Basic_Slime 8
