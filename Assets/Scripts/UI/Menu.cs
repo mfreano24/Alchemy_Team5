@@ -33,7 +33,7 @@ public class Menu : MonoBehaviour {
 			moved = false;
 		}
 
-		if (Input.GetButtonDown("Submit")) {
+		if (Input.GetButtonDown("Fire2")) {
 			SelectObject();
 			return;
 		}

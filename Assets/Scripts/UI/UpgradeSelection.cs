@@ -52,7 +52,7 @@ public class UpgradeSelection : MonoBehaviour {
 				moved = false;
 			}
 
-			if (Input.GetButtonDown("Submit")) {
+			if (Input.GetButtonDown("Fire2")) {
 				switch (currentSelection) {
 					case 0:
 						IncreaseMaxHealth();

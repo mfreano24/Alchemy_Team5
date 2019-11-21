@@ -1,6 +1,6 @@
 -----
 Basic_Slime
-200
+100
 3
 1
 1
@@ -16,7 +16,7 @@ Sulfur
 40
 -----
 Nitroshroom
-500
+900
 8
 1
 1

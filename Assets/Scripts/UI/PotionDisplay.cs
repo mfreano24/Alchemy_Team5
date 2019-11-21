@@ -45,17 +45,14 @@ public class PotionDisplay : MonoBehaviour {
                 iterator = pc.inventory.Count - 1;
             }
         }
-
         current_potion.text = pc.inventory[iterator].item.name;
 		GameObject.Find("ElementCount").GetComponent<Text>().text = "x" + pc.inventory[iterator].count.ToString();
 		if (Resources.Load<Sprite>("UIIcons/UI" + pc.inventory[iterator].item.name.ToString().Replace(" ", "")) != null) {
 			GameObject.Find("PotionImage").GetComponent<Image>().sprite = Resources.Load<Sprite>("UIIcons/UI" + pc.inventory[iterator].item.name.ToString().Replace(" ", ""));
-		} else {
-			GameObject.Find("PotionImage").GetComponent<Image>().sprite = Resources.Load<Sprite>("UIIcons/UIOther");
-		}
-		pc.selectedPotion = pc.inventory[iterator];
+		}else {
+		GameObject.Find("PotionImage").GetComponent<Image>().sprite = Resources.Load<Sprite>("UIIcons/UIOther");
+        }  
     }
-
 	public void PotionUsed() {
 		iterator--;
 	}

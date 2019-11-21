@@ -22,7 +22,7 @@ public class Gameover : MonoBehaviour {
 			moved = false;
 		}
 
-		if (Input.GetButton("Submit")) {
+		if (Input.GetButton("Fire2")) {
 			if (tryAgain) {
 				UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
 			} else {
