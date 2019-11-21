@@ -20,9 +20,11 @@ public class MainMenu : MonoBehaviour {
 
 	bool MainScreen = true;
 	bool StageSelect = false;
+	bool tutorialRead = false;
 
 	GameObject warning;
 	GameObject levelSelect;
+	GameObject howToPlay;
 
 	public GameObject optionPrefab;
 
@@ -34,6 +36,8 @@ public class MainMenu : MonoBehaviour {
 		options = new List<GameObject>();
 		options.Add(GameObject.Find("Default"));
 		warning = GameObject.Find("Warning");
+		howToPlay = GameObject.Find("HowToPlay");
+		howToPlay.SetActive(false);
 		warning.SetActive(false);
 		levelSelect = GameObject.Find("Levels");
 		levelSelect.SetActive(false);
@@ -107,7 +111,7 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	private void UpdatePos() {
-		GameObject.Find("Cursor").transform.localPosition = new Vector3(-75, -100 * selectedIndex, 0);
+		GameObject.Find("Cursor").transform.localPosition = new Vector3(-75, -150 * selectedIndex, 0);
 	}
 
 	private void SelectObject() {
@@ -132,22 +136,27 @@ public class MainMenu : MonoBehaviour {
 					}
 					break;
 				case 1:
-					Options();
-					break;
-				case 2:
 					LevelEditor();
 					break;
-				case 3:
+				case 2:
 					Application.Quit();
 					break;
 			}
 		} else {
-			if (selectedLevel == -1) {
-				UnityEngine.SceneManagement.SceneManager.LoadScene("MainRoom");
-			} else {
-				GameObject.Find("CustomLevelManager").GetComponent<StageManager>().currentStage = levels[selectedLevel];
-				UnityEngine.SceneManagement.SceneManager.LoadScene("CustomLevel");
+			howToPlay.SetActive(true);
+			if (!tutorialRead) {
+				GameObject.Find("Levels").SetActive(false);
+				GameObject.Find("RegularTitle").SetActive(false);
 			}
+			if (tutorialRead) {
+				if (selectedLevel == -1) {
+					UnityEngine.SceneManagement.SceneManager.LoadScene("MainRoom");
+				} else {
+					GameObject.Find("CustomLevelManager").GetComponent<StageManager>().currentStage = levels[selectedLevel];
+					UnityEngine.SceneManagement.SceneManager.LoadScene("CustomLevel");
+				}
+			}
+			tutorialRead = true;
 		}
 	}
 

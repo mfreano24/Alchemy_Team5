@@ -50,7 +50,7 @@ public class EnemyManager : MonoBehaviour {
 					GameObject.Find("Player").GetComponent<PlayerController>().takeDamage(-GameObject.Find("Player").GetComponent<PlayerController>().HEAL_FACTOR);
 				}
 				timer = timeBetweenWaves;
-				waveTimer.GetComponent<Text>().text = "Next wave in " + (timer / 60 + 1).ToString() + " seconds!\nPress F to skip timer!";
+				waveTimer.GetComponent<Text>().text = "Next wave in " + (timer / 60 + 1).ToString() + " seconds!\nPress Select to skip timer!";
 				waveTimer.SetActive(true);
 			}
 		}

@@ -17,12 +17,14 @@ public class Menu : MonoBehaviour {
 	private void Update() {
 		if (Input.GetAxis("Vertical") < 0 && !moved) {
 			selectedIndex++;
+			selectedIndex++;
 			moved = true;
 			if (MAX_OBJECTS < selectedIndex) {
 				selectedIndex = 0;
 			}
 		}
 		if (Input.GetAxis("Vertical") > 0 && !moved) {
+			selectedIndex--;
 			selectedIndex--;
 			moved = true;
 			if (selectedIndex < 0) {
