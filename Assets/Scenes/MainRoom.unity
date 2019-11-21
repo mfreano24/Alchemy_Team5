@@ -9234,7 +9234,7 @@ PrefabInstance:
     - target: {fileID: 742280035671596663, guid: 76ae2ee125679f1439642760a33b1048,
         type: 3}
       propertyPath: WAVE_COUNT
-      value: 9
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76ae2ee125679f1439642760a33b1048, type: 3}

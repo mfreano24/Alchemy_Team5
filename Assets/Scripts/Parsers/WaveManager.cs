@@ -25,7 +25,7 @@ public class WaveManager : MonoBehaviour {
 		
 		curr_wave = i;
 
-		if (i > waves.Count - 1) {
+		if (i > waves.Count) {
 			// Add a random wave if all the manually-implemented waves have been completed.
 			Wave customWave = new Wave();
 			for (int j = 0; j < 9; j++) {
