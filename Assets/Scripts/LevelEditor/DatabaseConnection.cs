@@ -35,7 +35,7 @@ public class DatabaseConnection : MonoBehaviour {
 			// Send inputs to the PHP File.
 			NameValueCollection parameters = new NameValueCollection {
 				{ "MODE", "Upload" },
-				{"AUTHOR", auth },
+				{"AUTHOR", "TAGD" },
 				{ "LEVEL_NAME", code},
 				{"CODE", code },
 				{ "FLOOR", floor},

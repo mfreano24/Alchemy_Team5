@@ -33,7 +33,7 @@ public class EnemyManager : MonoBehaviour {
 		if (gv.playing) {
 			if (timer > 0) {
 				timer--;
-				waveTimer.GetComponent<Text>().text = "Next wave in " + (timer / 30 + 1).ToString() + " seconds!\nPress F to skip timer!";
+				waveTimer.GetComponent<Text>().text = "Next wave in " + (timer / 30 + 1).ToString() + " seconds!\nPress Select to skip timer!";
 				if (timer == 5) {
 					wave++;
 					StartCoroutine(UpdateWaveStatus("Wave " + wave.ToString() + " starting!"));
