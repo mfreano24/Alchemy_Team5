@@ -1,2 +1,3 @@
-Basic_Slime 1
-Basic_Slime 3
+Basic_Slime 4
+Basic_Slime 5
+Basic_Slime 7

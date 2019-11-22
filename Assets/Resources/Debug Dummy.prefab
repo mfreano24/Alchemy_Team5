@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 2805622206314013100}
   - component: {fileID: 3324844438100737873}
   - component: {fileID: 2779342313027084990}
+  - component: {fileID: 7119460800081272728}
+  - component: {fileID: -5945134343012149177}
   m_Layer: 8
   m_Name: Debug Dummy
   m_TagString: Damageable
@@ -29,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 2805622206314013104}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10.08, y: 0.02, z: 0}
-  m_LocalScale: {x: 1.309, y: 0.627, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -72,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0f205a5283b29d440ac49e6a26d37fc2, type: 3}
-  m_Color: {r: 0.2206746, g: 0.32454962, b: 0.8207547, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 9e39d6ef14f526b46b739e6e83606dac, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -95,10 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f8826ed6c4dba04db66cfa32923d9e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5000
   sword: {fileID: 8899422617009500987, guid: c70460db56255774eb8065d22aa2d055, type: 3}
-  experienceDrop: 20
-  speed: 3
+  translatePos: {x: 0, y: 0}
   turnDist: 5
   turnSpeed: 3
 --- !u!61 &3324844438100737873
@@ -111,21 +111,21 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.05}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.56, y: 2.56}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 2.56, y: 2.56}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.56, y: 2.56}
+  m_Size: {x: 0.6, y: 0.6}
   m_EdgeRadius: 0
 --- !u!50 &2779342313027084990
 Rigidbody2D:
@@ -147,4 +147,39 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
+--- !u!70 &7119460800081272728
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2805622206314013104}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 1.5}
+  m_Direction: 1
+--- !u!95 &-5945134343012149177
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2805622206314013104}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 88dd8870db0f36d4a940133f6ba91abe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

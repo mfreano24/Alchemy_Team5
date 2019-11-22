@@ -7,63 +7,67 @@ using UnityEngine;
 public class Pathfinder : MonoBehaviour {
 
 	Grid grid;
+	GlobalVars gv;
 
 	private void Awake() {
 		grid = GetComponent<Grid>();
+		gv = GameObject.Find("EventSystem").GetComponent<GlobalVars>();
 	}
 
 	public void FindPath(PathRequest request, Action<PathResult> callback) {
-		Node startNode = grid.NodeFromWorldPoint(request.pathStart);
-		Node targetNode = grid.NodeFromWorldPoint(request.pathEnd);
+		if (gv.playing) {
+			Node startNode = grid.NodeFromWorldPoint(request.pathStart);
+			Node targetNode = grid.NodeFromWorldPoint(request.pathEnd);
 
-		Vector3[] waypoints = new Vector3[0];
-		bool pathSuccess = false;
+			Vector3[] waypoints = new Vector3[0];
+			bool pathSuccess = false;
 
-		startNode.parent = startNode;
+			startNode.parent = startNode;
 
-		if (startNode.isWalkable && targetNode.isWalkable) {
-			Heap<Node> openSet = new Heap<Node>(grid.BoxSize);
-			HashSet<Node> closedSet = new HashSet<Node>();
-			openSet.Add(startNode);
+			if (startNode.isWalkable && targetNode.isWalkable) {
+				Heap<Node> openSet = new Heap<Node>(grid.BoxSize);
+				HashSet<Node> closedSet = new HashSet<Node>();
+				openSet.Add(startNode);
 
-			while (openSet.Count > 0) {
-				Node currentNode = openSet.RemoveFirst();
-				closedSet.Add(currentNode);
+				while (openSet.Count > 0) {
+					Node currentNode = openSet.RemoveFirst();
+					closedSet.Add(currentNode);
 
-				if (currentNode == targetNode) {
-					pathSuccess = true;
-					break;
-				}
-
-				foreach (Node n in grid.GetNeighbors(currentNode)) {
-					if (!n.isWalkable || closedSet.Contains(n)) {
-						continue;
+					if (currentNode == targetNode) {
+						pathSuccess = true;
+						break;
 					}
 
-					int newCost = currentNode.GCost + DistanceOfNodes(currentNode, n);
+					foreach (Node n in grid.GetNeighbors(currentNode)) {
+						if (!n.isWalkable || closedSet.Contains(n)) {
+							continue;
+						}
 
-					if (newCost < n.GCost || !openSet.Contains(n)) {
-						n.GCost = newCost;
-						n.HCost = DistanceOfNodes(n, targetNode);
-						n.parent = currentNode;
+						int newCost = currentNode.GCost + DistanceOfNodes(currentNode, n);
 
-						if (!openSet.Contains(n)) {
-							openSet.Add(n);
-						} else {
-							openSet.UpdateItem(n);
+						if (newCost < n.GCost || !openSet.Contains(n)) {
+							n.GCost = newCost;
+							n.HCost = DistanceOfNodes(n, targetNode);
+							n.parent = currentNode;
+
+							if (!openSet.Contains(n)) {
+								openSet.Add(n);
+							} else {
+								openSet.UpdateItem(n);
+							}
 						}
 					}
+
 				}
-
 			}
-		}
-		
-		if (pathSuccess) {
-			waypoints = RetracePath(startNode, targetNode);
-			pathSuccess = waypoints.Length > 0;
-		}
 
-		callback(new PathResult(waypoints, pathSuccess, request.callback));
+			if (pathSuccess) {
+				waypoints = RetracePath(startNode, targetNode);
+				pathSuccess = waypoints.Length > 0;
+			}
+
+			callback(new PathResult(waypoints, pathSuccess, request.callback));
+		}
 
 	}
 

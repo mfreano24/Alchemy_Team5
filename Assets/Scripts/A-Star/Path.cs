@@ -28,14 +28,14 @@ public class Path {
 		return new Vector2(v.x, v.y);
 	}
 
-	public void DrawWithGizmos() {
-
-		Gizmos.color = Color.black;
-
-		foreach (Vector3 p in lookPoints) {
-			Gizmos.DrawCube(p + Vector3.up, Vector3.one);
-		}
-
-	}
+	//public void DrawWithGizmos() {
+	//
+	//	Gizmos.color = Color.black;
+	//
+	//	foreach (Vector3 p in lookPoints) {
+	//		Gizmos.DrawCube(p + Vector3.up, Vector3.one);
+	//	}
+	//
+	//}
 
 }

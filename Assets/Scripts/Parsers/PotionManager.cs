@@ -33,8 +33,6 @@ public class PotionManager : MonoBehaviour {
 						break;
 					}
 
-					Debug.Log("i = " + i.ToString() + ", input = " + input);
-
 					switch (i) {
 						case (0):
 							// Setting the element name
@@ -43,7 +41,7 @@ public class PotionManager : MonoBehaviour {
 						case (1):
 							// Create the combination
 							newPotion.combination = new List<string>();
-							string[] combo = input.Split(' ');
+							string[] combo = input.Split(new string[] { ", " }, System.StringSplitOptions.None);
 							foreach (string j in combo) {
 								newPotion.combination.Add(j);
 							}
@@ -66,7 +64,6 @@ public class PotionManager : MonoBehaviour {
 							break;
 						case (6):
 							// Set up the Effect
-							Debug.Log(input);
 							newPotion.effect = input;
 							break;
 						default:
@@ -83,9 +80,36 @@ public class PotionManager : MonoBehaviour {
 		// Removes an empty potion
 		potions.RemoveAt(potions.Count - 1);
 
-		foreach (Potion i in potions) {
-			Debug.Log(i.ToString());
+	}// End of Start
+
+	public Potion FindByName(string s) {
+		foreach (Potion p in potions) {
+			if (p.name == s) {
+				return p;
+			}
 		}
 
-	}// End of Start
+		return null;
+
+	}
+
+	public List<Potion> BaseList(List<Potion> pList) {
+		List<Potion> newList = new List<Potion>();
+		bool simplified = true;
+		foreach (Potion p in pList) {
+			if (p.combination[0] == "None") {
+				newList.Add(p);
+			} else {
+				foreach (string s in p.combination) {
+					simplified = false;
+					newList.Add(FindByName(s));
+				}
+			}
+		}
+		if (!simplified) {
+			return BaseList(newList);
+		}
+
+		return newList;
+	}
 }

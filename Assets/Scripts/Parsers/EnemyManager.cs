@@ -7,12 +7,11 @@ using Alchemy;
 
 public class EnemyManager : MonoBehaviour {
 
-	List<Enemy> enemies = new List<Enemy>();
+	public List<Enemy> enemies = new List<Enemy>();
 
 	public GameObject EnemyPrefab;
 
-	float arenaRadius = 20;
-	float safeDistance = 8;
+	GlobalVars gv;
 
 	int wave = 0;
 
@@ -20,30 +19,45 @@ public class EnemyManager : MonoBehaviour {
 
 	int timeBetweenWaves = 300;
 
+	public GameObject waveTimer;
 	public GameObject waveStatus;
 
-    void Awake() {
+	void Awake() {
+		waveTimer.SetActive(false);
 		waveStatus.SetActive(false);
 		ReadEnemies();
+		gv = GameObject.Find("EventSystem").GetComponent<GlobalVars>();
 	}
 
 	private void Update() {
-		if (timer > 0) {
-			timer--;
-			if (timer == 5) {
-				wave++;
-				StartCoroutine(UpdateWaveStatus("Wave " + wave.ToString() + " starting!"));
-				GameObject.Find("EventSystem").GetComponent<WaveManager>().StartWave(wave);
+		if (gv.playing) {
+			if (timer > 0) {
+				timer--;
+				waveTimer.GetComponent<Text>().text = "Next wave in " + (timer / 30 + 1).ToString() + " seconds!\nPress Select to skip timer!";
+				if (timer == 5) {
+					wave++;
+					StartCoroutine(UpdateWaveStatus("Wave " + wave.ToString() + " starting!"));
+					GameObject.Find("EventSystem").GetComponent<WaveManager>().StartWave(wave);
+				}
+
+				if (Input.GetButtonDown("Skip") && timer > 10) {
+					timer = 10;
+				}
+
+			} else if (GameObject.FindGameObjectsWithTag("Damageable").Length == 0) {
+				if (wave > 0) {
+					StartCoroutine(UpdateWaveStatus("Wave " + wave.ToString() + " completed!"));
+					GameObject.Find("Player").GetComponent<PlayerController>().takeDamage(-GameObject.Find("Player").GetComponent<PlayerController>().HEAL_FACTOR);
+				}
+				timer = timeBetweenWaves;
+				waveTimer.GetComponent<Text>().text = "Next wave in " + (timer / 60 + 1).ToString() + " seconds!\nPress Select to skip timer!";
+				waveTimer.SetActive(true);
 			}
-		} else if (GameObject.FindGameObjectsWithTag("Damageable").Length == 0) {
-			if (wave > 0) {
-				StartCoroutine(UpdateWaveStatus("Wave " + wave.ToString() + " completed!"));
-			}
-			timer = timeBetweenWaves;
 		}
 	}
 
 	public IEnumerator UpdateWaveStatus(string text) {
+		waveTimer.SetActive(false);
 		waveStatus.transform.localPosition = new Vector3(0, 150, 0);
 		waveStatus.GetComponent<Text>().text = text;
 		waveStatus.SetActive(true);
@@ -58,7 +72,7 @@ public class EnemyManager : MonoBehaviour {
 	void ReadEnemies() {
 		// List of elements
 		string path = Directory.GetCurrentDirectory() + "\\enemies.txt";
-
+		
 		using (var reader = new StreamReader(path)) {
 			// Get reader input
 			string input = "hi";
@@ -67,7 +81,7 @@ public class EnemyManager : MonoBehaviour {
 				// Creating the items
 				// Create a new potion
 				Enemy newEnemy = new Enemy();
-				for (int i = -1; i < 8; i++) {
+				for (int i = -1; i < 7; i++) {
 
 					// Read actual input
 					input = reader.ReadLine();
@@ -76,31 +90,29 @@ public class EnemyManager : MonoBehaviour {
 						break;
 					}
 
-					Debug.Log("i = " + i.ToString() + ", input = " + input);
-
 					switch (i) {
 						case (0):
 							// Setting the element name
 							newEnemy.name = input;
 							break;
 						case (1):
-							// Create the combination
+							// Initialize Enemy HP
 							newEnemy.baseHP = System.Convert.ToInt32(input);
 							break;
 						case (2):
-							// Set up the sprite used
+							// Initialize Enemy Strength
 							newEnemy.baseATK = System.Convert.ToInt32(input);
 							break;
 						case (3):
-							// Set up the maximum size of the explosion
+							// Set up the enemy's defense
 							newEnemy.baseDEF = System.Convert.ToInt32(input);
 							break;
 						case (4):
-							// Set up the time it lasts
-							newEnemy.speed = System.Convert.ToInt32(input);
+							// Set up the enemy's speed
+							newEnemy.speed = (float)System.Convert.ToDouble(input);
 							break;
 						case (5):
-							// Set up the damage it'll do
+							// Set up the enemy's type (for reactions)
 							newEnemy.type = input;
 							break;
 						case (6):
@@ -120,10 +132,6 @@ public class EnemyManager : MonoBehaviour {
 
 		// Removes an empty potion
 		enemies.RemoveAt(enemies.Count - 1);
-
-		foreach (Enemy i in enemies) {
-			Debug.Log(i.ToString());
-		}
 	}
 
 	public Enemy FindByName(string s) {

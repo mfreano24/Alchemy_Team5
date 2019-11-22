@@ -1,0 +1,559 @@
+fileFormatVersion: 2
+guid: 9b745d4633083294f9e2b3845156eaa9
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2496995358544961617
+    second: Nitrogen_Hitbox_0
+  - first:
+      213: -7577821005526781454
+    second: Nitrogen_Hitbox_1
+  - first:
+      213: -1791015066086895633
+    second: Nitrogen_Hitbox_2
+  - first:
+      213: 6046269347898277165
+    second: Nitrogen_Hitbox_3
+  - first:
+      213: 2301010660451911511
+    second: Nitrogen_Hitbox_4
+  - first:
+      213: 5389356837835279250
+    second: Nitrogen_Hitbox_5
+  - first:
+      213: -1628448392312790847
+    second: Nitrogen_Hitbox_6
+  - first:
+      213: -5150739084442004292
+    second: Nitrogen_Hitbox_7
+  - first:
+      213: 8606726214046909810
+    second: Nitrogen_Hitbox_8
+  - first:
+      213: -2369411040122435660
+    second: Nitrogen_Hitbox_9
+  - first:
+      213: -7017297604155143231
+    second: Nitrogen_Hitbox_10
+  - first:
+      213: 2100777500988599132
+    second: Nitrogen_Hitbox_11
+  - first:
+      213: 2836477695409183943
+    second: Nitrogen_Hitbox_12
+  - first:
+      213: 4413794672550321951
+    second: Nitrogen_Hitbox_13
+  - first:
+      213: 6103499646041338295
+    second: Nitrogen_Hitbox_14
+  - first:
+      213: -8692704687496546048
+    second: Nitrogen_Hitbox_15
+  - first:
+      213: 2280116599166291017
+    second: Nitrogen_Hitbox_16
+  - first:
+      213: 2527107386219759330
+    second: Nitrogen_Hitbox_17
+  - first:
+      213: 1209393203752191162
+    second: Nitrogen_Hitbox_18
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Nitrogen_Hitbox_0
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 14
+        width: 59
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9166e60d8ab9dbc4fae8371ea01c2c9a
+      internalID: -2496995358544961617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nitrogen_Hitbox_1
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 14
+        width: 61
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88935f47dba601945a628671f2120077
+      internalID: -7577821005526781454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nitrogen_Hitbox_2
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 14
+        width: 64
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 978ff3d07bb5a0a4181b2bb78e592487
+      internalID: -1791015066086895633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nitrogen_Hitbox_3
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 14
+        width: 66
+        height: 69
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a57edf53aeaf5c4e86f028be573f355
+      internalID: 6046269347898277165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nitrogen_Hitbox_4
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 14
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdc5179f50a532a40b5e14b5e3d21e39
+      internalID: 2301010660451911511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nitrogen_Hitbox_5
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 11
+        width: 79
+        height: 79
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df2f3a9c5719cf94f8d96f1e92ac329a
+      internalID: 5389356837835279250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nitrogen_Hitbox_6
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 66
+        width: 45
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53b24c20cb03b23419ceca6b803aee91
+      internalID: -1628448392312790847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nitrogen_Hitbox_7
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 4
+        width: 84
+        height: 85
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d7bd7dafc54d114a8ebefb0099835d5
+      internalID: -5150739084442004292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nitrogen_Hitbox_8
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 73
+        width: 25
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34464f060b70a3d4282b65143c1292e7
+      internalID: 8606726214046909810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nitrogen_Hitbox_9
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 7
+        width: 86
+        height: 84
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 324096c970c930846bb7ea001c0942c7
+      internalID: -2369411040122435660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nitrogen_Hitbox_10
+      rect:
+        serializedVersion: 2
+        x: 760
+        y: 78
+        width: 19
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c516b354c4bebb47802390b77a2c993
+      internalID: -7017297604155143231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nitrogen_Hitbox_11
+      rect:
+        serializedVersion: 2
+        x: 587
+        y: 36
+        width: 5
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b31818870acceb748b9dafca0f602014
+      internalID: 2100777500988599132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nitrogen_Hitbox_12
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 25
+        width: 13
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1abc42c7b8a7b6c4d85feca181150a7d
+      internalID: 2836477695409183943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nitrogen_Hitbox_13
+      rect:
+        serializedVersion: 2
+        x: 684
+        y: 34
+        width: 7
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ed3127a5c592da48a3850863ba5261f
+      internalID: 4413794672550321951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nitrogen_Hitbox_14
+      rect:
+        serializedVersion: 2
+        x: 711
+        y: 35
+        width: 4
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b09971686e97be47854707246c7646b
+      internalID: 6103499646041338295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nitrogen_Hitbox_15
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 38
+        width: 5
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc0fde6ce128ccc4792a752158dc2f5f
+      internalID: -8692704687496546048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nitrogen_Hitbox_16
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 24
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 284f8d5ae40de3441b245fd2710682cf
+      internalID: 2280116599166291017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nitrogen_Hitbox_17
+      rect:
+        serializedVersion: 2
+        x: 631
+        y: 8
+        width: 35
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1857f4c7f27a7e4fa682aa5ddff4a8d
+      internalID: 2527107386219759330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nitrogen_Hitbox_18
+      rect:
+        serializedVersion: 2
+        x: 741
+        y: 8
+        width: 24
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 339e8cb2838bec54e9e5455d1c94ea6b
+      internalID: 1209393203752191162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

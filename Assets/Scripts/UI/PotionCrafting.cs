@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Alchemy;
 using System.Linq;
+using System;
 
 public class PotionCrafting : MonoBehaviour {
 	// Initial values
@@ -14,28 +15,40 @@ public class PotionCrafting : MonoBehaviour {
 	Potion craftedPotion = null;
 
 	PlayerController pc;
+	GlobalVars gv;
+	AudioSource[] asc;
+	AudioSource curr;
 
 	private void Start() {
 		ingredients = GameObject.Find("Ingredients").GetComponent<Text>();
 		preview = GameObject.Find("Preview").GetComponent<Text>();
 
 		pc = GameObject.Find("Player").GetComponent<PlayerController>();
+		gv = GameObject.Find("EventSystem").GetComponent<GlobalVars>();
 
 		ingredients.text = "";
 		preview.text = "";
+		
+		asc = GetComponents<AudioSource>();
+
 	}
 
 	private void Update() {
-		if (Input.GetKeyDown(KeyCode.LeftShift) && pc.selectedPotion.count > 0) {
-			AddIngredient();
-		}
+		if (gv.playing) {
+			if (Input.GetButtonDown("AddCraft") && pc.selectedPotion.count > 0) {
+				AddIngredient();
+				curr = asc[1];
+				curr.Play();
+			}
 
-		if (Input.GetKeyDown(KeyCode.Space)) {
-			CraftPotion();
-		}
+			if (Input.GetButtonDown("Submit")) {
+				CraftPotion();
+				
+			}
 
-		if (Input.GetKeyDown(KeyCode.Escape)) {
-			Cancel();
+			if (Input.GetButtonDown("Cancel")) {
+				Cancel();
+			}
 		}
 	}
 
@@ -49,7 +62,9 @@ public class PotionCrafting : MonoBehaviour {
 			ingredients.text += "\n" + i.name;
 		}
 
-		List<Potion> sortedPotion = new List<Potion>(crafting.OrderByDescending(l => l.name));
+		List<Potion> simplified = GameObject.Find("EventSystem").GetComponent<PotionManager>().BaseList(crafting);
+
+		List<Potion> sortedPotion = new List<Potion>(simplified.OrderByDescending(l => l.name));
 		List<string> sortedNames = new List<string>();
 		foreach (Potion i in sortedPotion) {
 			sortedNames.Add(i.name);
@@ -83,10 +98,21 @@ public class PotionCrafting : MonoBehaviour {
 	public void CraftPotion() {
 
 		if (craftedPotion != null) {
+			curr = asc[0];
+			curr.Play();
 			foreach (InventorySlot slot in pc.inventory) {
 				if (craftedPotion == slot.item) {
 					// The item exists already
+					if (slot.count == pc.MAX_ITEMS) {
+						string created = preview.text;
+						Cancel();
+						ingredients.text = "Maximum capacity for " + created + " achieved!";
+						return;
+					}
 					slot.count++;
+					craftedPotion = null;
+					crafting = new List<Potion>();
+					CraftingUpdated();
 					return;
 				}
 			}

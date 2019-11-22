@@ -12,8 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
-  productName: Alchemy_Team5
+  companyName: Team [REDACTED]
+  productName: Alchemancer
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -164,7 +164,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Standalone: com.Company.ProductName
+    Standalone: com.TeamRedacted.Alchemancer
   buildNumber: {}
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 16
@@ -276,7 +276,14 @@ PlayerSettings:
   AndroidValidateAppBundleSize: 1
   AndroidAppBundleSizeToValidate: 150
   resolutionDialogBanner: {fileID: 0}
-  m_BuildTargetIcons: []
+  m_BuildTargetIcons:
+  - m_BuildTarget: 
+    m_Icons:
+    - serializedVersion: 2
+      m_Icon: {fileID: 2800000, guid: 9e39d6ef14f526b46b739e6e83606dac, type: 3}
+      m_Width: 128
+      m_Height: 128
+      m_Kind: 0
   m_BuildTargetPlatformIcons: []
   m_BuildTargetBatching: []
   m_BuildTargetGraphicsAPIs:
@@ -535,8 +542,8 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: Template_2D
-  metroPackageVersion: 
+  metroPackageName: Template2D
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -544,7 +551,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: Template_2D
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: Alchemancer
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0
@@ -557,8 +564,53 @@ PlayerSettings:
   metroSplashScreenBackgroundColor: {r: 0.12941177, g: 0.17254902, b: 0.21568628,
     a: 1}
   metroSplashScreenUseBackgroundColor: 0
-  platformCapabilities: {}
-  metroTargetDeviceFamilies: {}
+  platformCapabilities:
+    WindowsStoreApps:
+      AllJoyn: False
+      Appointments: False
+      BackgroundMediaPlayback: False
+      BlockedChatMessages: False
+      Bluetooth: False
+      Chat: False
+      CodeGeneration: False
+      Contacts: False
+      EnterpriseAuthentication: False
+      HumanInterfaceDevice: False
+      InputInjectionBrokered: False
+      InternetClient: False
+      InternetClientServer: False
+      Location: False
+      LowLevelDevices: False
+      Microphone: False
+      MusicLibrary: False
+      Objects3D: False
+      OfflineMapsManagement: False
+      PhoneCall: False
+      PhoneCallHistoryPublic: False
+      PicturesLibrary: False
+      PointOfService: False
+      PrivateNetworkClientServer: False
+      Proximity: False
+      RecordedCallsFolder: False
+      RemoteSystem: False
+      RemovableStorage: False
+      SharedUserCertificates: False
+      SpatialPerception: False
+      SystemManagement: False
+      UserAccountInformation: False
+      UserDataTasks: False
+      UserNotificationListener: False
+      VideosLibrary: False
+      VoipCall: False
+      WebCam: False
+  metroTargetDeviceFamilies:
+    Desktop: False
+    Holographic: False
+    IoT: False
+    IoTHeadless: False
+    Mobile: False
+    Team: False
+    Xbox: False
   metroFTAName: 
   metroFTAFileTypes: []
   metroProtocolName: 

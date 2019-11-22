@@ -1,16 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PotionDisplay : MonoBehaviour {
 
 	PlayerController pc;
+	GlobalVars gv;
 
     Text current_potion;
     int iterator;
     void Start() {
 		pc = GameObject.Find("Player").GetComponent<PlayerController>();
+		gv = GameObject.Find("EventSystem").GetComponent<GlobalVars>();
 		current_potion = GetComponent<Text>();
         iterator = 0;
     }
@@ -29,24 +32,28 @@ public class PotionDisplay : MonoBehaviour {
 
         //TODO: Skipping system for elements we dont have any of?
 		// TO-DO: SET THESE AS GLOBAL INPUTS
-        if(Input.GetKeyDown(KeyCode.E)) {
+        if(Input.GetButtonDown("Next") && gv.playing) {
             iterator++;
             if(iterator == pc.inventory.Count) {
                 iterator = 0;
             }
-
         }
-        if(Input.GetKeyDown(KeyCode.Q)) {
+        if(Input.GetButtonDown("Previous") && gv.playing) {
             iterator--;
             if(iterator == -1){
                 iterator = pc.inventory.Count - 1;
             }
+
         }
 
         current_potion.text = pc.inventory[iterator].item.name;
 		GameObject.Find("ElementCount").GetComponent<Text>().text = "x" + pc.inventory[iterator].count.ToString();
-
-		pc.selectedPotion = pc.inventory[iterator];
+		pc.selectedPotion = pc.inventory[pc.FindInventorySlot(pc.inventory[iterator].item)];
+		if (Resources.Load<Sprite>("UIIcons/UI" + pc.inventory[iterator].item.name.ToString().Replace(" ", "")) != null) {
+			GameObject.Find("PotionImage").GetComponent<Image>().sprite = Resources.Load<Sprite>("UIIcons/UI" + pc.inventory[iterator].item.name.ToString().Replace(" ", ""));
+		}else {
+		GameObject.Find("PotionImage").GetComponent<Image>().sprite = Resources.Load<Sprite>("UIIcons/UIOther");
+        } 
     }
 
 	public void PotionUsed() {

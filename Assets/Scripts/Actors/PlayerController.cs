@@ -5,10 +5,10 @@ using UnityEngine.UI;
 using Alchemy;
 
 public class PlayerController : MonoBehaviour {
-	Vector2 playerSpeed;
 	Vector2 moveDirection;
 	Rigidbody2D rb;
 	BoxCollider2D sw;
+	GlobalVars gv;
 	int endlag = 0;
 	float face_Front_x = 0.0f;
 	float face_Front_y = 0.0f;
@@ -22,54 +22,141 @@ public class PlayerController : MonoBehaviour {
 	private GameObject sword_inst;
 	public InventorySlot selectedPotion;
 	public GameObject potionPrefab;
+	public GameObject menu;
+	public GameObject gameOver;
+	public bool invincibility;
 
-	public float maxHealth;
-	public float currentHealth;
+	public int invincibilityFrames = 0;
+
+	public float currentHealth = 100;
 	public float maxExperience;
 	public float currentExperience;
 	int level = 1;
 
 	public List<InventorySlot> inventory;
-	int BASE_COUNT = 2;
+	int BASE_COUNT = 3;
+
+	public Animator anim;
+
+	// UPGRADEABLE DATA
+	public int MAX_ITEMS; // Maximum number of each element carried
+	public float maxHealth; // Maximum player health
+	public int HEAL_FACTOR; // Amount player heals between waves
+	public int playerSpeed; // Current speed of the player
+
+	AudioSource[] asc;
+	AudioSource curr;
 
 	void Start() {
-		playerSpeed = new Vector2(13,13);
+		gv = GameObject.Find("EventSystem").GetComponent<GlobalVars>();
 	    rb = GetComponent<Rigidbody2D>();
 		sw = sword.GetComponent<BoxCollider2D>();
+		menu = GameObject.Find("PauseScreen");
+		gameOver = GameObject.Find("GameOver");
+		gameOver.SetActive(false);
+		menu.SetActive(false);
 	    face_Front_x = 0;
 	    face_Front_y = -1;
+
+		anim = this.gameObject.GetComponent<Animator>();
+		asc = GetComponents<AudioSource>();
+
 		// DEBUGGING PURPOSES ONLY
 		inventory = new List<InventorySlot>();
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 5));
-		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[1], 5));
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[2], 1));
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[4], 0));
 		selectedPotion = inventory[0];
+		invincibility = false;
 	}
 
 	void Update () {
-		UpdateUI();
+		if (gv.playing) {
+			UpdateUI();
+			PickupItems();
+			CheckWall();
+			anim.SetFloat("Speed", moveDirection.magnitude);
+			anim.SetInteger("Direction", MapDirection(face_Front_x, face_Front_y));
+			if (invincibility) {
+				invincibilityFrames++;
+			}
+
+			if (invincibilityFrames > 60) {
+				GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+				invincibility = false;
+				invincibilityFrames = 0;
+			}
+			if (Input.GetButtonDown("Pause")) {
+				gv.playing = false;
+				menu.SetActive(true);
+			}
+		}
 	}
 
-	void FixedUpdate(){
-		if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0 ) {
-			//NEED A CONDITION THAT WORKS BETTER HERE
-			Assign_LastDirection();
+	void CheckWall() {
+		int maxX = gv.worldSizeX;
+		int maxY = gv.worldSizeY;
+
+		if (transform.position.x > gv.worldCenterX + maxX + 3) {
+			this.transform.position = new Vector2(gv.worldCenterX + maxX, transform.position.y);
+		} else if (transform.position.x < gv.worldCenterX - maxX - 3) {
+			this.transform.position = new Vector2(gv.worldCenterX - maxX, transform.position.y);
 		}
-		
-		if(endlag == 0){
-			Move();
-			Attack();
+
+		if (transform.position.y > gv.worldCenterY + maxY + 3) {
+			transform.position = new Vector2(transform.position.x, gv.worldCenterY + maxY);
+		} else if (transform.position.y < gv.worldCenterY - maxY - 3) {
+			transform.position = new Vector2(transform.position.x, gv.worldCenterY - maxY);
 		}
-		else {
-	        endlag -= 1; //frame countdown
-	        if (endlag == 0) {
-	            Destroy(sword_inst);
-	        }
-	    }	
+	}
+
+	void PickupItems() {
+		foreach (GameObject item in GameObject.FindGameObjectsWithTag("Potion")) {
+			if (item.GetComponent<PotionInstance>().isEnemyDrop && Vector3.Distance(this.transform.position, item.transform.position) < 2) {
+				int invIndex = FindInventorySlot(item.GetComponent<PotionInstance>().thisPotion);
+				if (invIndex == -1) {
+					inventory.Add(new InventorySlot(item.GetComponent<PotionInstance>().thisPotion, 1));
+					return;
+				}
+				if (inventory[invIndex].count < MAX_ITEMS) {
+					inventory[invIndex].count++;
+					Destroy(item);
+					return;
+				}
+			}
+		}
+	}
+
+	public int FindInventorySlot(Potion p) {
+		for (int i = 0; i < inventory.Count; i++) {
+			if (inventory[i].item == p) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	void FixedUpdate() {
+		if (gv.playing) {
+			if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) {
+				//NEED A CONDITION THAT WORKS BETTER HERE
+				Assign_LastDirection();
+			}
+
+			if (endlag == 0) {
+				Move();
+				Attack();
+			} else {
+				endlag -= 1; //frame countdown
+			}
+		} else {
+			anim.SetFloat("Speed", 0);
+		}
 	}
 
 	void Move() {
-		moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-		rb.MovePosition(rb.position + playerSpeed * moveDirection * Time.deltaTime);	
+			moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+			rb.MovePosition(rb.position + playerSpeed * moveDirection * Time.deltaTime);
 	}
 
 /*ABILITIES */
@@ -77,27 +164,21 @@ public class PlayerController : MonoBehaviour {
 	void Attack() {
 		//ISSUE WITH SWORD FACINGS: there is a good 20-30 frame window where switching between A and D / W and S where the input.getaxis function returns 0 instead of +-1.
 		//Possile remedies?
-		if (Input.GetButtonDown("Fire1")) {
-			sword_inst = Instantiate(sword);
-			sword_inst.transform.position = new Vector3(player.transform.position.x + 1.25f * face_Front_x, player.transform.position.y + 1.25f * face_Front_y, 0.0f);
-			//rotation
-			if (face_Front_x == -1) {
-				sword_inst.transform.eulerAngles = new Vector3(0, 0, 90 - face_Front_y * 45);
-			} else if (face_Front_x == 0) {
-				sword_inst.transform.eulerAngles = new Vector3(0, 0, 90 - 90 * face_Front_y);
-			} else if (face_Front_x == 1) {
-				sword_inst.transform.eulerAngles = new Vector3(0, 0, -90 + face_Front_y * 45);
-			}
-
-			endlag += 15;
-		}
 		if (Input.GetButtonDown("Fire2")) {
 			usePotion();
 		}
 	}
 
 	void usePotion() {
-		if (GameObject.FindGameObjectsWithTag("Potion").Length < 2 && selectedPotion.count > 0) {
+
+		int droppedCount = 0;
+
+		foreach (GameObject go in GameObject.FindGameObjectsWithTag("Potion")) {
+			if (!go.GetComponent<PotionInstance>().isEnemyDrop) {
+				droppedCount++;
+			}
+		}
+		if (droppedCount < 2 && selectedPotion.count > 0) {
 			GameObject newpotion = (GameObject)Instantiate(potionPrefab, this.gameObject.transform.localPosition, Quaternion.identity);
 			newpotion.GetComponent<PotionInstance>().thisPotion = selectedPotion.item;
 			selectedPotion.count--;
@@ -116,6 +197,13 @@ public class PlayerController : MonoBehaviour {
 	void UpdateUI() {
 		if (currentHealth < 0) {
 			currentHealth = 0;
+			gv.playing = false;
+			anim.SetFloat("Speed", 0);
+			gameOver.SetActive(true);
+			curr = asc[1];
+			curr.volume = 0.5f;
+			curr.Play();
+
 		}
 
 		if (currentExperience < 0) {
@@ -123,11 +211,9 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		GameObject.Find("Health").GetComponent<Image>().fillAmount = currentHealth / maxHealth;
+		GameObject.Find("BonusHealth").GetComponent<Image>().fillAmount = (currentHealth - maxHealth) / maxHealth;
 
-		if (currentHealth > maxHealth) {
-			// Golden apple effect!
-			GameObject.Find("Health").GetComponent<Image>().color = new Color(177f / 255f, 0, 1);
-		} else if (currentHealth > 2 * maxHealth / 3) {
+		if (currentHealth > 2 * maxHealth / 3) {
 			GameObject.Find("Health").GetComponent<Image>().color = new Color(0, 1, 0);
 		} else if (currentHealth > maxHealth / 4) {
 			GameObject.Find("Health").GetComponent<Image>().color = new Color(1, 1, 0);
@@ -146,10 +232,77 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+	public void takeDamage(float d) {
+		if(!invincibility){
+			currentHealth-=d;
+			curr = asc[0];
+			curr.volume = 0.5f;
+			curr.Play();
+			StartCoroutine(IFrames());
+		} else if (d < 0) {
+			currentHealth -= d;
+			curr = asc[0];
+			curr.volume = 0.5f;
+			curr.Play();
+		}
+	}
+
+	public IEnumerator IFrames(){
+		invincibility = true;
+		EnemyColliders(false);
+		Color temp = GetComponent<SpriteRenderer>().color;
+		GetComponent<SpriteRenderer>().color = new Color(1,1,1,0.65f);
+		yield return new WaitForSeconds(0.1f);
+		GetComponent<SpriteRenderer>().color = temp;
+		yield return new WaitForSeconds(0.1f);
+		GetComponent<SpriteRenderer>().color = new Color(1,1,1,0.65f);
+		yield return new WaitForSeconds(0.1f);
+		GetComponent<SpriteRenderer>().color = temp;
+		yield return new WaitForSeconds(0.1f);
+		GetComponent<SpriteRenderer>().color = new Color(1,1,1,0.65f);
+		yield return new WaitForSeconds(0.1f);
+		GetComponent<SpriteRenderer>().color = temp;
+		EnemyColliders(true);
+		invincibility = false;
+	}
+
+	void EnemyColliders(bool val) {
+		foreach (GameObject g in GameObject.Find("EventSystem").GetComponent<WaveManager>().currentEnemies) {
+			g.GetComponent<BoxCollider2D>().enabled = val;
+		}
+	}
+
+	public void CallKB(float duration, float pow, Transform other){
+		StartCoroutine(Knockback(duration,pow,other));
+	}
+
+	public IEnumerator Knockback(float duration, float pow, Transform other){
+		float time = 0;
+		while(duration > time){
+			time +=Time.deltaTime;
+			Vector2 direction = (other.transform.position - this.transform.position).normalized;
+			rb.AddForce(-direction * pow);
+		}
+		yield return 0;
+	}
+
+	public void CallSlowDown(float duration, int strength){
+		StartCoroutine(SlowdownDebuff(duration,strength));
+	}
+
+	public IEnumerator SlowdownDebuff(float duration, int strength){
+		int tempSpeed = playerSpeed;
+		playerSpeed -= strength;
+		yield return new WaitForSeconds(1f);
+		playerSpeed = tempSpeed;
+		yield return 0;
+	}
+
 	void Levelup() {
 		level++;
 		currentExperience -= maxExperience;
 		maxExperience = LevelToExp(level);
+		StartCoroutine(GameObject.Find("Upgrades").GetComponent<UpgradeSelection>().OnUpgradeBegin());
 	}
 
 	int LevelToExp(int x) {
@@ -167,5 +320,9 @@ public class PlayerController : MonoBehaviour {
 			face_Front_x = temp_x;
 			face_Front_y = temp_y;
 		}
+	}
+
+	int MapDirection(float x, float y) {
+		return (int)(3 * x + 2 * y);
 	}
 }
