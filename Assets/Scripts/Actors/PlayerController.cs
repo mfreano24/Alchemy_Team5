@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour {
 	public GameObject gameOver;
 	public bool invincibility;
 
+	public int invincibilityFrames = 0;
+
 	public float currentHealth = 100;
 	public float maxExperience;
 	public float currentExperience;
@@ -75,6 +77,14 @@ public class PlayerController : MonoBehaviour {
 			CheckWall();
 			anim.SetFloat("Speed", moveDirection.magnitude);
 			anim.SetInteger("Direction", MapDirection(face_Front_x, face_Front_y));
+			if (invincibility) {
+				invincibilityFrames++;
+			}
+
+			if (invincibilityFrames > 60) {
+				invincibility = false;
+				invincibilityFrames = 0;
+			}
 			if (Input.GetButtonDown("Pause")) {
 				gv.playing = false;
 				menu.SetActive(true);
