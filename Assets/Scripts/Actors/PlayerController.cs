@@ -228,6 +228,11 @@ public class PlayerController : MonoBehaviour {
 			curr.volume = 0.5f;
 			curr.Play();
 			StartCoroutine(IFrames());
+		} else if (d < 0) {
+			currentHealth -= d;
+			curr = asc[0];
+			curr.volume = 0.5f;
+			curr.Play();
 		}
 	}
 
