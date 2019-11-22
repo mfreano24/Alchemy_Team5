@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour {
 
 		// DEBUGGING PURPOSES ONLY
 		inventory = new List<InventorySlot>();
-		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 10));
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 5));
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[2], 1));
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[4], 0));
 		selectedPotion = inventory[0];
@@ -82,6 +82,7 @@ public class PlayerController : MonoBehaviour {
 			}
 
 			if (invincibilityFrames > 60) {
+				GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
 				invincibility = false;
 				invincibilityFrames = 0;
 			}

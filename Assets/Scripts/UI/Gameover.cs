@@ -12,7 +12,7 @@ public class Gameover : MonoBehaviour {
 	}
 
 	private void Update() {
-		if (Input.GetAxis("Vertical") > 0 && !moved) {
+		if (Mathf.Abs(Input.GetAxis("Vertical")) > 0 && !moved) {
 			tryAgain = !tryAgain;
 			moved = true;
 			GameObject.Find("Cursor").transform.localPosition = new Vector3(-100, tryAgain ? -50 : -150);
