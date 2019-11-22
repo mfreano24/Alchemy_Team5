@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour {
 					inventory.Add(new InventorySlot(item.GetComponent<PotionInstance>().thisPotion, 1));
 					return;
 				}
-				if (inventory[invIndex].count != MAX_ITEMS) {
+				if (inventory[invIndex].count < MAX_ITEMS) {
 					inventory[invIndex].count++;
 					Destroy(item);
 					return;
