@@ -293,7 +293,7 @@ public class PotionInstance : MonoBehaviour {
 			if(Vector3.Distance(player.transform.position, e.transform.position) < mult*3) {
 				int roll = Random.Range(0, _critChance);
 				player.GetComponent<PlayerController>().takeDamage(20f);
-				player.GetComponent<PlayerController>().CallKB(0.3f, 0.125f, this.transform);
+				player.GetComponent<PlayerController>().CallKB(0.3f, 0.125f/2f, this.transform);
 			}
 		}
 		Destroy(e);
