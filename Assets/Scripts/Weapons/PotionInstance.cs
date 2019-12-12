@@ -264,7 +264,7 @@ public class PotionInstance : MonoBehaviour {
 			Destroy(this.gameObject);
 		} else {
 			// it's an enemy drop
-			anim.SetInteger("State", 0);
+			//anim.SetInteger("State", 0);
 		}
 		
 	}

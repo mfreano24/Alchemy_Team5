@@ -68,6 +68,8 @@ public class PlayerController : MonoBehaviour {
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[4], 0));
 		selectedPotion = inventory[0];
 		invincibility = false;
+
+		GameObject.Find("CustomLevelManager").GetComponent<StageManager>().Create();
 	}
 
 	void Update () {
@@ -243,7 +245,6 @@ public class PlayerController : MonoBehaviour {
 			currentHealth -= d;
 			curr = asc[0];
 			curr.volume = 0.5f;
-			curr.Play();
 		}
 	}
 

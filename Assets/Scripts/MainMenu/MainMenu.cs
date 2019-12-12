@@ -21,6 +21,7 @@ public class MainMenu : MonoBehaviour {
 	bool MainScreen = true;
 	bool StageSelect = false;
 	bool tutorialRead = false;
+	bool tutorialPresent = false;
 
 	GameObject warning;
 	GameObject levelSelect;
@@ -49,49 +50,54 @@ public class MainMenu : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-
-		if (Input.GetAxis("Vertical") < 0 && !moved && MainScreen) {
-			cur.Play();
-			moved = true;
-			selectedIndex++;
-			if (MAX_OBJECTS < selectedIndex) {
-				selectedIndex = 0;
+		if (!tutorialPresent) {
+			if (Input.GetAxis("Vertical") < 0 && !moved && MainScreen) {
+				cur.Play();
+				moved = true;
+				selectedIndex++;
+				if (MAX_OBJECTS < selectedIndex) {
+					selectedIndex = 0;
+				}
 			}
-		}
-		if (Input.GetAxis("Vertical") > 0 && !moved && MainScreen) {
-			cur.Play();
-			moved = true;
-			selectedIndex--;
-			if (selectedIndex < 0) {
-				selectedIndex = MAX_OBJECTS;
+			if (Input.GetAxis("Vertical") > 0 && !moved && MainScreen) {
+				cur.Play();
+				moved = true;
+				selectedIndex--;
+				if (selectedIndex < 0) {
+					selectedIndex = MAX_OBJECTS;
+				}
 			}
-		}
 
-		if (Input.GetAxis("Vertical") == 0 && moved && MainScreen) {
-			moved = false;
-		}
-
-		if (Input.GetAxis("Vertical") < 0 && !moved && StageSelect) {
-			cur.Play();
-			moved = true;
-			selectedLevel++;
-			if (options.Count - 1 <= selectedLevel) {
-				selectedLevel = options.Count - 2;
+			if (Input.GetAxis("Vertical") == 0 && moved && MainScreen) {
+				moved = false;
 			}
-			UpdateColor();
-		}
-		if (Input.GetAxis("Vertical") > 0 && !moved && StageSelect) {
-			cur.Play();
-			moved = true;
-			selectedLevel--;
-			if (selectedLevel < -1) {
-				selectedLevel = -1;
-			}
-			UpdateColor();
-		}
 
-		if (Input.GetAxis("Vertical") == 0 && moved && StageSelect) {
-			moved = false;
+			if (Input.GetAxis("Vertical") < 0 && !moved && StageSelect) {
+				cur.Play();
+				moved = true;
+				selectedLevel++;
+				if (options.Count - 1 <= selectedLevel) {
+					selectedLevel = options.Count - 2;
+				}
+				UpdateColor();
+			}
+			if (Input.GetAxis("Vertical") > 0 && !moved && StageSelect) {
+				cur.Play();
+				moved = true;
+				selectedLevel--;
+				if (selectedLevel < -1) {
+					selectedLevel = -1;
+				}
+				UpdateColor();
+			}
+
+			if (Input.GetAxis("Vertical") == 0 && moved && StageSelect) {
+				moved = false;
+			}
+
+			if (!StageSelect) {
+				UpdatePos();
+			}
 		}
 
 		if (Input.GetButtonDown("Fire2")) {
@@ -99,7 +105,7 @@ public class MainMenu : MonoBehaviour {
 			SelectObject();
 			return;
 		}
-		UpdatePos();
+
 	}
 
 	private void UpdateColor() {
@@ -111,7 +117,7 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	private void UpdatePos() {
-		GameObject.Find("Cursor").transform.localPosition = new Vector3(-75, -150 * selectedIndex, 0);
+		GameObject.Find("Cursor").transform.localPosition = new Vector3(-75, -300 * selectedIndex / MAX_OBJECTS, 0);
 	}
 
 	private void SelectObject() {
@@ -144,6 +150,7 @@ public class MainMenu : MonoBehaviour {
 			}
 		} else {
 			howToPlay.SetActive(true);
+			tutorialPresent = true;
 			if (!tutorialRead) {
 				GameObject.Find("Levels").SetActive(false);
 				GameObject.Find("RegularTitle").SetActive(false);
@@ -153,7 +160,8 @@ public class MainMenu : MonoBehaviour {
 					UnityEngine.SceneManagement.SceneManager.LoadScene("MainRoom");
 				} else {
 					GameObject.Find("CustomLevelManager").GetComponent<StageManager>().currentStage = levels[selectedLevel];
-					UnityEngine.SceneManagement.SceneManager.LoadScene("CustomLevel");
+					GameObject.Find("CustomLevelManager").GetComponent<StageManager>().isCustomLevel = true;
+					UnityEngine.SceneManagement.SceneManager.LoadScene("MainRoom");
 				}
 			}
 			tutorialRead = true;

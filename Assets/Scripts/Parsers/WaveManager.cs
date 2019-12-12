@@ -39,11 +39,11 @@ public class WaveManager : MonoBehaviour {
 		Wave current = waves[i - 1];
 
 		for (int j = 0; j < current.waveEnemies.Count; j++) {
-			if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "MainRoom") {
+			if (!GameObject.Find("CustomLevelManager").GetComponent<StageManager>().isCustomLevel) {
 				GameObject newEnemy = (GameObject)Instantiate(this.transform.GetComponent<EnemyManager>().EnemyPrefab, GameObject.Find("Spawner_" + (current.spawnIndices[j]).ToString()).transform.position, Quaternion.identity);
 				newEnemy.GetComponent<TrainingDummy>().thisEnemy = new Enemy(current.waveEnemies[j]);
 				currentEnemies.Add(newEnemy);
-			} else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "CustomLevel") {
+			} else if (GameObject.Find("CustomLevelManager").GetComponent<StageManager>().isCustomLevel) {
 				GameObject newEnemy = (GameObject)Instantiate(this.transform.GetComponent<EnemyManager>().EnemyPrefab, GameObject.Find("Spawner_" + (current.spawnIndices[j] % 4).ToString()).transform.position, Quaternion.identity);
 				newEnemy.GetComponent<TrainingDummy>().thisEnemy = new Enemy(current.waveEnemies[j]);
 				currentEnemies.Add(newEnemy);
@@ -98,12 +98,7 @@ public class WaveManager : MonoBehaviour {
 					string[] fragments = input.Split(' ');
 
 					Enemy e = this.gameObject.GetComponent<EnemyManager>().FindByName(fragments[0]);
-					if(e.type == "Nitro"){
 
-					}
-					else if(e.type == "Sulfur"){
-						
-					}
 					newWave.waveEnemies.Add(e);
 					newWave.spawnIndices.Add(System.Convert.ToInt32(fragments[1]));
 
