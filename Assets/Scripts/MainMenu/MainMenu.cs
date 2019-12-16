@@ -170,7 +170,7 @@ public class MainMenu : MonoBehaviour {
 
 	private void GenerateLevels(string s) {
 		// Remove ends
-		s = s.TrimStart('[' ,'"').TrimEnd(']', '"');
+		s = s.TrimStart('[', '"').TrimEnd(']', '"');
 
 		// Split levels individually
 		string[] getLevel = s.Split(new string[] { "\"],[\"" }, StringSplitOptions.None);
@@ -193,7 +193,7 @@ public class MainMenu : MonoBehaviour {
 			options.Add(choice);
 		}
 	}
-	
+
 	private void Options() {
 		// Do something
 	}

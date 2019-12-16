@@ -28,14 +28,14 @@ public class Grid : MonoBehaviour {
 	}
 
 	void CreateGrid() {
-		grid = new Node[gridSizeX,gridSizeY];
-		Vector3 worldBottomLeft = transform.position - Vector3.right * worldSize.x/2 - Vector3.up * worldSize.y/2;
+		grid = new Node[gridSizeX, gridSizeY];
+		Vector3 worldBottomLeft = transform.position - Vector3.right * worldSize.x / 2 - Vector3.up * worldSize.y / 2;
 
-		for (int x = 0; x < gridSizeX; x ++) {
-			for (int y = 0; y < gridSizeY; y ++) {
+		for (int x = 0; x < gridSizeX; x++) {
+			for (int y = 0; y < gridSizeY; y++) {
 				Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.up * (y * nodeDiameter + nodeRadius);
-				bool walkable = !(Physics2D.OverlapCircle(worldPoint,nodeRadius,unwalkableMask));
-				grid[x,y] = new Node(walkable,worldPoint, x,y);
+				bool walkable = !(Physics2D.OverlapCircle(worldPoint, nodeRadius, unwalkableMask));
+				grid[x, y] = new Node(walkable, worldPoint, x, y);
 			}
 		}
 	}

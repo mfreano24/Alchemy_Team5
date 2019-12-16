@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour {
 	public GameObject potionPrefab;
 	public GameObject menu;
 	public GameObject gameOver;
+	public GameObject terminalObject;
 	public bool invincibility;
 
 	public int invincibilityFrames = 0;
@@ -49,14 +50,16 @@ public class PlayerController : MonoBehaviour {
 
 	void Start() {
 		gv = GameObject.Find("EventSystem").GetComponent<GlobalVars>();
-	    rb = GetComponent<Rigidbody2D>();
+		rb = GetComponent<Rigidbody2D>();
 		sw = sword.GetComponent<BoxCollider2D>();
+		terminalObject = GameObject.Find("Terminal");
 		menu = GameObject.Find("PauseScreen");
 		gameOver = GameObject.Find("GameOver");
+		terminalObject.SetActive(false);
 		gameOver.SetActive(false);
 		menu.SetActive(false);
-	    face_Front_x = 0;
-	    face_Front_y = -1;
+		face_Front_x = 0;
+		face_Front_y = -1;
 
 		anim = this.gameObject.GetComponent<Animator>();
 		asc = GetComponents<AudioSource>();
@@ -72,7 +75,7 @@ public class PlayerController : MonoBehaviour {
 		GameObject.Find("CustomLevelManager").GetComponent<StageManager>().Create();
 	}
 
-	void Update () {
+	void Update() {
 		if (gv.playing) {
 			UpdateUI();
 			PickupItems();
@@ -88,9 +91,21 @@ public class PlayerController : MonoBehaviour {
 				invincibility = false;
 				invincibilityFrames = 0;
 			}
-			if (Input.GetButtonDown("Pause")) {
+
+			if (Input.GetButtonDown("Pause") && gv.playing) {
 				gv.playing = false;
 				menu.SetActive(true);
+			}
+
+			if (Input.GetButtonDown("Pause") && !gv.playing) {
+				gv.playing = true;
+				menu.SetActive(false);
+				terminalObject.SetActive(false);
+			}
+
+			if (Input.GetButtonDown("Terminal")) {
+				gv.playing = false;
+				terminalObject.SetActive(true);
 			}
 		}
 	}
@@ -157,11 +172,11 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Move() {
-			moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-			rb.MovePosition(rb.position + playerSpeed * moveDirection * Time.deltaTime);
+		moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+		rb.MovePosition(rb.position + playerSpeed * moveDirection * Time.deltaTime);
 	}
 
-/*ABILITIES */
+	/*ABILITIES */
 
 	void Attack() {
 		//ISSUE WITH SWORD FACINGS: there is a good 20-30 frame window where switching between A and D / W and S where the input.getaxis function returns 0 instead of +-1.
@@ -235,8 +250,8 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void takeDamage(float d) {
-		if(!invincibility){
-			currentHealth-=d;
+		if (!invincibility) {
+			currentHealth -= d;
 			curr = asc[0];
 			curr.volume = 0.5f;
 			curr.Play();
@@ -248,19 +263,19 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	public IEnumerator IFrames(){
+	public IEnumerator IFrames() {
 		invincibility = true;
 		EnemyColliders(false);
 		Color temp = GetComponent<SpriteRenderer>().color;
-		GetComponent<SpriteRenderer>().color = new Color(1,1,1,0.65f);
+		GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.65f);
 		yield return new WaitForSeconds(0.1f);
 		GetComponent<SpriteRenderer>().color = temp;
 		yield return new WaitForSeconds(0.1f);
-		GetComponent<SpriteRenderer>().color = new Color(1,1,1,0.65f);
+		GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.65f);
 		yield return new WaitForSeconds(0.1f);
 		GetComponent<SpriteRenderer>().color = temp;
 		yield return new WaitForSeconds(0.1f);
-		GetComponent<SpriteRenderer>().color = new Color(1,1,1,0.65f);
+		GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.65f);
 		yield return new WaitForSeconds(0.1f);
 		GetComponent<SpriteRenderer>().color = temp;
 		EnemyColliders(true);
@@ -273,25 +288,25 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	public void CallKB(float duration, float pow, Transform other){
-		StartCoroutine(Knockback(duration,pow,other));
+	public void CallKB(float duration, float pow, Transform other) {
+		StartCoroutine(Knockback(duration, pow, other));
 	}
 
-	public IEnumerator Knockback(float duration, float pow, Transform other){
+	public IEnumerator Knockback(float duration, float pow, Transform other) {
 		float time = 0;
-		while(duration > time){
-			time +=Time.deltaTime;
+		while (duration > time) {
+			time += Time.deltaTime;
 			Vector2 direction = (other.transform.position - this.transform.position).normalized;
 			rb.AddForce(-direction * pow);
 		}
 		yield return 0;
 	}
 
-	public void CallSlowDown(float duration, int strength){
-		StartCoroutine(SlowdownDebuff(duration,strength));
+	public void CallSlowDown(float duration, int strength) {
+		StartCoroutine(SlowdownDebuff(duration, strength));
 	}
 
-	public IEnumerator SlowdownDebuff(float duration, int strength){
+	public IEnumerator SlowdownDebuff(float duration, int strength) {
 		int tempSpeed = playerSpeed;
 		playerSpeed -= strength;
 		yield return new WaitForSeconds(1f);
@@ -310,13 +325,13 @@ public class PlayerController : MonoBehaviour {
 		return 100 * x;
 	}
 
-  /*MOVEMENT BASED FUNCTIONS */
+	/*MOVEMENT BASED FUNCTIONS */
 	void Assign_LastDirection() {
 		temp_x = face_Front_x;
 		temp_y = face_Front_y;
 		face_Front_x = Mathf.Ceil(Input.GetAxis("Horizontal"));
-		face_Front_y = Mathf.Ceil(Input.GetAxis("Vertical")); 
-		if(face_Front_x == 0 && face_Front_y == 0){
+		face_Front_y = Mathf.Ceil(Input.GetAxis("Vertical"));
+		if (face_Front_x == 0 && face_Front_y == 0) {
 			//frames between directional switch
 			face_Front_x = temp_x;
 			face_Front_y = temp_y;

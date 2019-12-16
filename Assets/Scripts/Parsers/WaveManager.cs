@@ -17,12 +17,12 @@ public class WaveManager : MonoBehaviour {
 	public List<GameObject> currentEnemies = new List<GameObject>();
 
 	// Start is called before the first frame update
-    void Start() {
+	void Start() {
 		CreateIndices();
-    }
+	}
 
-	public void StartWave (int i) {
-		
+	public void StartWave(int i) {
+
 		curr_wave = i;
 
 		if (i > waves.Count) {
@@ -42,16 +42,18 @@ public class WaveManager : MonoBehaviour {
 			if (!GameObject.Find("CustomLevelManager").GetComponent<StageManager>().isCustomLevel) {
 				GameObject newEnemy = (GameObject)Instantiate(this.transform.GetComponent<EnemyManager>().EnemyPrefab, GameObject.Find("Spawner_" + (current.spawnIndices[j]).ToString()).transform.position, Quaternion.identity);
 				newEnemy.GetComponent<TrainingDummy>().thisEnemy = new Enemy(current.waveEnemies[j]);
+				newEnemy.GetComponent<TrainingDummy>().thisEnemy.Scale(i);
 				currentEnemies.Add(newEnemy);
 			} else if (GameObject.Find("CustomLevelManager").GetComponent<StageManager>().isCustomLevel) {
 				GameObject newEnemy = (GameObject)Instantiate(this.transform.GetComponent<EnemyManager>().EnemyPrefab, GameObject.Find("Spawner_" + (current.spawnIndices[j] % 4).ToString()).transform.position, Quaternion.identity);
 				newEnemy.GetComponent<TrainingDummy>().thisEnemy = new Enemy(current.waveEnemies[j]);
+				newEnemy.GetComponent<TrainingDummy>().thisEnemy.Scale(i);
 				currentEnemies.Add(newEnemy);
 			}
 		}
 
 	}
-	
+
 	void CreateIndices() {
 		if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "MainRoom") {
 			// Find the spawn index data
@@ -109,5 +111,5 @@ public class WaveManager : MonoBehaviour {
 			}
 		}
 	}
-	
+
 }

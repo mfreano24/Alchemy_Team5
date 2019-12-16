@@ -45,12 +45,12 @@ public class StageManager : MonoBehaviour {
 
 		for (int i = 0; i < 19; i++) {
 			for (int j = 0; j < 15; j++) {
-				if (currentStage.Floor[i,j] != -1) {
+				if (currentStage.Floor[i, j] != -1) {
 					GameObject.Find("Floor").GetComponent<Tilemap>().SetTile(new Vector3Int(i - gv.worldSizeX, j - gv.worldSizeY, 0), tiles[currentStage.Floor[i, j]]);
 				}
 
-				if (currentStage.Walls[i,j] == -1) {
-				} else if (wallVisLayer.Contains(currentStage.Walls[i,j])) {
+				if (currentStage.Walls[i, j] == -1) {
+				} else if (wallVisLayer.Contains(currentStage.Walls[i, j])) {
 					GameObject.Find("WalVis").GetComponent<Tilemap>().SetTile(new Vector3Int(i - gv.worldSizeX, j - gv.worldSizeY, 0), tiles[currentStage.Walls[i, j]]);
 					GameObject.Find("WallCol").GetComponent<Tilemap>().SetTile(new Vector3Int(i - gv.worldSizeX, j - gv.worldSizeY, 0), tiles[currentStage.Walls[i, j]]);
 				} else {

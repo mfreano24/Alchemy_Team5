@@ -34,6 +34,14 @@ public class TrainingDummy : MonoBehaviour {
 		anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>(thisEnemy.name + "_Walk");
 	}
 
+	private void Update() {
+		// Stop an enemy which yeeted itself out of the map
+		if (Mathf.Abs(transform.localPosition.x) - (gv.worldCenterX + gv.worldSizeX) > 0 || Mathf.Abs(transform.localPosition.y) - (gv.worldCenterY + gv.worldSizeY) > 0) {
+			Destroy(this.gameObject);
+		}
+	}
+
+	#region Pathfinding
 	public void OnPathFound(Vector3[] waypoints, bool success) {
 		if (success) {
 			path = new Path(waypoints, transform.position, turnDist);
@@ -85,6 +93,7 @@ public class TrainingDummy : MonoBehaviour {
 
 		}
 	}
+	#endregion
 
 	private void OnTriggerStay2D(Collider2D collision) {
 		if (collision.CompareTag("Player") && gv.playing) {
@@ -95,6 +104,9 @@ public class TrainingDummy : MonoBehaviour {
 
 	public void DropHealth(int i, bool crit) {
 		if (thisEnemy.baseHP > 0) {
+			// Add a bit of randomness to the damage, just so it's not bland
+			i = (int)(i * Random.Range(0.8f, 1.2f));
+
 			GameObject damage = (GameObject)Instantiate(Resources.Load("Damage") as Object, transform.position, Quaternion.identity);
 			// <If possible> damage.transform.GetChild(0).transform.localScale = new Vector3(0.8f / transform.localScale.x, 0.46f / transform.localScale.y, 1); 
 			damage.transform.SetParent(transform);
@@ -118,7 +130,7 @@ public class TrainingDummy : MonoBehaviour {
 					} else {
 						// 10% chance of 3 items
 						items = 3;
-						
+
 					}
 
 					if (items == 1) {
@@ -184,6 +196,7 @@ public class TrainingDummy : MonoBehaviour {
 	public void CallSlowDown(float duration, int strength) {
 		StartCoroutine(SlowdownDebuff(duration, strength));
 	}
+
 	public IEnumerator SlowdownDebuff(float duration, int strength) {
 		float tempSpeed = thisEnemy.speed;
 		thisEnemy.speed -= strength;

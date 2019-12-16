@@ -13,7 +13,7 @@ public class EnemyManager : MonoBehaviour {
 
 	GlobalVars gv;
 
-	int wave = 0;
+	public int wave = 0;
 
 	int timer = 0;
 
@@ -72,7 +72,7 @@ public class EnemyManager : MonoBehaviour {
 	void ReadEnemies() {
 		// List of elements
 		string path = Directory.GetCurrentDirectory() + "\\enemies.txt";
-		
+
 		using (var reader = new StreamReader(path)) {
 			// Get reader input
 			string input = "hi";

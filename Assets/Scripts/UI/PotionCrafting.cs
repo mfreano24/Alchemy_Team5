@@ -28,7 +28,7 @@ public class PotionCrafting : MonoBehaviour {
 
 		ingredients.text = "";
 		preview.text = "";
-		
+
 		asc = GetComponents<AudioSource>();
 
 	}
@@ -43,7 +43,7 @@ public class PotionCrafting : MonoBehaviour {
 
 			if (Input.GetButtonDown("Submit")) {
 				CraftPotion();
-				
+
 			}
 
 			if (Input.GetButtonDown("Cancel")) {
@@ -73,7 +73,7 @@ public class PotionCrafting : MonoBehaviour {
 		sortedNames.OrderBy(name => name);
 
 		foreach (Potion i in GameObject.Find("EventSystem").GetComponent<PotionManager>().potions) {
-			
+
 			if (Enumerable.SequenceEqual(sortedNames.OrderBy(name => name), i.combination.OrderBy(name => name))) {
 				craftedPotion = i;
 				break;

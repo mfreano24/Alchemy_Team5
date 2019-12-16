@@ -91,6 +91,7 @@ namespace Alchemy {
 		[SerializeField]
 		float hue { get; set; }
 
+		// Detailed Constructor
 		public Enemy(string name, int hp, int atk, int def, float sp, string tp, int ex) {
 			this.name = name;
 			this.baseHP = hp;
@@ -102,6 +103,7 @@ namespace Alchemy {
 			this.exp = ex;
 		}
 
+		// Copy Constructor
 		public Enemy(Enemy e) {
 			this.name = e.name;
 			this.baseHP = e.baseHP;
@@ -113,6 +115,7 @@ namespace Alchemy {
 			this.exp = e.exp;
 		}
 
+		// Default Constructor
 		public Enemy() {
 			this.name = "";
 			this.baseHP = 0;
@@ -124,8 +127,13 @@ namespace Alchemy {
 			this.exp = 0;
 		}
 
-		// These stats get updated based on the user's level
-		// Possibly
+		// Scales the enemies based on your level
+		public void Scale(int level) {
+			this.baseHP += 25 * level;
+			this.baseATK += 2 * level;
+			this.baseDEF += level;
+			this.exp += level;
+		}
 	}
 
 	public class InventorySlot {
