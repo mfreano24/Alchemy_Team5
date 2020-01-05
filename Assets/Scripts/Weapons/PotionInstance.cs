@@ -42,6 +42,7 @@ public class PotionInstance : MonoBehaviour {
 		}
 	}
 
+	//Destroys the dropped item after 3000 frames.
 	public IEnumerator Timer() {
 		for (int i = 0; i < 3000; i++) {
 			yield return new WaitForEndOfFrame();
@@ -55,8 +56,9 @@ public class PotionInstance : MonoBehaviour {
 		//SFX definitions
 		source.volume = 0f;
 		reaction = false;
-		// Delay the explosion
+
 		if (!isEnemyDrop) {
+			// This should explode
 			yield return new WaitForSeconds(thisPotion.time / 1000f);
 			anim.SetInteger("State", 1);
 			sf = GetComponents<AudioSource>(); // SULFUR, NITROGEN, TIMEWARP, EXPLOSION, OXYGEN

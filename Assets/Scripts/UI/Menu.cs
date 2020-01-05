@@ -60,7 +60,7 @@ public class Menu : MonoBehaviour {
 		}
 	}
 
-	void BackToGame() {
+	public void BackToGame() {
 		gv.playing = true;
 		GameObject.Find("PauseScreen").SetActive(false);
 	}
@@ -69,7 +69,7 @@ public class Menu : MonoBehaviour {
 
 	}
 
-	private void Quit() {
+	public void Quit() {
 		UnityEngine.SceneManagement.SceneManager.LoadScene("Main Menu");
 	}
 

@@ -36,9 +36,7 @@ public class PotionCrafting : MonoBehaviour {
 	private void Update() {
 		if (gv.playing) {
 			if (Input.GetButtonDown("AddCraft") && pc.selectedPotion.count > 0) {
-				AddIngredient();
-				curr = asc[1];
-				curr.Play();
+				AddCraft();
 			}
 
 			if (Input.GetButtonDown("Submit")) {
@@ -50,6 +48,12 @@ public class PotionCrafting : MonoBehaviour {
 				Cancel();
 			}
 		}
+	}
+
+	public void AddCraft() {
+		AddIngredient();
+		curr = asc[1];
+		curr.Play();
 	}
 
 	public void CraftingUpdated() {

@@ -68,11 +68,15 @@ public class PlayerController : MonoBehaviour {
 		inventory = new List<InventorySlot>();
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 5));
 		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[2], 1));
-		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[4], 0));
+		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[4], 1));
 		selectedPotion = inventory[0];
 		invincibility = false;
 
 		GameObject.Find("CustomLevelManager").GetComponent<StageManager>().Create();
+
+		if (Application.platform != RuntimePlatform.Android && Application.platform != RuntimePlatform.IPhonePlayer) {
+			GameObject.Find("MobileUI").SetActive(false);
+		}
 	}
 
 	void Update() {
@@ -93,14 +97,11 @@ public class PlayerController : MonoBehaviour {
 			}
 
 			if (Input.GetButtonDown("Pause") && gv.playing) {
-				gv.playing = false;
-				menu.SetActive(true);
+				Pause();
 			}
 
 			if (Input.GetButtonDown("Pause") && !gv.playing) {
-				gv.playing = true;
-				menu.SetActive(false);
-				terminalObject.SetActive(false);
+				Unpause();
 			}
 
 			if (Input.GetButtonDown("Terminal")) {
@@ -108,6 +109,17 @@ public class PlayerController : MonoBehaviour {
 				terminalObject.SetActive(true);
 			}
 		}
+	}
+
+	public void Pause() {
+		gv.playing = false;
+		menu.SetActive(true);
+	}
+
+	public void Unpause() {
+		gv.playing = true;
+		menu.SetActive(false);
+		terminalObject.SetActive(false);
 	}
 
 	void CheckWall() {
@@ -155,13 +167,27 @@ public class PlayerController : MonoBehaviour {
 
 	void FixedUpdate() {
 		if (gv.playing) {
-			if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) {
+
+			float horizontal = Input.GetAxis("Horizontal");
+			float vertical = Input.GetAxis("Vertical");
+
+			if (GameObject.Find("MobileUI")) {
+				if (Mathf.Abs(GameObject.Find("Move").GetComponent<RectTransform>().anchoredPosition.x / 65f) > horizontal && GameObject.Find("Move").GetComponent<RectTransform>().anchoredPosition.x != 0) {
+					horizontal = GameObject.Find("Move").GetComponent<RectTransform>().anchoredPosition.x / 65f;
+				}
+
+				if (Mathf.Abs(GameObject.Find("Move").GetComponent<RectTransform>().anchoredPosition.y / 65f) > vertical && GameObject.Find("Move").GetComponent<RectTransform>().anchoredPosition.x != 0) {
+					vertical = GameObject.Find("Move").GetComponent<RectTransform>().anchoredPosition.y / 65f;
+				}
+			}
+
+			if (horizontal != 0 || vertical != 0) {
 				//NEED A CONDITION THAT WORKS BETTER HERE
-				Assign_LastDirection();
+				Assign_LastDirection(horizontal, vertical);
 			}
 
 			if (endlag == 0) {
-				Move();
+				Move(horizontal, vertical);
 				Attack();
 			} else {
 				endlag -= 1; //frame countdown
@@ -171,8 +197,8 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	void Move() {
-		moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+	void Move(float h, float v) {
+		moveDirection = new Vector2(h, v);
 		rb.MovePosition(rb.position + playerSpeed * moveDirection * Time.deltaTime);
 	}
 
@@ -186,7 +212,7 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	void usePotion() {
+	public void usePotion() {
 
 		int droppedCount = 0;
 
@@ -326,11 +352,11 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	/*MOVEMENT BASED FUNCTIONS */
-	void Assign_LastDirection() {
+	void Assign_LastDirection(float h, float v) {
 		temp_x = face_Front_x;
 		temp_y = face_Front_y;
-		face_Front_x = Mathf.Ceil(Input.GetAxis("Horizontal"));
-		face_Front_y = Mathf.Ceil(Input.GetAxis("Vertical"));
+		face_Front_x = Mathf.Ceil(h);
+		face_Front_y = Mathf.Ceil(v);
 		if (face_Front_x == 0 && face_Front_y == 0) {
 			//frames between directional switch
 			face_Front_x = temp_x;

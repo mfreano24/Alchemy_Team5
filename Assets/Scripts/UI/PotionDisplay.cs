@@ -21,6 +21,20 @@ public class PotionDisplay : MonoBehaviour {
         PotionMenu();
     }
 
+	public void NextPotion() {
+		iterator++;
+		if (iterator == pc.inventory.Count) {
+			iterator = 0;
+		}
+	}
+
+	public void PreviousPotion() {
+		iterator--;
+		if (iterator == -1) {
+			iterator = pc.inventory.Count - 1;
+		}
+	}
+
     void PotionMenu() {
         /*PSEUDO-
         the header of this script will declare an iterator i = 0 and an array size 6
@@ -33,17 +47,10 @@ public class PotionDisplay : MonoBehaviour {
         //TODO: Skipping system for elements we dont have any of?
 		// TO-DO: SET THESE AS GLOBAL INPUTS
         if(Input.GetButtonDown("Next") && gv.playing) {
-            iterator++;
-            if(iterator == pc.inventory.Count) {
-                iterator = 0;
-            }
+			NextPotion();
         }
         if(Input.GetButtonDown("Previous") && gv.playing) {
-            iterator--;
-            if(iterator == -1){
-                iterator = pc.inventory.Count - 1;
-            }
-
+			PreviousPotion();
         }
 
         current_potion.text = pc.inventory[iterator].item.name;

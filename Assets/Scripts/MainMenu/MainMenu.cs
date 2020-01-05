@@ -23,6 +23,8 @@ public class MainMenu : MonoBehaviour {
 	bool tutorialRead = false;
 	bool tutorialPresent = false;
 
+	int direction = 0;
+
 	GameObject warning;
 	GameObject levelSelect;
 	GameObject howToPlay;
@@ -33,7 +35,10 @@ public class MainMenu : MonoBehaviour {
 
 	List<GameObject> options;
 
+	GameObject mobileUI;
+
 	private void Start() {
+
 		options = new List<GameObject>();
 		options.Add(GameObject.Find("Default"));
 		warning = GameObject.Find("Warning");
@@ -46,12 +51,29 @@ public class MainMenu : MonoBehaviour {
 		cur.volume = 0.5f;
 		title = GameObject.Find("Title");
 		StartCoroutine(Pulse());
+		mobileUI = GameObject.Find("MobileUI");
+
+		if (Application.platform != RuntimePlatform.Android && Application.platform != RuntimePlatform.IPhonePlayer) {
+			mobileUI.SetActive(false);
+		}
+	}
+
+	public void UpSelected() {
+		direction = 1;
+	}
+
+	public void DownSelected() {
+		direction = -1;
+	}
+
+	public void SelectOption() {
+		direction = 2;
 	}
 
 	// Update is called once per frame
 	void Update() {
 		if (!tutorialPresent) {
-			if (Input.GetAxis("Vertical") < 0 && !moved && MainScreen) {
+			if ((Input.GetAxis("Vertical") < 0 || direction == -1) && !moved && MainScreen) {
 				cur.Play();
 				moved = true;
 				selectedIndex++;
@@ -59,7 +81,7 @@ public class MainMenu : MonoBehaviour {
 					selectedIndex = 0;
 				}
 			}
-			if (Input.GetAxis("Vertical") > 0 && !moved && MainScreen) {
+			if ((Input.GetAxis("Vertical") > 0 || direction == 1) && !moved && MainScreen) {
 				cur.Play();
 				moved = true;
 				selectedIndex--;
@@ -68,11 +90,12 @@ public class MainMenu : MonoBehaviour {
 				}
 			}
 
-			if (Input.GetAxis("Vertical") == 0 && moved && MainScreen) {
+			if ((Input.GetAxis("Vertical") == 0) && moved && MainScreen) {
 				moved = false;
+				direction = 0;
 			}
 
-			if (Input.GetAxis("Vertical") < 0 && !moved && StageSelect) {
+			if ((Input.GetAxis("Vertical") < 0 || direction == -1) && !moved && StageSelect) {
 				cur.Play();
 				moved = true;
 				selectedLevel++;
@@ -81,7 +104,8 @@ public class MainMenu : MonoBehaviour {
 				}
 				UpdateColor();
 			}
-			if (Input.GetAxis("Vertical") > 0 && !moved && StageSelect) {
+
+			if ((Input.GetAxis("Vertical") > 0 || direction == 1) && !moved && StageSelect) {
 				cur.Play();
 				moved = true;
 				selectedLevel--;
@@ -93,6 +117,7 @@ public class MainMenu : MonoBehaviour {
 
 			if (Input.GetAxis("Vertical") == 0 && moved && StageSelect) {
 				moved = false;
+				direction = 0;
 			}
 
 			if (!StageSelect) {
@@ -100,7 +125,8 @@ public class MainMenu : MonoBehaviour {
 			}
 		}
 
-		if (Input.GetButtonDown("Fire2")) {
+		if (Input.GetButtonDown("Fire2") || direction == 2) {
+			direction = 0;
 			cur.Play();
 			SelectObject();
 			return;
@@ -151,6 +177,7 @@ public class MainMenu : MonoBehaviour {
 		} else {
 			howToPlay.SetActive(true);
 			tutorialPresent = true;
+			mobileUI.SetActive(false);
 			if (!tutorialRead) {
 				GameObject.Find("Levels").SetActive(false);
 				GameObject.Find("RegularTitle").SetActive(false);

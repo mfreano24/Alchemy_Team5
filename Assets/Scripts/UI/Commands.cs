@@ -24,10 +24,20 @@ public class Commands : MonoBehaviour {
 			LevelCommand(chain);
 		}
 
+		if (chain[0] == "/kill") {
+			KillCommand(chain);
+		}
+
 
 		inputText.text = "";
 		inputObject.SetActive(false);
 		es.GetComponent<GlobalVars>().playing = true;
+	}
+
+	void KillCommand(string[] items) {
+		foreach (GameObject e in GameObject.FindGameObjectsWithTag("Damageable")) {
+			e.GetComponent<TrainingDummy>().DropHealth(10000, false);
+		}
 	}
 
 	void LevelCommand(string[] items) {

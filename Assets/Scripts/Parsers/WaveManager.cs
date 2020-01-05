@@ -32,8 +32,12 @@ public class WaveManager : MonoBehaviour {
 				customWave.spawnIndices.Add(j);
 				customWave.waveEnemies.Add(this.gameObject.GetComponent<EnemyManager>().enemies[Random.Range(0, GameObject.Find("EventSystem").GetComponent<EnemyManager>().enemies.Count - 1)]);
 			}
+
+			while (waves.Count != i) {
+				waves.Add(new Wave());
+			}
+
 			waves.Add(customWave);
-			return;
 		}
 
 		Wave current = waves[i - 1];
@@ -57,27 +61,25 @@ public class WaveManager : MonoBehaviour {
 	void CreateIndices() {
 		if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "MainRoom") {
 			// Find the spawn index data
-			string path = Directory.GetCurrentDirectory() + "\\waves\\spawn_indices.txt";
-			using (var reader = new StreamReader(path)) {
-				// Initial data
-				string input = "hello there!";
+			string path = Application.streamingAssetsPath + "\\waves\\spawn_indices.txt";
 
+			//if (Application.platform == RuntimePlatform.Android) {
+				WWW dat = new WWW(path);
+				while (!dat.isDone) { }
+				string info = dat.text;
+			//}
+
+			for (int i = 0; i < info.Split('\n').Length; i++) {
 				// Create empty spawner
-				input = reader.ReadLine();
+				string input = info.Split('\n')[i];
 
-				// While more data exist
-				while (input != null && input != "") {
 
-					string[] data = input.Split(' ');
+				string[] data = input.Split(' ');
 
-					GameObject newSpawner = (GameObject)Instantiate(spawner, new Vector3(System.Convert.ToInt32(data[1]), System.Convert.ToInt32(data[2]), 0), Quaternion.identity);
+				GameObject newSpawner = (GameObject)Instantiate(spawner, new Vector3(System.Convert.ToInt32(data[1]), System.Convert.ToInt32(data[2]), 0), Quaternion.identity);
 
-					// Set up spawner name
-					newSpawner.name = "Spawner_" + data[0].ToString();
-
-					// Create empty spawner
-					input = reader.ReadLine();
-				}
+				// Set up spawner name
+				newSpawner.name = "Spawner_" + data[0].ToString();
 			}
 		}
 
@@ -87,28 +89,30 @@ public class WaveManager : MonoBehaviour {
 
 	void GenerateWaves() {
 		for (int i = 1; i <= WAVE_COUNT; i++) {
-			string path = Directory.GetCurrentDirectory() + "\\waves\\Wave" + i.ToString() + ".txt";
-			using (var reader = new StreamReader(path)) {
+			string path = Application.streamingAssetsPath + "\\waves\\Wave" + i.ToString() + ".txt";
+
+			//if (Application.platform == RuntimePlatform.Android) {
+			WWW dat = new WWW(path);
+			while (!dat.isDone) { }
+			string info = dat.text;
+			//}
+
+			Wave newWave = new Wave();
+
+			for (int j = 0; j < info.Split('\n').Length; j++) {
 				// Initial data
-				string input = reader.ReadLine();
+				string input = info.Split('\n')[j];
 
-				Wave newWave = new Wave();
+				string[] fragments = input.Split(' ');
 
-				// While more data exist
-				while (input != null && input != "") {
+				Enemy e = gameObject.GetComponent<EnemyManager>().FindByName(fragments[0]);
 
-					string[] fragments = input.Split(' ');
+				newWave.waveEnemies.Add(e);
+				newWave.spawnIndices.Add(System.Convert.ToInt32(fragments[1]));
 
-					Enemy e = this.gameObject.GetComponent<EnemyManager>().FindByName(fragments[0]);
-
-					newWave.waveEnemies.Add(e);
-					newWave.spawnIndices.Add(System.Convert.ToInt32(fragments[1]));
-
-					input = reader.ReadLine();
-				}
-
-				waves.Add(newWave);
 			}
+
+			waves.Add(newWave);
 		}
 	}
 

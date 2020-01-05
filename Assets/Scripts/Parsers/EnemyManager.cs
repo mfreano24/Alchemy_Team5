@@ -71,51 +71,54 @@ public class EnemyManager : MonoBehaviour {
 	// Reading the enemies
 	void ReadEnemies() {
 		// List of elements
-		string path = Directory.GetCurrentDirectory() + "\\enemies.txt";
+		string path = Application.streamingAssetsPath + "\\enemies.txt";
 
-		using (var reader = new StreamReader(path)) {
-			// Get reader input
-			string input = "hi";
+		//if (Application.platform == RuntimePlatform.Android) {
+		WWW dat = new WWW(path);
+		while (!dat.isDone) { }
+		string info = dat.text;
+		//}
 
-			while (input != "" && input != null) {
+		for (int j = 0; j < info.Split('\n').Length; j += 8) {
+
 				// Creating the items
 				// Create a new potion
 				Enemy newEnemy = new Enemy();
-				for (int i = -1; i < 7; i++) {
+				for (int i = 0; i < 8; i++) {
 
 					// Read actual input
-					input = reader.ReadLine();
+					string input = info.Split('\n')[j + i].TrimEnd('\r');
 
 					if (input == "" || input == null) {
 						break;
 					}
 
 					switch (i) {
-						case (0):
+						case (1):
 							// Setting the element name
 							newEnemy.name = input;
 							break;
-						case (1):
+						case (2):
 							// Initialize Enemy HP
 							newEnemy.baseHP = System.Convert.ToInt32(input);
 							break;
-						case (2):
+						case (3):
 							// Initialize Enemy Strength
 							newEnemy.baseATK = System.Convert.ToInt32(input);
 							break;
-						case (3):
+						case (4):
 							// Set up the enemy's defense
 							newEnemy.baseDEF = System.Convert.ToInt32(input);
 							break;
-						case (4):
+						case (5):
 							// Set up the enemy's speed
 							newEnemy.speed = (float)System.Convert.ToDouble(input);
 							break;
-						case (5):
+						case (6):
 							// Set up the enemy's type (for reactions)
 							newEnemy.type = input;
 							break;
-						case (6):
+						case (7):
 							// Set up the experience gain
 							newEnemy.exp = System.Convert.ToInt32(input);
 							break;
@@ -127,11 +130,10 @@ public class EnemyManager : MonoBehaviour {
 
 				enemies.Add(newEnemy);
 
-			} // End of while (input != "" && input != null)
 		} // End of File IO
 
 		// Removes an empty potion
-		enemies.RemoveAt(enemies.Count - 1);
+		//enemies.RemoveAt(enemies.Count - 1);
 	}
 
 	public Enemy FindByName(string s) {
