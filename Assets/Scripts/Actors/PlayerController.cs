@@ -310,7 +310,9 @@ public class PlayerController : MonoBehaviour {
 
 	void EnemyColliders(bool val) {
 		foreach (GameObject g in GameObject.Find("EventSystem").GetComponent<WaveManager>().currentEnemies) {
-			g.GetComponent<BoxCollider2D>().enabled = val;
+			if (g != null) {
+				g.GetComponent<BoxCollider2D>().enabled = val;
+			}
 		}
 	}
 

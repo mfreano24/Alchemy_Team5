@@ -730,7 +730,7 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Wave starting in xx seconds!
 
-        (Press Select to start early!)'
+        (Press F to start early!)'
       objectReference: {fileID: 0}
     - target: {fileID: 4846755471278552343, guid: 4b85c94d4b79e0346abadd5e33358466,
         type: 3}
@@ -11399,17 +11399,22 @@ PrefabInstance:
     - target: {fileID: 742280035671596660, guid: 76ae2ee125679f1439642760a33b1048,
         type: 3}
       propertyPath: worldSizeX
-      value: 9
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 742280035671596660, guid: 76ae2ee125679f1439642760a33b1048,
         type: 3}
       propertyPath: worldSizeY
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 742280035671596660, guid: 76ae2ee125679f1439642760a33b1048,
         type: 3}
       propertyPath: targetFrameRate
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 742280035671596660, guid: 76ae2ee125679f1439642760a33b1048,
+        type: 3}
+      propertyPath: worldCenterY
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76ae2ee125679f1439642760a33b1048, type: 3}
