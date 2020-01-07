@@ -24,11 +24,19 @@ public class Gameover : MonoBehaviour {
 
 		if (Input.GetButton("Fire2")) {
 			if (tryAgain) {
-				UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+				Restart();
 			} else {
-				UnityEngine.SceneManagement.SceneManager.LoadScene("Main Menu");
+				Quit();
 			}
 		}
 	}
 
+	public void Restart() {
+		UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+	}
+
+	public void Quit() {
+		UnityEngine.SceneManagement.SceneManager.LoadScene("Main Menu");
+
+	}
 }
