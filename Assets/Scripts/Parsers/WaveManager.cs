@@ -43,7 +43,7 @@ public class WaveManager : MonoBehaviour {
 		Wave current = waves[i - 1];
 
 		for (int j = 0; j < current.waveEnemies.Count; j++) {
-			if (!GameObject.Find("CustomLevelManager").GetComponent<StageManager>().isCustomLevel) {
+			if (!GameObject.Find("CustomLevelManager").GetComponent<StageManager>().isCustomLevel && UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Tutorial") {
 				GameObject newEnemy = (GameObject)Instantiate(this.transform.GetComponent<EnemyManager>().EnemyPrefab, GameObject.Find("Spawner_" + (current.spawnIndices[j]).ToString()).transform.position, Quaternion.identity);
 				newEnemy.GetComponent<TrainingDummy>().thisEnemy = new Enemy(current.waveEnemies[j]);
 				newEnemy.GetComponent<TrainingDummy>().thisEnemy.Scale(i);

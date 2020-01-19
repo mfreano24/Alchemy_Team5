@@ -200,7 +200,6 @@ public class PotionInstance : MonoBehaviour {
 						// Critical hit!
 						enemy.GetComponent<TrainingDummy>().DropHealth(thisPotion.damage * (crit ? 2 : 1), crit);
 						enemy.GetComponent<TrainingDummy>().CallKB(0.2f, 0.8f, this.transform);
-						StartCoroutine(enemy.GetComponent<TrainingDummy>().IncreaseXP());
 					}
 				}
 				foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player")) {
@@ -271,7 +270,6 @@ public class PotionInstance : MonoBehaviour {
 				int roll = Random.Range(0, _critChance);
 				bool crit = (roll == 0);
 				enemy.GetComponent<TrainingDummy>().DropHealth(thisPotion.damage * (crit ? 2 : 1), crit);
-				StartCoroutine(enemy.GetComponent<TrainingDummy>().IncreaseXP());
 			}
 		}
 
@@ -282,6 +280,8 @@ public class PotionInstance : MonoBehaviour {
 				player.GetComponent<PlayerController>().CallKB(0.3f, 0.125f / 2f, this.transform);
 			}
 		}
+
+		e.GetComponent<TrainingDummy>().IncreaseXP();
 		Destroy(e);
 		yield return new WaitForSeconds(1f);
 		foreach (GameObject hitbox in GameObject.FindGameObjectsWithTag("HB")) {

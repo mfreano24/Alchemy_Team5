@@ -30,7 +30,7 @@ public class EnemyManager : MonoBehaviour {
 	}
 
 	private void Update() {
-		if (gv.playing) {
+		if (gv.playing && UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Tutorial") {
 			if (timer > 0) {
 				timer--;
 				waveTimer.GetComponent<Text>().text = "Next wave in " + (timer / 30 + 1).ToString() + " seconds!\nPress Select to skip timer!";

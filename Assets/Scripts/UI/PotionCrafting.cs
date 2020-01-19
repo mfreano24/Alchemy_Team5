@@ -102,6 +102,11 @@ public class PotionCrafting : MonoBehaviour {
 	public void CraftPotion() {
 
 		if (craftedPotion != null) {
+
+			if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Tutorial" && craftedPotion.name == "Volcano") {
+				pc.currentExperience++;
+			}
+
 			curr = asc[0];
 			curr.Play();
 			foreach (InventorySlot slot in pc.inventory) {

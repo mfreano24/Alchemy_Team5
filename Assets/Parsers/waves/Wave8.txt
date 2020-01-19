@@ -1,8 +1,0 @@
-Fire_Slime 85
-Fire_Slime 45
-Fire_Slime 65
-Nitroshroom 2
-Basic_Slime 42
-Basic_Slime 48
-Basic_Slime 62
-Basic_Slime 68

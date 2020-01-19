@@ -145,6 +145,8 @@ public class UpgradeSelection : MonoBehaviour {
 			transform.localPosition = new Vector2(0, (float)f(i));
 			yield return new WaitForEndOfFrame();
 		}
+
+		pc.currentExperience++;
 	}
 
 	double f(int x) {

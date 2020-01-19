@@ -130,7 +130,6 @@ public class TrainingDummy : MonoBehaviour {
 					} else {
 						// 10% chance of 3 items
 						items = 3;
-
 					}
 
 					if (items == 1) {
@@ -155,7 +154,7 @@ public class TrainingDummy : MonoBehaviour {
 						}
 					}
 
-					if (Random.Range(1, 10) == 1) {
+					if (Random.Range(1, 10) == 1 || UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Tutorial") {
 						GameObject enemyDrop = (GameObject)Instantiate(GameObject.Find("Player").GetComponent<PlayerController>().potionPrefab, transform.position + 0.6f * new Vector3(0, 0, -0.3f), Quaternion.identity);
 						enemyDrop.GetComponent<PotionInstance>().thisPotion = GameObject.Find("EventSystem").GetComponent<PotionManager>().FindByName("Oxygen");
 						enemyDrop.GetComponent<PotionInstance>().isEnemyDrop = true;

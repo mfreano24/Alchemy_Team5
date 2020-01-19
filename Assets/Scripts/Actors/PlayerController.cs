@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Alchemy;
 
 public class PlayerController : MonoBehaviour {
@@ -32,7 +33,7 @@ public class PlayerController : MonoBehaviour {
 	public float currentHealth = 100;
 	public float maxExperience;
 	public float currentExperience;
-	int level = 1;
+	public int level = 1;
 
 	public List<InventorySlot> inventory;
 	int BASE_COUNT = 3;
@@ -66,13 +67,24 @@ public class PlayerController : MonoBehaviour {
 
 		// DEBUGGING PURPOSES ONLY
 		inventory = new List<InventorySlot>();
-		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 5));
-		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[2], 1));
-		inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[4], 1));
+
+		if (SceneManager.GetActiveScene().name == "Tutorial") {
+			inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 99));
+			inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[2], 99));
+
+			MAX_ITEMS = 99;
+		} else {
+			inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 5));
+			inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[2], 1));
+			inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[4], 1));
+		}
+
 		selectedPotion = inventory[0];
 		invincibility = false;
 
-		GameObject.Find("CustomLevelManager").GetComponent<StageManager>().Create();
+		if (SceneManager.GetActiveScene().name != "Tutorial") {
+			GameObject.Find("CustomLevelManager").GetComponent<StageManager>().Create();
+		}
 
 		if (Application.platform != RuntimePlatform.Android && Application.platform != RuntimePlatform.IPhonePlayer) {
 			GameObject.Find("MobileUI").SetActive(false);
@@ -140,10 +152,14 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void PickupItems() {
+
+		int pickedUpInTutorial = 0;
+
 		foreach (GameObject item in GameObject.FindGameObjectsWithTag("Potion")) {
 			if (item.GetComponent<PotionInstance>().isEnemyDrop && Vector3.Distance(this.transform.position, item.transform.position) < 2) {
 				int invIndex = FindInventorySlot(item.GetComponent<PotionInstance>().thisPotion);
 				if (invIndex == -1) {
+					pickedUpInTutorial++;
 					inventory.Add(new InventorySlot(item.GetComponent<PotionInstance>().thisPotion, 1));
 					return;
 				}
@@ -153,6 +169,10 @@ public class PlayerController : MonoBehaviour {
 					return;
 				}
 			}
+		}
+
+		if (pickedUpInTutorial > 0 && SceneManager.GetActiveScene().name == "Tutorial") {
+			currentExperience++;
 		}
 	}
 
@@ -270,7 +290,7 @@ public class PlayerController : MonoBehaviour {
 
 		GameObject.Find("EXP").GetComponent<Image>().fillAmount = currentExperience / maxExperience;
 
-		if (currentExperience >= maxExperience) {
+		if (currentExperience >= maxExperience && SceneManager.GetActiveScene().name != "Tutorial") {
 			Levelup();
 		}
 	}
@@ -342,7 +362,7 @@ public class PlayerController : MonoBehaviour {
 		yield return 0;
 	}
 
-	void Levelup() {
+	public void Levelup() {
 		level++;
 		currentExperience -= maxExperience;
 		maxExperience = LevelToExp(level);

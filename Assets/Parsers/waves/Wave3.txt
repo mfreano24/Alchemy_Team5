@@ -1,5 +1,0 @@
-Fire_Slime 8
-Basic_Slime 42
-Basic_Slime 48
-Basic_Slime 62
-Basic_Slime 68
