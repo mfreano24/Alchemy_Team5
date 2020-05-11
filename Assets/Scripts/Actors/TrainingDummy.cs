@@ -4,6 +4,7 @@ using Alchemy;
 
 public class TrainingDummy : MonoBehaviour {
 
+	[SerializeField]
 	public Enemy thisEnemy;
 
 	GlobalVars gv;
@@ -44,9 +45,13 @@ public class TrainingDummy : MonoBehaviour {
 	#region Pathfinding
 	public void OnPathFound(Vector3[] waypoints, bool success) {
 		if (success) {
-			path = new Path(waypoints, transform.position, turnDist);
-			StopCoroutine(Follow());
-			StartCoroutine(Follow());
+			try {
+				path = new Path(waypoints, transform.position, turnDist);
+				StopCoroutine(Follow());
+				StartCoroutine(Follow());
+			} catch (System.Exception e) {
+				return;
+			}
 		}
 	}
 
@@ -114,7 +119,12 @@ public class TrainingDummy : MonoBehaviour {
 
 			if (thisEnemy.baseHP <= 0) {
 				GameObject.Find("EventSystem").GetComponent<WaveManager>().currentEnemies.Remove(this.gameObject);
-				StartCoroutine(IncreaseXP());
+				if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Tutorial") {
+					if (thisEnemy.name == "Fire_Slime") {
+						GameObject.Find("EventSystem").GetComponent<TutorialManager>().lastFlag++;
+					}
+					GameObject.Find("EventSystem").GetComponent<TutorialManager>().kills++;
+				}
 				// Drop the item
 				if (thisEnemy.type != "None") {
 
@@ -161,6 +171,9 @@ public class TrainingDummy : MonoBehaviour {
 						StartCoroutine(enemyDrop.GetComponent<PotionInstance>().DropPotion());
 					}
 				}
+
+				StartCoroutine(IncreaseXP());
+
 			}
 
 			damage.GetComponent<DamageIndicator>().setHealth(i, crit);
@@ -169,13 +182,16 @@ public class TrainingDummy : MonoBehaviour {
 	}
 
 	public IEnumerator IncreaseXP() {
+		Debug.Log("Increasing EXP from " + thisEnemy.name + ": " + GameObject.Find("Player").GetComponent<PlayerController>().currentExperience.ToString() + " --> " + (GameObject.Find("Player").GetComponent<PlayerController>().currentExperience + thisEnemy.exp).ToString());
+
 		for (int i = 0; i < thisEnemy.exp; i++) {
 			// Animates the increase (because reasons
 			GameObject.Find("Player").GetComponent<PlayerController>().currentExperience++;
 			yield return new WaitForSeconds(0.01f);
 		}
+		
+		Destroy(gameObject);
 	}
-
 
 	public void CallKB(float duration, float pow, Transform other) {
 		StartCoroutine(Knockback(duration, pow, other));
@@ -192,11 +208,11 @@ public class TrainingDummy : MonoBehaviour {
 	}
 
 
-	public void CallSlowDown(float duration, int strength) {
+	public void CallSlowDown(float duration, float strength) {
 		StartCoroutine(SlowdownDebuff(duration, strength));
 	}
 
-	public IEnumerator SlowdownDebuff(float duration, int strength) {
+	public IEnumerator SlowdownDebuff(float duration, float strength) {
 		float tempSpeed = thisEnemy.speed;
 		thisEnemy.speed -= strength;
 		yield return new WaitForSeconds(duration);

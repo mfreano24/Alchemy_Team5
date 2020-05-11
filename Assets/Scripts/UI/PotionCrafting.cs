@@ -78,7 +78,7 @@ public class PotionCrafting : MonoBehaviour {
 
 		foreach (Potion i in GameObject.Find("EventSystem").GetComponent<PotionManager>().potions) {
 
-			if (Enumerable.SequenceEqual(sortedNames.OrderBy(name => name), i.combination.OrderBy(name => name))) {
+			if (Enumerable.SequenceEqual(sortedNames.OrderBy(name => name), i.ingredients.OrderBy(name => name))) {
 				craftedPotion = i;
 				break;
 			}
@@ -103,8 +103,8 @@ public class PotionCrafting : MonoBehaviour {
 
 		if (craftedPotion != null) {
 
-			if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Tutorial" && craftedPotion.name == "Volcano") {
-				pc.currentExperience++;
+			if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Tutorial" && craftedPotion.name == "Volcano" && GameObject.Find("EventSystem").GetComponent<TutorialManager>().lastFlag == 12) {
+				GameObject.Find("EventSystem").GetComponent<TutorialManager>().lastFlag++;
 			}
 
 			curr = asc[0];

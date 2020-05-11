@@ -9,6 +9,8 @@ public class TutorialManager : MonoBehaviour {
 	public int lastUsed = -1;
 	public GlobalVars gv;
 
+	public int kills = 0;
+
 	public PlayerController pc;
 
 	private void Start() {
@@ -21,107 +23,72 @@ public class TutorialManager : MonoBehaviour {
 	}
 
 	private void Update() {
-		//pc.currentExperience
-		if (pc.level == 1) {
-
-			switch (pc.currentExperience) {
-				case (5):
-					pc.currentExperience++;
+		if (lastFlag != lastUsed) {
+			switch (lastFlag) {
+				case (1):
 					SpawnEnemy(GetComponent<EnemyManager>().FindByName("Basic_Slime"), GameObject.Find("Player").transform.position + new Vector3(5, 0));
-					break;
-				case (6):
-					pc.currentExperience++;
 					StartCoroutine(GetComponent<Textbox>().scrollText(1));
 					break;
-				case (22):
-					pc.currentExperience++;
+				case (3):
 					StartCoroutine(GetComponent<Textbox>().scrollText(2));
 					break;
-				case (35):
-					pc.currentExperience++;
-					break;
-				case (36):
+				case (4):
 					pc.currentExperience++;
 					SpawnEnemy(GetComponent<EnemyManager>().FindByName("Fire_Slime"), GameObject.Find("Player").transform.position + new Vector3(0, 3));
-					StartCoroutine(AnimateEnemy());
-					break;
-				case (54):
-					pc.currentExperience++;
 					StartCoroutine(GetComponent<Textbox>().scrollText(3));
+					pc.currentExperience = 99;
 					break;
-				case (100):
-					pc.currentExperience++;
+				case (6):
+				case (7):
+					lastFlag = 7;
 					StartCoroutine(GetComponent<Textbox>().scrollText(4));
 					break;
-				case (106):
-					pc.currentExperience++;
-					pc.Levelup();
-					break;
-			}
-		}
-		
-		if (pc.level == 2) {
-			switch (pc.currentExperience) {
-				case (8):
-					pc.currentExperience++;
+				case (10):
 					StartCoroutine(GetComponent<Textbox>().scrollText(5));
 					break;
-				case (15):
-					pc.currentExperience++;
+				case (11):
 					StartCoroutine(GetComponent<Textbox>().scrollText(6));
 					break;
-				case (22):
-					pc.currentExperience++;
+				case (13):
 					StartCoroutine(GetComponent<Textbox>().scrollText(7));
 					break;
-				case (28):
-					pc.currentExperience++;
+				case (14):
 					Vector2 center = GameObject.Find("Player").transform.position + Vector3.right * 8;
 					for (int i = 0; i < 8; i++) {
 						SpawnEnemy(GetComponent<EnemyManager>().FindByName("Basic_Slime"), center + Random.insideUnitCircle * 3);
 					}
-					break;
-				case (29):
-					pc.currentExperience++;
 					StartCoroutine(GetComponent<Textbox>().scrollText(8));
 					break;
-				case (235):
-					pc.Levelup();
-					break;
-			}
-		}
-
-		if (pc.level == 3) {
-			switch (pc.currentExperience) {
-				case (35):
-					pc.currentExperience++;
+				case (16):
 					StartCoroutine(GetComponent<Textbox>().scrollText(9));
 					break;
-				case (41):
+				case (17):
 					UnityEngine.SceneManagement.SceneManager.LoadScene("Main Menu");
 					break;
 			}
 		}
 
+		lastUsed = lastFlag;
+
+		if (lastFlag == 2 && pc.currentExperience > 0) {
+			lastFlag++;
+		}
+
+		if (pc.currentExperience == 100 && pc.level == 1 && GameObject.Find("Textbox(Clone)") == null) {
+			pc.Levelup();
+		}
+
+		if (kills >= 8 && lastFlag < 16) {
+			Debug.Log("Hi!");
+			lastFlag++;
+			Debug.Log(lastFlag);
+		}
 	}
 
 	void SpawnEnemy(Enemy e, Vector3 pos) {
+		Enemy toSet = new Enemy(e);
 		GameObject newEnemy = (GameObject)Instantiate(this.transform.GetComponent<EnemyManager>().EnemyPrefab, pos, Quaternion.identity);
-		newEnemy.GetComponent<TrainingDummy>().thisEnemy = e;
-	}
-
-	IEnumerator AnimateEnemy() {
-		while (Vector3.Distance(GameObject.Find("Debug Dummy(Clone)").transform.position, GameObject.Find("Player").transform.position) >= 0.3f) {
-			yield return new WaitForSeconds(0.01f);
-			GameObject.Find("Debug Dummy(Clone)").GetComponent<Rigidbody2D>().MovePosition(Vector3.down * 0.1f);
-		}
-
-		for (int i = 0; i < 50; i++) {
-			GameObject.Find("Debug Dummy(Clone)").transform.position = GameObject.Find("Player").transform.position + new Vector3(i / 50f, -0.03f * i * ((i - 50) / 10f));
-			yield return new WaitForSeconds(0.01f);
-		}
-
-		pc.currentExperience = 54;
+		newEnemy.GetComponent<TrainingDummy>().thisEnemy = toSet;
 	}
 
 }

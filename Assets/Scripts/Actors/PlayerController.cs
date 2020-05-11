@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour {
 	//for reference purposes
 	public GameObject player;
 	public GameObject sword;
+	public GameObject es; // Event System
 	//for instance purposes
 	private GameObject sword_inst;
 	public InventorySlot selectedPotion;
@@ -53,6 +54,7 @@ public class PlayerController : MonoBehaviour {
 		gv = GameObject.Find("EventSystem").GetComponent<GlobalVars>();
 		rb = GetComponent<Rigidbody2D>();
 		sw = sword.GetComponent<BoxCollider2D>();
+		es = GameObject.Find("EventSystem");
 		terminalObject = GameObject.Find("Terminal");
 		menu = GameObject.Find("PauseScreen");
 		gameOver = GameObject.Find("GameOver");
@@ -69,14 +71,15 @@ public class PlayerController : MonoBehaviour {
 		inventory = new List<InventorySlot>();
 
 		if (SceneManager.GetActiveScene().name == "Tutorial") {
-			inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 99));
-			inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[2], 99));
+			inventory.Add(new InventorySlot(es.GetComponent<PotionManager>().potions[0], 99));
+			inventory.Add(new InventorySlot(es.GetComponent<PotionManager>().potions[1], 99));
+			inventory.Add(new InventorySlot(es.GetComponent<PotionManager>().potions[2], 99));
 
 			MAX_ITEMS = 99;
 		} else {
-			inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[0], 5));
-			inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[2], 1));
-			inventory.Add(new InventorySlot(GameObject.Find("EventSystem").GetComponent<PotionManager>().potions[4], 1));
+			inventory.Add(new InventorySlot(es.GetComponent<PotionManager>().potions[0], 5));
+			inventory.Add(new InventorySlot(es.GetComponent<PotionManager>().potions[1], 1));
+			inventory.Add(new InventorySlot(es.GetComponent<PotionManager>().potions[2], 1));
 		}
 
 		selectedPotion = inventory[0];
@@ -108,17 +111,17 @@ public class PlayerController : MonoBehaviour {
 				invincibilityFrames = 0;
 			}
 
-			if (Input.GetButtonDown("Pause") && gv.playing) {
+			if (Input.GetButtonDown("Pause")) {
 				Pause();
-			}
-
-			if (Input.GetButtonDown("Pause") && !gv.playing) {
-				Unpause();
 			}
 
 			if (Input.GetButtonDown("Terminal")) {
 				gv.playing = false;
 				terminalObject.SetActive(true);
+			}
+		} else {
+			if (Input.GetButtonDown("Pause")) {
+				Unpause();
 			}
 		}
 	}
@@ -153,13 +156,10 @@ public class PlayerController : MonoBehaviour {
 
 	void PickupItems() {
 
-		int pickedUpInTutorial = 0;
-
 		foreach (GameObject item in GameObject.FindGameObjectsWithTag("Potion")) {
 			if (item.GetComponent<PotionInstance>().isEnemyDrop && Vector3.Distance(this.transform.position, item.transform.position) < 2) {
 				int invIndex = FindInventorySlot(item.GetComponent<PotionInstance>().thisPotion);
 				if (invIndex == -1) {
-					pickedUpInTutorial++;
 					inventory.Add(new InventorySlot(item.GetComponent<PotionInstance>().thisPotion, 1));
 					return;
 				}
@@ -169,10 +169,10 @@ public class PlayerController : MonoBehaviour {
 					return;
 				}
 			}
-		}
-
-		if (pickedUpInTutorial > 0 && SceneManager.GetActiveScene().name == "Tutorial") {
-			currentExperience++;
+			
+			if (item.GetComponent<PotionInstance>().thisPotion.name == "Sulfur" && SceneManager.GetActiveScene().name == "Tutorial" && es.GetComponent<TutorialManager>().lastFlag == 8) {
+				es.GetComponent<TutorialManager>().lastFlag++;
+			}
 		}
 	}
 
@@ -290,7 +290,7 @@ public class PlayerController : MonoBehaviour {
 
 		GameObject.Find("EXP").GetComponent<Image>().fillAmount = currentExperience / maxExperience;
 
-		if (currentExperience >= maxExperience && SceneManager.GetActiveScene().name != "Tutorial") {
+		if (currentExperience >= maxExperience) {
 			Levelup();
 		}
 	}
@@ -329,7 +329,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void EnemyColliders(bool val) {
-		foreach (GameObject g in GameObject.Find("EventSystem").GetComponent<WaveManager>().currentEnemies) {
+		foreach (GameObject g in es.GetComponent<WaveManager>().currentEnemies) {
 			if (g != null) {
 				g.GetComponent<BoxCollider2D>().enabled = val;
 			}

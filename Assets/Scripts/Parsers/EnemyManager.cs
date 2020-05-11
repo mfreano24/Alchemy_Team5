@@ -33,7 +33,7 @@ public class EnemyManager : MonoBehaviour {
 		if (gv.playing && UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Tutorial") {
 			if (timer > 0) {
 				timer--;
-				waveTimer.GetComponent<Text>().text = "Next wave in " + (timer / 30 + 1).ToString() + " seconds!\nPress Select to skip timer!";
+				waveTimer.GetComponent<Text>().text = "Next wave in " + (timer / 30 + 1).ToString() + " seconds!\nPress F to skip timer!";
 				if (timer == 5) {
 					wave++;
 					StartCoroutine(UpdateWaveStatus("Wave " + wave.ToString() + " starting!"));
@@ -50,7 +50,7 @@ public class EnemyManager : MonoBehaviour {
 					GameObject.Find("Player").GetComponent<PlayerController>().takeDamage(-GameObject.Find("Player").GetComponent<PlayerController>().HEAL_FACTOR);
 				}
 				timer = timeBetweenWaves;
-				waveTimer.GetComponent<Text>().text = "Next wave in " + (timer / 60 + 1).ToString() + " seconds!\nPress Select to skip timer!";
+				waveTimer.GetComponent<Text>().text = "Next wave in " + (timer / 60 + 1).ToString() + " seconds!\nPress F to skip timer!";
 				waveTimer.SetActive(true);
 			}
 		}

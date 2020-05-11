@@ -1,0 +1,10 @@
+Name,Type,Ingredients,Required_Scale,Explosion_Size,Time (ms),Range_Extension,Audio_Source,Player_Damage_Mult,Enemy_Damage_Scale,Buffer,Hits,Duration,Strength,KB_Duration,KB_Power
+Sulfur,1,None,7,1,1000,3.5,0,0.0125,25,0.5,5,0,0,0,0
+Nitrogen,2,None,2,5,1000,1,1,0,0,0,0,1,1,0,0
+Oxygen,4,None,3,4,500,3,4,0,0,0,0,0,0,0.08,0.08
+Greater Sulfur,1,Sulfur/Sulfur,2,7,1000,1,0,0.0125,60,0.3,10,0,0,0,0
+Greater Nitrogen,2,Nitrogen/Nitrogen,3,7,800,1.5,1,0,0,0,0,1.5,2,0,0
+Greater Oxygen,4,Oxygen/Oxygen,1.5,7,250,3,4,0,0,0,0,0,0,0.1,0.09
+Explosion,12,Sulfur/Nitrogen,3,2,1000,3,3,0.333,650,0,1,0,0,0.2,0.8
+Time Warp,2,Oxygen/Nitrogen,3,5,750,10,2,0,0,0,0,3,3,0,0
+Volcano,1,Sulfur/Oxygen,3,4,450,10,0,0.0375,35,0.125,10,0,0,0,0

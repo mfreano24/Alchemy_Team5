@@ -147,6 +147,10 @@ public class UpgradeSelection : MonoBehaviour {
 		}
 
 		pc.currentExperience++;
+
+		if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Tutorial") {
+			GameObject.Find("EventSystem").GetComponent<TutorialManager>().lastFlag++;
+		}
 	}
 
 	double f(int x) {

@@ -8,65 +8,34 @@ namespace Alchemy {
 	[System.Serializable]
 	public class Potion {
 
-		// Attributes
-		[SerializeField]
+		// Base Attributes
 		public string name { get; set; }
-		[SerializeField]
-		public List<string> combination { get; set; }
-		[SerializeField]
-		public Sprite sprite { get; set; }
-		[SerializeField]
-		public int size { get; set; }
-		[SerializeField]
-		public float time { get; set; }
-		[SerializeField]
-		public int damage { get; set; }
-		[SerializeField]
-		public string effect { get; set; }
+		public byte type { get; set; }
+		public List<string> ingredients { get; set; }
+		public float requiredScale { get; set; }		// For the initial image
+		public float explosionSize { get; set; }		// For the scale of the explosion
+		public int time { get; set; }					// Time in milliseconds for explosion to occure
+		public float rangeExtension { get; set; }
+		public byte audioSource { get; set; }
 
-		// Detailed constructor
-		public Potion(string name, List<string> combination, Sprite sprite, int size, int time, int damage, string effect) {
-			this.name = name;
-			this.combination = combination;
-			this.sprite = sprite;
-			this.size = size;
-			this.time = time;
-			this.damage = damage;
-			this.effect = effect;
-		}
+		// Damage-Based Attributes
+		public float playerDamage { get; set; }
+		public int enemyDamage { get; set; }
+		public float buffer { get; set; }
+		public byte hits { get; set; }
 
-		// Template constructor
-		public Potion() {
-			this.name = "";
-			this.combination = new List<string>();
-			this.sprite = null;
-			this.size = 2;
-			this.time = 0;
-			this.damage = 0;
-			this.effect = "";
-		}
+		// Speed-Based Attributes
+		public float slowDuration { get; set; }
+		public float slowStrength { get; set; }
 
-		// Overriding the string
-		public override string ToString() {
-			string text = "";
+		// Knockback-Based Attributes
+		public float kbDuration { get; set; }
+		public float kbPower { get; set; }
 
-			text += "Potion Name: " + name;
-			text += "\nPotion Combination:\n";
-			foreach (string i in combination) {
-				text += "-" + i + "\n";
-			}
+		// Combined Attributes
+		public float toScale { get { return requiredScale * explosionSize; } }
 
-			text += "Collision Sprite: " + /*sprite.ToString()*/ "Does not exist";
-			text += "\nBlast Radius: " + size.ToString();
-			text += "\nLasting Time: " + time.ToString();
-			text += "\nDamage Output: " + damage.ToString();
-
-			text += "\nPotion Effect: " + effect;
-			text += "\n";
-
-			return text;
-		}
-
+		public Potion() { ingredients = new List<string>(); }
 	}
 
 	[System.Serializable]

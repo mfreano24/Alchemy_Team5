@@ -2845,6 +2845,11 @@ PrefabInstance:
       propertyPath: m_Text
       value: Q/E - Swap Potion
       objectReference: {fileID: 0}
+    - target: {fileID: 2077278347373715447, guid: 8585ee9b4e1ea9145b970729cc037d45,
+        type: 3}
+      propertyPath: m_Text
+      value: Press "Z" to start!
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8585ee9b4e1ea9145b970729cc037d45, type: 3}
 --- !u!1001 &4529479746686650703

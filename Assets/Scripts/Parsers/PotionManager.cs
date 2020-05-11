@@ -14,71 +14,34 @@ public class PotionManager : MonoBehaviour {
 	private void Awake() {
 
 		// List of elements
-		string path = Application.streamingAssetsPath + "\\potions.txt";
+		string path = Application.streamingAssetsPath + "\\potion_data.csv";
 
 		//if (Application.platform == RuntimePlatform.Android) {
 		WWW dat = new WWW(path);
 		while (!dat.isDone) { }
-		string info = dat.text;
-		//}
+		string[] info = dat.text.Split('\n');
 
-		for (int j = 0; j < info.Split('\n').Length; j += 8) {
-
+		for (int i = 1; i < info.Length - 1; i++) {
+			string[] data = info[i].Split(',');
 			Potion newPotion = new Potion();
-			for (int i = 0; i < 8; i++) {
-
-				// Read actual input
-				string input = info.Split('\n')[j + i].TrimEnd('\r');
-
-				if (input == "" || input == null) {
-					break;
-				}
-
-				switch (i) {
-					case (1):
-						// Setting the element name
-						newPotion.name = input;
-						break;
-					case (2):
-						// Create the combination
-						newPotion.combination = new List<string>();
-						string[] combo = input.Split(new string[] { ", " }, System.StringSplitOptions.None);
-						foreach (string k in combo) {
-							newPotion.combination.Add(k);
-						}
-						break;
-					case (3):
-						// Set up the sprite used
-						newPotion.sprite = (Sprite)Resources.Load(input);
-						break;
-					case (4):
-						// Set up the maximum size of the explosion
-						newPotion.size = System.Convert.ToInt32(input);
-						break;
-					case (5):
-						// Set up the time it lasts
-						newPotion.time = System.Convert.ToInt32(input);
-						break;
-					case (6):
-						// Set up the damage it'll do
-						newPotion.damage = System.Convert.ToInt32(input);
-						break;
-					case (7):
-						// Set up the Effect
-						newPotion.effect = input;
-						break;
-					default:
-						// Just for the -----
-						break;
-				}
-			} // End creation
-
+			newPotion.name = data[0];
+			newPotion.type = System.Convert.ToByte(data[1]);
+			newPotion.ingredients.AddRange(data[2].Split('/'));
+			newPotion.requiredScale = (float)System.Convert.ToDouble(data[3]);
+			newPotion.explosionSize = (float)System.Convert.ToDouble(data[4]);
+			newPotion.time = System.Convert.ToInt32(data[5]);
+			newPotion.rangeExtension = (float)System.Convert.ToDouble(data[6]);
+			newPotion.audioSource = System.Convert.ToByte(data[7]);
+			newPotion.playerDamage = (float)System.Convert.ToDouble(data[8]);
+			newPotion.enemyDamage = System.Convert.ToInt32(data[9]);
+			newPotion.buffer = (float)System.Convert.ToDouble(data[10]);
+			newPotion.hits = System.Convert.ToByte(data[11]);
+			newPotion.slowDuration = (float)System.Convert.ToDouble(data[12]);
+			newPotion.slowStrength = (float)System.Convert.ToDouble(data[13]);
+			newPotion.kbDuration = (float)System.Convert.ToDouble(data[14]);
+			newPotion.kbPower = (float)System.Convert.ToDouble(data[15]);
 			potions.Add(newPotion);
-
-		} // End of File IO
-
-		// Removes an empty potion
-		potions.RemoveAt(potions.Count - 1);
+		}
 
 	}// End of Start
 
@@ -97,10 +60,10 @@ public class PotionManager : MonoBehaviour {
 		List<Potion> newList = new List<Potion>();
 		bool simplified = true;
 		foreach (Potion p in pList) {
-			if (p.combination[0] == "None") {
+			if (p.ingredients[0] == "None") {
 				newList.Add(p);
 			} else {
-				foreach (string s in p.combination) {
+				foreach (string s in p.ingredients) {
 					simplified = false;
 					newList.Add(FindByName(s));
 				}
