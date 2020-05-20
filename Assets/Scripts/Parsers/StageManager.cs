@@ -26,7 +26,9 @@ public class StageManager : MonoBehaviour {
 	}
 
 	public void Create() {
-		if (isCustomLevel) {
+		if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Random") {
+			
+		} else if (isCustomLevel) {
 			// Clearing the room
 			GameObject.Find("Floor").GetComponent<Tilemap>().ClearAllTiles();
 			GameObject.Find("WalVis").GetComponent<Tilemap>().ClearAllTiles();

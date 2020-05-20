@@ -80,8 +80,11 @@ TextureImporter:
   - first:
       213: 8959190472307137513
     second: WallAsset_25
+  - first:
+      213: -6766102036884781111
+    second: WallAsset_26
   externalObjects: {}
-  serializedVersion: 10
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -135,6 +138,7 @@ TextureImporter:
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  applyGammaDecoding: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -705,6 +709,27 @@ TextureImporter:
       bones: []
       spriteID: 283fd3935358eb241a2714536a39f1e7
       internalID: 8959190472307137513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallAsset_26
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c78f69bb0af912a0800000000000000
+      internalID: -6766102036884781111
       vertices: []
       indices: 
       edges: []

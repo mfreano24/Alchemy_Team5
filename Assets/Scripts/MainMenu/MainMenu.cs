@@ -7,7 +7,10 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour {
 
+	public bool simulatePlayer;
+
 	GameObject title;
+	GameObject cursor;
 	AudioSource cur;
 
 	int selectedIndex = 0;
@@ -38,7 +41,7 @@ public class MainMenu : MonoBehaviour {
 	GameObject mobileUI;
 
 	private void Start() {
-
+		cursor = GameObject.Find("Cursor");
 		options = new List<GameObject>();
 		options.Add(GameObject.Find("Default"));
 		warning = GameObject.Find("Warning");
@@ -52,6 +55,14 @@ public class MainMenu : MonoBehaviour {
 		title = GameObject.Find("Title");
 		StartCoroutine(Pulse());
 		mobileUI = GameObject.Find("MobileUI");
+
+		if (Application.platform == RuntimePlatform.OSXPlayer || Application.platform == RuntimePlatform.WindowsPlayer || simulatePlayer) {
+			cursor.SetActive(false);
+		}
+
+		if (Input.GetJoystickNames().Length == 0  && (Application.platform != RuntimePlatform.Android && Application.platform != RuntimePlatform.IPhonePlayer)) {
+			cursor.SetActive(false);
+		}
 
 		if (Application.platform != RuntimePlatform.Android && Application.platform != RuntimePlatform.IPhonePlayer) {
 			mobileUI.SetActive(false);
@@ -72,66 +83,67 @@ public class MainMenu : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-		if (!tutorialPresent) {
-			if ((Input.GetAxis("Vertical") < 0 || direction == -1) && !moved && MainScreen) {
-				cur.Play();
-				moved = true;
-				selectedIndex++;
-				if (MAX_OBJECTS < selectedIndex) {
-					selectedIndex = 0;
+		if (cursor.activeInHierarchy) {
+			if (!tutorialPresent) {
+				if ((Input.GetAxis("Vertical") < 0 || direction == -1) && !moved && MainScreen) {
+					cur.Play();
+					moved = true;
+					selectedIndex++;
+					if (MAX_OBJECTS < selectedIndex) {
+						selectedIndex = 0;
+					}
 				}
-			}
-			if ((Input.GetAxis("Vertical") > 0 || direction == 1) && !moved && MainScreen) {
-				cur.Play();
-				moved = true;
-				selectedIndex--;
-				if (selectedIndex < 0) {
-					selectedIndex = MAX_OBJECTS;
+				if ((Input.GetAxis("Vertical") > 0 || direction == 1) && !moved && MainScreen) {
+					cur.Play();
+					moved = true;
+					selectedIndex--;
+					if (selectedIndex < 0) {
+						selectedIndex = MAX_OBJECTS;
+					}
+				}
+
+				if ((Input.GetAxis("Vertical") == 0) && moved && MainScreen) {
+					moved = false;
+					direction = 0;
+				}
+
+				if ((Input.GetAxis("Vertical") < 0 || direction == -1) && !moved && StageSelect) {
+					cur.Play();
+					moved = true;
+					selectedLevel++;
+					if (options.Count - 1 <= selectedLevel) {
+						selectedLevel = options.Count - 2;
+					}
+					UpdateColor();
+				}
+
+				if ((Input.GetAxis("Vertical") > 0 || direction == 1) && !moved && StageSelect) {
+					cur.Play();
+					moved = true;
+					selectedLevel--;
+					if (selectedLevel < -1) {
+						selectedLevel = -1;
+					}
+					UpdateColor();
+				}
+
+				if (Input.GetAxis("Vertical") == 0 && moved && StageSelect) {
+					moved = false;
+					direction = 0;
+				}
+
+				if (!StageSelect) {
+					UpdatePos();
 				}
 			}
 
-			if ((Input.GetAxis("Vertical") == 0) && moved && MainScreen) {
-				moved = false;
+			if (Input.GetButtonDown("Fire2") || direction == 2) {
 				direction = 0;
-			}
-
-			if ((Input.GetAxis("Vertical") < 0 || direction == -1) && !moved && StageSelect) {
 				cur.Play();
-				moved = true;
-				selectedLevel++;
-				if (options.Count - 1 <= selectedLevel) {
-					selectedLevel = options.Count - 2;
-				}
-				UpdateColor();
-			}
-
-			if ((Input.GetAxis("Vertical") > 0 || direction == 1) && !moved && StageSelect) {
-				cur.Play();
-				moved = true;
-				selectedLevel--;
-				if (selectedLevel < -1) {
-					selectedLevel = -1;
-				}
-				UpdateColor();
-			}
-
-			if (Input.GetAxis("Vertical") == 0 && moved && StageSelect) {
-				moved = false;
-				direction = 0;
-			}
-
-			if (!StageSelect) {
-				UpdatePos();
+				SelectObject();
+				return;
 			}
 		}
-
-		if (Input.GetButtonDown("Fire2") || direction == 2) {
-			direction = 0;
-			cur.Play();
-			SelectObject();
-			return;
-		}
-
 	}
 
 	private void UpdateColor() {
